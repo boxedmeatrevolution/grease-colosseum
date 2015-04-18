@@ -60,6 +60,20 @@ class Player extends PhysicsCollider {
           canFireSecondary = true;
         }
       }
+      
+      int nFires = touchingFire(x, y, radius);
+      if (nFires <= 1) {
+        heat = max(heat - 0.1, 0);
+      }
+      else {
+        heat += nFires * 0.1;
+      }
+      
+      if (heat > 1) {
+        addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
+        removeEntity(this);
+        isPlayerDead = true;
+      }
     }
   }
   void render() {
@@ -75,6 +89,7 @@ class Player extends PhysicsCollider {
   float MAX_VELOCITY = 150;
   float DISABLED_VELOCITY = 20;
   float secondaryFireTimer = 0;
+  float heat = 0;
   boolean canFireSecondary = true;
   
   float SHOOT_VELOCITY = 300;

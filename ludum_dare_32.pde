@@ -136,7 +136,7 @@ void draw () {
     lastUpdate = now;
     
     if (isPlayerDead) {
-      gameOverTimer += delta;
+      gameOverTimer += delta / 1000.0f;
       if (gameOverTimer > 2.5) {
         gotoGameOverState();
       }

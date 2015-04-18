@@ -317,21 +317,22 @@ boolean touchingGrease(float x, float y, float radius) {
   return false;
 }
 
-boolean touchingFire(float x, float y, float radius) {
+int touchingFire(float x, float y, float radius) {
   int topLeftX = floor((x - radius) / CELL_WIDTH);
   int topLeftY = floor((y - radius) / CELL_HEIGHT);
   int botRightX = ceil((x + radius) / CELL_WIDTH);
   int botRightY = ceil((y + radius) / CELL_HEIGHT);
+  int nFires = 0;
   for(int x = topLeftX; x <= botRightX; x ++) {
     for(int y = topLeftY; y <= botRightY; y ++) {
       if (x >= 0 && x < greaseMatrix.length && y >= 0 && y < greaseMatrix.length) {
         if(greaseMatrix[x][y] == FIRE) {
-          return true;
+          nFires += 1;
         }
       }
     }  
   }
-  return false;
+  return nFires;
 }
 
 
