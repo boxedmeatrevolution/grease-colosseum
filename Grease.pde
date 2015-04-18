@@ -52,7 +52,8 @@ class GreaseSurface extends Entity {
   }
   void render() {
     super.render();
-    for(int x = 0; x < greaseMatrix.length; x ++) {
+    image(greaseGraphics, 0, 0);
+    /*for(int x = 0; x < greaseMatrix.length; x ++) {
       for(int y = 0; y < greaseMatrix[0].length; y ++) {
         if(greaseMatrix[x][y] == GREASE) {
           noStroke();
@@ -68,7 +69,7 @@ class GreaseSurface extends Entity {
           stroke();
         }
       }
-    }
+    }*/
   }
   void update(int phase, float delta) {
     super.update(phase, delta);
@@ -80,6 +81,9 @@ class GreaseSurface extends Entity {
 
 // Underlying grid representing the grease
 byte[][] greaseMatrix;
+
+// Graphics that draws the grease
+PGraphics greaseGraphics;
 
 // Dimensions of each grease grid cell
 int CELL_WIDTH = 8;
@@ -96,6 +100,7 @@ float EXTINGUISHABILITY = 0.1;
 // create the underlying grid representing the grease
 void initGreaseMatrix() {
   greaseMatrix = new byte[ceil(((float)width)/((float)CELL_WIDTH))][ceil(((float)height)/((float)CELL_HEIGHT))];
+  greaseGraphics = createGraphics(width, height);
 }
 
 void updateGreaseMatrix(float delta) {
@@ -173,8 +178,11 @@ void applyGreaseToMatrix(Grease grease) {
       if (x >= 0 && x < greaseMatrix.length && y >= 0 && y < greaseMatrix.length) {
         greaseMatrix[x][y] = GREASE;
       }
-    }  
+    }
   }
+  greaseGraphics.beginDraw();
+  greaseGraphics.ellipse(grease.x, grease.y, grease.radius * 2, grease.radius * 2);
+  greaseGraphics.endDraw();
 }
 
 // Returns true if the Collider has come into contact with grease
