@@ -4,6 +4,11 @@ class Player extends PhysicsCollider {
   }
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
+    if (other instanceof Harmful) {
+      addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
+      removeEntity(this);
+      isPlayerDead = true;
+    }
   }
   void create() {
     super.create();

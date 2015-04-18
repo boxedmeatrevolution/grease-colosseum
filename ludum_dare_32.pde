@@ -36,6 +36,9 @@ boolean downKeyPressed = false;
 
 boolean shootKeyPressed = false;
 
+float gameOverTimer = 0;
+boolean isPlayerDead = false;
+
 var lastUpdate = Date.now();
 
 void addEntity(Entity entity) {
@@ -61,6 +64,8 @@ void sortEntities() {
 void gotoInGameState() {
   state = STATE_IN_GAME;
   lastUpdate = Date.now();
+  gameOverTimer = 0;
+  isPlayerDead = false;
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
@@ -113,6 +118,13 @@ void draw () {
     var now = Date.now();
     var delta = now - lastUpdate;
     lastUpdate = now;
+    
+    if (playerIsDead) {
+      gameOverTimer += delta;
+      if (gameOverTimer > 2.5) {
+        gotoGameOverState();
+      }
+    }
     
     // Add entities in the add queue
     for (Entity entity : entitiesToBeAdded) {
@@ -173,9 +185,6 @@ void keyPressed() {
   }
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = true;
-  }
-  else if (key == 'g') {
-    gotoGameOverState();
   }
 }
 
