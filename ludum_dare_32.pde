@@ -69,6 +69,8 @@ var lastUpdate = Date.now();
 
 void draw () {
   background(0, 0, 0);
+  fill(255);
+  text(frameRate, 32, 32);
   if (state == STATE_IN_GAME) {
     // Calculate the delta t
     var now = Date.now();

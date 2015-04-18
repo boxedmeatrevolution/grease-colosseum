@@ -50,6 +50,6 @@ class Player extends PhysicsCollider {
   float MAX_VELOCITY = 150;
   float SHOOT_VELOCITY = 250;
   float SHOOT_VELOCITY_RANDOM = 250;
-  float SHOOT_ANGLE_RANDOM = 0.05;
+  float SHOOT_ANGLE_RANDOM = 0.25;
 }
 

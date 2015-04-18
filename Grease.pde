@@ -170,7 +170,9 @@ void applyGreaseToMatrix(Grease grease) {
   int botRightY = ceil((grease.y + grease.radius) / CELL_HEIGHT);
   for(int x = topLeftX; x <= botRightX; x ++) {
     for(int y = topLeftY; y <= botRightY; y ++) {
-      greaseMatrix[x][y] = GREASE;
+      if (x >= 0 && x < greaseMatrix.length && y >= 0 && y < greaseMatrix.length) {
+        greaseMatrix[x][y] = GREASE;
+      }
     }  
   }
 }
