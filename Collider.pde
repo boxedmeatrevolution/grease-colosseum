@@ -1,12 +1,12 @@
 class Collider extends Entity {
   
-  Collider(float x_, float y_, float radius_) {
+  Collider(float x_, float y_, float radius_, float ground_friction_) {
     x = x_;
     y = y_;
     radius = radius_;
   }
   
-  void onCollision(Collider other) {}
+  void onCollision(Collider other, boolean wasHandled) {}
   
   void create() {
     super.create();

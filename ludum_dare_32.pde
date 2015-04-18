@@ -90,8 +90,8 @@ void draw () {
           for (int j = i + 1; j < colliders.size(); ++j) {
             Collider second = colliders.get(j);
             if (first.collides(second)) {
-              first.onCollision(second);
-              second.onCollision(first);
+              first.onCollision(second, false);
+              second.onCollision(first, true);
             }
           }
         }
