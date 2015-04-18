@@ -10,7 +10,7 @@
 //
 // How to play the loaded audio file:
 //
-//  playSounds("gameMusic1");
+//  playSound("gameMusic1");
 //
 // Powered by javascript!
 //
