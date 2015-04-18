@@ -25,6 +25,13 @@ ArrayList<Entity> entitiesToBeAdded = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeRemoved = new ArrayList<Entity>();
 ArrayList<Collider> colliders = new ArrayList<Collider>();
 
+boolean leftKeyPressed = false;
+boolean rightKeyPressed = false;
+boolean upKeyPressed = false;
+boolean downKeyPressed = false;
+
+boolean shootKeyPressed = false;
+
 void addEntity(Entity entity) {
   entitiesToBeAdded.add(entity);
 }
@@ -47,11 +54,13 @@ void sortEntities() {
 
 void setup () {
   size(800, 600);
-  TestEntity entityA = new TestEntity(200, 310);
+  /*TestEntity entityA = new TestEntity(200, 310);
   TestEntity entityB = new TestEntity(400, 300);
   entityB.velocityX = -64;
   addEntity(entityA);
-  addEntity(entityB);
+  addEntity(entityB);*/
+  Player player = new Player(width / 2, height / 2);
+  addEntity(player);
 }
 
 var lastUpdate = Date.now();
@@ -107,6 +116,37 @@ void draw () {
     for (Entity entity : entities) {
       entity.render();
     }
+  }
+}
+
+// Handle input
+void keyPressed() {
+  if (keyCode == UP || key == 'w') {
+    upKeyPressed = true;
+  }
+  else if (keyCode == DOWN || key == 's') {
+    downKeyPressed = true;
+  }
+  else if (keyCode == LEFT || key == 'a') {
+    leftKeyPressed = true;
+  }
+  else if (keyCode == RIGHT || key == 'd') {
+    rightKeyPressed = true;
+  }
+}
+
+void keyReleased() {
+  if (keyCode == UP || key == 'w') {
+    upKeyPressed = false;
+  }
+  else if (keyCode == DOWN || key == 's') {
+    downKeyPressed = false;
+  }
+  else if (keyCode == LEFT || key == 'a') {
+    leftKeyPressed = false;
+  }
+  else if (keyCode == RIGHT || key == 'd') {
+    rightKeyPressed = false;
   }
 }
 
