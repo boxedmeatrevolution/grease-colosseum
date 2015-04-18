@@ -40,6 +40,9 @@ boolean secondaryShootKeyPressed = false;
 float gameOverTimer = 0;
 boolean isPlayerDead = false;
 
+float levelTimer = 0;
+int levelIndex;
+
 var lastUpdate = Date.now();
 var timeDelta;
 
@@ -78,18 +81,17 @@ void gotoInGameState() {
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
+  levelTimer = 0;
+  levelIndex = floor(random(levels.length));
+  spawnLevel(levels[levelIndex]);
   
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
-  Spikes spikes = new Spikes(64, 128, 64, 32);
-  Barrel barrel = new Barrel(64, 256);
   
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
-  addEntity(spikes);
-  addEntity(barrel);
 }
 
 void gotoGameOverState() {
@@ -111,6 +113,17 @@ void gotoTitleState() {
 void setup () {
   size(800, 600);
   textureMode(IMAGE);
+  levels = new Level[] {
+    // Level 1
+    new Level(new Entity[] {
+      new Spikes(128, 128, 32, 16),
+      new Spikes(width - 128, 128, 32, 16),
+      new Spikes(128, height - 128, 32, 16),
+      new Spikes(width - 128, height - 128, 32, 16) }),
+    new Level(new Entity[] {
+      new Spikes(width / 2, 128, 16, 8) }),
+    new Level(new Entity[] {
+      new Spikes(width / 2, height - 128, 16, 8) })};
 }
 
 void draw () {
@@ -137,6 +150,16 @@ void draw () {
     var now = Date.now();
     timeDelta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
+    levelTimer += timeDelta;
+    if (levelTimer > 10) {
+      despawnLevel(levels[levelIndex]);
+      int oldLevelIndex = levelIndex;
+      while(levelIndex == oldLevelIndex) {
+        levelIndex = floor(random(levels.length));
+      }
+      spawnLevel(levels[levelIndex]);
+      levelTimer = 0;
+    }
     
     if (isPlayerDead) {
       gameOverTimer += timeDelta;
