@@ -4,6 +4,7 @@ var audioFilesLoaded = 0;
 // A map of all the audio files that have been loaded
 var sounds = new Object();
 
+// Play an audio file from the key 'name'
 function playSound(var name)
 {
     sounds[name].play();
