@@ -27,6 +27,13 @@ class Player extends PhysicsCollider {
       if (downKeyPressed && velocityY < MAX_VELOCITY) {
         velocityY += ACCELERATION * delta;
       }
+      if (shootKeyPressed) {
+        Grease particle = new Grease(x, y);
+        float velocity = SHOOT_VELOCITY + random(-SHOOT_VELOCITY_RANDOM, +SHOOT_VELOCITY_RANDOM);
+        float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
+        particle.velocityX = velocity * cos(angle);
+        particle.velocityY = velocity * sin(angle);
+      }
     }
   }
   void render() {
@@ -37,5 +44,8 @@ class Player extends PhysicsCollider {
   float facingDirection = 0;
   float ACCELERATION = 1200;
   float MAX_VELOCITY = 150;
+  float SHOOT_VELOCITY = 15;
+  float SHOOT_VELOCITY_RANDOM = 5;
+  float SHOOT_ANGLE_RANDOM = 10
 }
 

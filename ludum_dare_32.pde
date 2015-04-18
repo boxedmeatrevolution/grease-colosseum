@@ -60,6 +60,7 @@ void setup () {
   addEntity(entityA);
   addEntity(entityB);*/
   Player player = new Player(width / 2, height / 2);
+  GreaseSurface surface = new GreaseSurface();
   addEntity(player);
 }
 
@@ -133,6 +134,9 @@ void keyPressed() {
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = true;
   }
+  else if (key == 'f') {
+    shootKeyPressed = true;
+  }
 }
 
 void keyReleased() {
@@ -147,6 +151,9 @@ void keyReleased() {
   }
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = false;
+  }
+  else if (key == 'f') {
+    shootKeyPressed = false;
   }
 }
 
