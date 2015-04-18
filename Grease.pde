@@ -11,10 +11,13 @@ class Grease extends Moving {
     super.destroy();
   }
   void render() {
+    noStroke();
     ellipse(x, y, 2 * radius, 2 * radius);
+    stroke(0);
   }
   void update(int phase, float delta) {
     super.update(state, delta);
+    radius += 12 * delta;
     if(state == MOVING_STATE) {
       if(!isMoving()) {
         state = GROUND_STATE;
@@ -181,6 +184,7 @@ void applyGreaseToMatrix(Grease grease) {
     }
   }
   greaseGraphics.beginDraw();
+  greaseGraphics.noStroke();
   greaseGraphics.ellipse(grease.x, grease.y, grease.radius * 2, grease.radius * 2);
   greaseGraphics.endDraw();
 }
