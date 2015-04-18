@@ -4,7 +4,7 @@ class Player extends PhysicsCollider {
   }
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
-    if (other instanceof Harmful) {
+    if (other instanceof Harmful || other instanceof ContinuousHarmful) {
       addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
       removeEntity(this);
       isPlayerDead = true;

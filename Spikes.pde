@@ -1,7 +1,7 @@
 class Spikes extends Harmful {
   
   Spikes(float x_, float y_, float radius_, int nSpikes_) {
-    super(x_, y_, 100000, radius_, 500, 5);
+    super(x_, y_, 10, radius_, 500, 5);
     nSpikes = nSpikes_;
     rotationSpeed = random(-1.0f, 1.0f);
   }

@@ -2,11 +2,12 @@ class PhysicsCollider extends Collider {
   PhysicsCollider(float x_, float y_, float mass_, float radius_, float friction_) {
     super(x_, y_, radius_, friction_);
     mass = mass_;
+    kinematic = false;
   }
   
   void onCollision(Collider cOther, boolean wasHandled) {
     super.onCollision(cOther, wasHandled);
-    if (!wasHandled) {
+    if (wasHandled) {
       return;
     }
     if (cOther instanceof PhysicsCollider) {
@@ -21,7 +22,16 @@ class PhysicsCollider extends Collider {
       float distanceSqr = deltaX * deltaX + deltaY * deltaY;
       
       float massFactor1 = 2 * other.mass / (mass + other.mass);
-      float massFactor2 = 2 * mass / (mass = other.mass);
+      float massFactor2 = 2 * mass / (mass + other.mass);
+      
+      if (kinematic) {
+        massFactor1 = 0;
+        massFactor2 = 2;
+      }
+      else if (other.kinematic) {
+        massFactor1 = 2;
+        massFactor2 = 2;
+      }
       
       float factor1 = massFactor1 * dotProduct / distanceSqr;
       float factor2 = massFactor2 * dotProduct / distanceSqr;
@@ -51,6 +61,7 @@ class PhysicsCollider extends Collider {
   }
   
   float mass;
+  boolean kinematic;
   
 }
 

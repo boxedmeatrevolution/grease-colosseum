@@ -41,6 +41,7 @@ float gameOverTimer = 0;
 boolean isPlayerDead = false;
 
 var lastUpdate = Date.now();
+var timeDelta;
 
 void addEntity(Entity entity) {
   entitiesToBeAdded.add(entity);
@@ -132,11 +133,11 @@ void draw () {
     text(frameRate, 32, 32);
     // Calculate the delta t
     var now = Date.now();
-    var delta = now - lastUpdate;
+    timeDelta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
     
     if (isPlayerDead) {
-      gameOverTimer += delta / 1000.0f;
+      gameOverTimer += timeDelta;
       if (gameOverTimer > 2.5) {
         gotoGameOverState();
       }
@@ -165,7 +166,7 @@ void draw () {
     for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
       // Update every entity
       for (Entity entity : entities) {
-        entity.update(updatePhase, delta / 1000.0f);
+        entity.update(updatePhase, timeDelta);
       }
       // Find and handle collisions
       if (updatePhase == 0) {

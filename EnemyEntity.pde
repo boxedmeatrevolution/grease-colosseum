@@ -13,7 +13,10 @@ class EnemyEntity extends PhysicsCollider{
   void onCollision(Collider cOther, boolean wasHandled) {
     super.onCollision(cOther, wasHandled);
     if (cOther instanceof Harmful) {
-      hp -= cOther.damage;
+      hp -= ((Harmful) cOther).damage;
+    }
+    if (cOther instanceof ContinuousHarmful) {
+      hp -= ((ContinuousHarmful) cOther).damage * timeDelta;
     }
   }
   
