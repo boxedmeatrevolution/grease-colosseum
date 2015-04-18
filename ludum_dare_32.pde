@@ -21,6 +21,7 @@ int state = STATE_IN_GAME;
 ArrayList<Entity> entities = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeAdded = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeRemoved = new ArrayList<Entity>();
+ArrayList<Collider> colliders = new ArrayList<Collider>();
 
 void addEntity(Entity entity) {
   entitiesToBeAdded.add(entity);
@@ -56,10 +57,16 @@ void draw () {
     
     for (Entity entity : entitiesToBeAdded) {
       entities.add(entity);
+      if (entity instanceof Collider) {
+        colliders.add(entity);
+      }
       entity.create();
     }
     for (Entity entity : entitiesToBeRemoved) {
       entities.remove(entity);
+      if (entity instanceof Collider) {
+        colliders.remove(entity);
+      }
       entity.destroy();
     }
     entitiesToBeAdded.clear();
@@ -68,6 +75,18 @@ void draw () {
     for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
       for (Entity entity : entities) {
         entity.update(updatePhase, delta);
+      }
+      if (updatePhase == 0) {
+        for (int i = 0; i < colliders.size() - 1; ++i) {
+          Collider first = colliders.get(i);
+          for (int j = i + 1; j < colliders.size(); ++j) {
+            Collider second = colliders.get(j);
+            if (first.collides(second)) {
+              first.onCollision(second);
+              second.onCollision(first);
+            }
+          }
+        }
       }
     }
     for (Entity entity : entities) {
