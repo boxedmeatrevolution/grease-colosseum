@@ -286,14 +286,14 @@ void applyGreaseToMatrix(Grease grease) {
 
 // Add the flame to the grease matrix
 void applyFlameToMatrix(Flame flame) {
-  int topLeftX = floor((grease.x - grease.radius) / CELL_WIDTH);
-  int topLeftY = floor((grease.y - grease.radius) / CELL_HEIGHT);
-  int botRightX = ceil((grease.x + grease.radius) / CELL_WIDTH);
-  int botRightY = ceil((grease.y + grease.radius) / CELL_HEIGHT);
+  int topLeftX = floor((flame.x - flame.radius) / CELL_WIDTH);
+  int topLeftY = floor((flame.y - flame.radius) / CELL_HEIGHT);
+  int botRightX = ceil((flame.x + flame.radius) / CELL_WIDTH);
+  int botRightY = ceil((flame.y + flame.radius) / CELL_HEIGHT);
   for(int x = topLeftX; x <= botRightX; x ++) {
     for(int y = topLeftY; y <= botRightY; y ++) {
       if (x >= 0 && x < greaseMatrix.length && y >= 0 && y < greaseMatrix.length) {
-        greaseMatrix[x][y] = FIRE;
+        createFire(x, y);
       }
     }
   }

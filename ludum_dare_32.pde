@@ -35,6 +35,7 @@ boolean upKeyPressed = false;
 boolean downKeyPressed = false;
 
 boolean shootKeyPressed = false;
+boolean secondaryShootKeyPressed = false;
 
 float gameOverTimer = 0;
 boolean isPlayerDead = false;
@@ -92,6 +93,7 @@ void gotoTitleState() {
 
 void setup () {
   size(800, 600);
+  textureMode(IMAGE);
 }
 
 void draw () {
@@ -119,7 +121,7 @@ void draw () {
     var delta = now - lastUpdate;
     lastUpdate = now;
     
-    if (playerIsDead) {
+    if (isPlayerDead) {
       gameOverTimer += delta;
       if (gameOverTimer > 2.5) {
         gotoGameOverState();
@@ -207,11 +209,17 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     shootKeyPressed = true;
   }
+  if (mouseButton == RIGHT) {
+    secondaryShootKeyPressed = true;
+  }
 }
 
 void mouseReleased() {
   if (mouseButton == LEFT) {
     shootKeyPressed = false;
+  }
+  if (mouseButton = RIGHT) {
+    secondaryShootKeyPressed = false;
   }
 }
 

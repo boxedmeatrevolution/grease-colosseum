@@ -20,7 +20,6 @@ class Flame extends Moving {
   }
   void update(int phase, float delta) {
     super.update(state, delta);
-    radius += 12 * delta;
     if(state == MOVING_STATE) {
       if(!isMoving()) {
         state = GROUND_STATE;

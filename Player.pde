@@ -42,6 +42,24 @@ class Player extends PhysicsCollider {
         particle.velocityY = -velocity * sin(angle);
         addEntity(particle);
       }
+      if (secondaryShootKeyPressed && canFireSecondary) {
+        Flame particle = new Flame(x, y);
+        float deltaX = mouseX - x;
+        float deltaY = mouseY - y;
+        float distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+        float velocity = sqrt(2 * particle.friction * distance);
+        particle.velocityX = velocity * cos(facingDirection);
+        particle.velocityY = -velocity * sin(facingDirection);
+        addEntity(particle);
+        canFireSecondary = false;
+      }
+      if (!canFireSecondary) {
+        secondaryFireTimer += delta;
+        if (secondaryFireTimer > SECONDARY_RELOAD) {
+          secondaryFireTimer = 0;
+          canFireSecondary = true;
+        }
+      }
     }
   }
   void render() {
@@ -56,8 +74,13 @@ class Player extends PhysicsCollider {
   float ACCELERATION = 1200;
   float MAX_VELOCITY = 150;
   float DISABLED_VELOCITY = 20;
+  float secondaryFireTimer = 0;
+  boolean canFireSecondary = true;
+  
   float SHOOT_VELOCITY = 300;
   float SHOOT_VELOCITY_RANDOM = 100;
   float SHOOT_ANGLE_RANDOM = 0.25;
+  
+  float SECONDARY_RELOAD = 3;
 }
 
