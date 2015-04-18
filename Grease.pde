@@ -12,7 +12,9 @@ class Grease extends Moving {
   }
   void render() {
     noStroke();
+    fill(GREASE_COLOR);
     ellipse(x, y, 2 * radius, 2 * radius);
+    fill(255);
     stroke(0);
   }
   void update(int phase, float delta) {
@@ -44,6 +46,8 @@ class Grease extends Moving {
   
   float GREASE_FRICTION = 500;
 }
+
+color GREASE_COLOR = color(125, 125, 125);
 
 class FireEffect extends Entity {
   FireEffect() {
@@ -143,6 +147,8 @@ float EXTINGUISHABILITY = 0.3;
 void initGreaseMatrix() {
   greaseMatrix = new byte[ceil(((float)width)/((float)CELL_WIDTH))][ceil(((float)height)/((float)CELL_HEIGHT))];
   greaseGraphics = createGraphics(width, height);
+  greaseGraphics.noStroke();
+  greaseGraphics.fill(GREASE_COLOR);
 }
 
 void updateGreaseMatrix(float delta) {
@@ -257,7 +263,7 @@ void createFire(int x, int y) {
   greaseGraphics.beginDraw();
   greaseGraphics.fill(color(0, 0, 0, 0));
   greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
-  greaseGraphics.fill(255);
+  greaseGraphics.fill(GREASE_COLOR);
   greaseGraphics.endDraw();
 }
 
@@ -275,7 +281,6 @@ void applyGreaseToMatrix(Grease grease) {
     }
   }
   greaseGraphics.beginDraw();
-  greaseGraphics.noStroke();
   greaseGraphics.ellipse(grease.x, grease.y, grease.radius * 2, grease.radius * 2);
   greaseGraphics.endDraw();
 }
