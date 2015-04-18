@@ -118,9 +118,6 @@ class GreaseSurface extends Entity {
     if(phase == 0) {
       updateGreaseMatrix(delta);
     }
-    if (greaseMatrix[0][0] == GREASE) {
-      createFire(0, 0);
-    }
   }
   
   int depth() {
