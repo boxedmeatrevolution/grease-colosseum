@@ -14,17 +14,19 @@ class Player extends PhysicsCollider {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      boolean isOnGrease = touchingGrease(x, y, radius);
+      float maxVelocity = isOnGrease ? MAX_VELOCITY : DISABLED_VELOCITY;
       facingDirection = atan2(-(mouseY - y), mouseX - x);
-      if (leftKeyPressed && velocityX > -MAX_VELOCITY) {
+      if (leftKeyPressed && velocityX > -maxVelocity) {
         velocityX -= ACCELERATION * delta;
       }
-      if (rightKeyPressed && velocityX < MAX_VELOCITY) {
+      if (rightKeyPressed && velocityX < maxVelocity) {
         velocityX += ACCELERATION * delta;
       }
-      if (upKeyPressed && velocityY > -MAX_VELOCITY) {
+      if (upKeyPressed && velocityY > -maxVelocity) {
         velocityY -= ACCELERATION * delta;
       }
-      if (downKeyPressed && velocityY < MAX_VELOCITY) {
+      if (downKeyPressed && velocityY < maxVelocity) {
         velocityY += ACCELERATION * delta;
       }
       if (shootKeyPressed) {
@@ -48,8 +50,9 @@ class Player extends PhysicsCollider {
   float facingDirection = 0;
   float ACCELERATION = 1200;
   float MAX_VELOCITY = 150;
-  float SHOOT_VELOCITY = 250;
-  float SHOOT_VELOCITY_RANDOM = 250;
+  float DISABLED_VELOCITY = 20;
+  float SHOOT_VELOCITY = 300;
+  float SHOOT_VELOCITY_RANDOM = 100;
   float SHOOT_ANGLE_RANDOM = 0.25;
 }
 

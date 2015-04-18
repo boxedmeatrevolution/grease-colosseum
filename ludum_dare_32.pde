@@ -139,9 +139,6 @@ void keyPressed() {
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = true;
   }
-  else if (key == 'f') {
-    shootKeyPressed = true;
-  }
 }
 
 void keyReleased() {
@@ -157,9 +154,17 @@ void keyReleased() {
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = false;
   }
-  else if (key == 'f') {
-    shootKeyPressed = false;
+}
+
+void mousePressed() {
+  if (mouseButton == LEFT) {
+    shootKeyPressed = true;
   }
 }
 
+void mouseReleased() {
+  if (mouseButton == LEFT) {
+    shootKeyPressed = false;
+  }
+}
 

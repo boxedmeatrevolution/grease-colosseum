@@ -23,24 +23,14 @@ class Moving extends Entity {
     if (phase == 0) {
       x += velocityX * delta;
       y += velocityY * delta;
-      if (velocityX > friction * delta) {
-        velocityX -= friction * delta;
-      }
-      else if (velocityX < -friction * delta) {
-        velocityX += friction * delta;
-      }
-      else {
-        velocityX = 0.0f;
-      }
-      
-      if (velocityY > friction * delta) {
-        velocityY -= friction * delta;
-      }
-      else if (velocityY < -friction * delta) {
-        velocityY += friction * delta;
+      velocity = sqrt(velocityX * velocityX + velocityY * velocityY);
+      if (velocity > friction * delta) {
+        velocityX -= velocityX / velocity * friction * delta;
+        velocityY -= velocityY / velocity * friction * delta;
       }
       else {
-        velocityY = 0.0f;
+        velocityX = 0;
+        velocityY = 0;
       }
     }
   }
