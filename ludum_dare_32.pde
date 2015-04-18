@@ -47,11 +47,17 @@ void sortEntities() {
 
 void setup () {
   size(800, 600);
+  TestEntity entityA = new TestEntity(200, 310);
+  TestEntity entityB = new TestEntity(400, 300);
+  entityB.velocityX = -64;
+  addEntity(entityA);
+  addEntity(entityB);
 }
 
 var lastUpdate = Date.now();
 
 void draw () {
+  background(0, 0, 0);
   if (state == STATE_IN_GAME) {
     // Calculate the delta t
     var now = Date.now();
@@ -81,7 +87,7 @@ void draw () {
     for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
       // Update every entity
       for (Entity entity : entities) {
-        entity.update(updatePhase, delta);
+        entity.update(updatePhase, delta / 1000.0f);
       }
       // Find and handle collisions
       if (updatePhase == 0) {

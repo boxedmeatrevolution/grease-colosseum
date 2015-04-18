@@ -1,6 +1,6 @@
 class Moving extends Entity {
   
-  Moving(float x_, float y_, float friction) {
+  Moving(float x_, float y_, float friction_) {
     x = x_;
     y = y_;
     friction = friction_;
