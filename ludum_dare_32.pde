@@ -16,14 +16,18 @@ class Entity {
 int firstUpdatePhase = 0;
 int lastUpdatePhase = 0;
 
-int STATE_IN_GAME = 1;
 int STATE_LOADING = 0;
-int state = STATE_IN_GAME;
+int STATE_IN_GAME = 1;
+int STATE_GAME_OVER = 2;
+int STATE_TITLE = 3;
+int state = STATE_TITLE;
 
 ArrayList<Entity> entities = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeAdded = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeRemoved = new ArrayList<Entity>();
 ArrayList<Collider> colliders = new ArrayList<Collider>();
+
+long score = 0;
 
 boolean leftKeyPressed = false;
 boolean rightKeyPressed = false;
@@ -31,6 +35,8 @@ boolean upKeyPressed = false;
 boolean downKeyPressed = false;
 
 boolean shootKeyPressed = false;
+
+var lastUpdate = Date.now();
 
 void addEntity(Entity entity) {
   entitiesToBeAdded.add(entity);
@@ -52,13 +58,9 @@ void sortEntities() {
   }
 }
 
-void setup () {
-  size(800, 600);
-  /*TestEntity entityA = new TestEntity(200, 310);
-  TestEntity entityB = new TestEntity(400, 300);
-  entityB.velocityX = -64;
-  addEntity(entityA);
-  addEntity(entityB);*/
+void gotoInGameState() {
+  state = STATE_IN_GAME;
+  lastUpdate = Date.now();
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
@@ -67,13 +69,46 @@ void setup () {
   addEntity(fireEffect);
 }
 
-var lastUpdate = Date.now();
+void gotoGameOverState() {
+  state = STATE_GAME_OVER;
+  entities.clear();
+  entitiesToBeAdded.clear();
+  entitiesToBeRemoved.clear();
+  colliders.clear();
+}
+
+void gotoTitleState() {
+  state = STATE_TITLE;
+  entities.clear();
+  entitiesToBeAdded.clear();
+  entitiesToBeRemoved.clear();
+  colliders.clear();
+}
+
+void setup () {
+  size(800, 600);
+}
 
 void draw () {
   background(0, 0, 0);
   fill(255);
-  text(frameRate, 32, 32);
-  if (state == STATE_IN_GAME) {
+  if (state == STATE_TITLE) {
+    text("GREASE WARS!!!!!!!", 64, 64);
+    text("Press space to begin.", 64, 128);
+    if (keyPressed && key == ' ') {
+      gotoInGameState();
+    }
+  }
+  else if (state == STATE_GAME_OVER) {
+    text("Game over!", 64, 64);
+    text("Your score was " + str(score) + ".", 64, 128);
+    text("Press space to restart.", 64, 128 + 64);
+    if (keyPressed && key == ' ') {
+      gotoInGameState();
+    } 
+  }
+  else if (state == STATE_IN_GAME) {
+    text(frameRate, 32, 32);
     // Calculate the delta t
     var now = Date.now();
     var delta = now - lastUpdate;
@@ -138,6 +173,9 @@ void keyPressed() {
   }
   else if (keyCode == RIGHT || key == 'd') {
     rightKeyPressed = true;
+  }
+  else if (key == 'g') {
+    gotoGameOverState();
   }
 }
 
