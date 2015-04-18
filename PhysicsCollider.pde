@@ -5,7 +5,7 @@ class PhysicsCollider extends Collider {
   }
   
   void onCollision(Collider cOther, boolean wasHandled) {
-    super.onCollision(other);
+    super.onCollision(cOther, wasHandled);
     if (!wasHandled) {
       return;
     }
