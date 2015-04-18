@@ -77,12 +77,16 @@ void gotoInGameState() {
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
+  
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
+  Spikes spikes = new Spikes(64, 128, 64, 32);
+  
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
+  addEntity(spikes);
 }
 
 void gotoGameOverState() {

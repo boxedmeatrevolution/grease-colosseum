@@ -122,6 +122,10 @@ class GreaseSurface extends Entity {
       createFire(0, 0);
     }
   }
+  
+  int depth() {
+    return 10;
+  }
 }
 
 // Underlying grid representing the grease
