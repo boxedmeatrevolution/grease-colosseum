@@ -44,7 +44,7 @@ void sortEntities() {
   for (int i = 1; i < entities.size(); ++i) {
     Entity x = entities.get(i);
     int j = i;
-    while (j > 0 && entities.get(j - 1).depth() > x.depth()) {
+    while (j > 0 && entities.get(j - 1).depth() < x.depth()) {
       entities.set(j, entities.get(j - 1));
       j -= 1;
     }
@@ -62,6 +62,7 @@ void setup () {
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   addEntity(player);
+  addEntity(surface);
 }
 
 var lastUpdate = Date.now();

@@ -1,7 +1,7 @@
 class Grease extends Moving {
   
   Grease(float x_, float y_) {
-    super(x_, y_, GREASE_FRIC);
+    super(x_, y_, GREASE_FRICTION);
   }
   
   void create() {
@@ -11,14 +11,14 @@ class Grease extends Moving {
     super.destroy();
   }
   void render() {
-    ellipse(x, y, radius, radius);
+    ellipse(x, y, 2 * radius, 2 * radius);
   }
   void update(int phase, float delta) {
     super.update(state, delta);
     if(state == MOVING_STATE) {
       if(!isMoving()) {
         state = GROUND_STATE;
-        applyGrease(this);
+        applyGreaseToMatrix(this);
       }
     } else {
       removeEntity(this);
@@ -34,16 +34,18 @@ class Grease extends Moving {
   
   int state = 0;
   boolean isDead = false;
+  float radius = 4;
   
   int MOVING_STATE = 0;
   int GROUND_STATE = 1;
   
-  float GREASE_FRIC = 0.2;
+  float GREASE_FRICTION = 500;
 }
 
 class GreaseSurface extends Entity {
   void create() {
     super.create();
+    initGreaseMatrix();
   }
   void destroy() {
     super.destroy();
@@ -57,13 +59,13 @@ class GreaseSurface extends Entity {
           fill(color(50, 50, 50));
           rect(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
           fill(color(255, 255, 255));
-          stroke()
+          stroke();
         } else if(greaseMatrix[x][y] == FIRE) {
           noStroke();
           fill(color(100, 0, 0));
           rect(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
           fill(color(255, 255, 255));
-          stroke()
+          stroke();
         }
       }
     }
@@ -92,8 +94,8 @@ float EXTINGUISHABILITY = 0.1;
 
 // Given the width and height of the game,
 // create the underlying grid representing the grease
-void initGreaseMatrix(int screenWidth, int screenHeight) {
-  greaseMatrix = new byte[ceil(((float)screenWidth)/((float)CELL_WIDTH))][ceil(((float)screenHeight)/((float)CELL_HEIGHT))];
+void initGreaseMatrix() {
+  greaseMatrix = new byte[ceil(((float)width)/((float)CELL_WIDTH))][ceil(((float)height)/((float)CELL_HEIGHT))];
 }
 
 void updateGreaseMatrix(float delta) {
@@ -113,7 +115,7 @@ void updateGreaseMatrix(float delta) {
             createFire(x, y - 1);
           }
         }
-        if(x < greaseMatrix.length - 1 && y > 0 && greaseMatrix[x + 1][y - 1] == GREASE)) {
+        if(x < greaseMatrix.length - 1 && y > 0 && greaseMatrix[x + 1][y - 1] == GREASE) {
           hasGreaseNeighbour = true;
           if(random(0, 1) > 1 - delta * FLAMMABILITY) {
             createFire(x + 1, y - 1);

@@ -32,7 +32,8 @@ class Player extends PhysicsCollider {
         float velocity = SHOOT_VELOCITY + random(-SHOOT_VELOCITY_RANDOM, +SHOOT_VELOCITY_RANDOM);
         float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
         particle.velocityX = velocity * cos(angle);
-        particle.velocityY = velocity * sin(angle);
+        particle.velocityY = -velocity * sin(angle);
+        addEntity(particle);
       }
     }
   }
@@ -41,11 +42,14 @@ class Player extends PhysicsCollider {
     ellipse(x, y, 2 * radius, 2 * radius);
     line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
+  int depth() {
+    return -10;
+  }
   float facingDirection = 0;
   float ACCELERATION = 1200;
   float MAX_VELOCITY = 150;
-  float SHOOT_VELOCITY = 15;
-  float SHOOT_VELOCITY_RANDOM = 5;
-  float SHOOT_ANGLE_RANDOM = 10
+  float SHOOT_VELOCITY = 250;
+  float SHOOT_VELOCITY_RANDOM = 250;
+  float SHOOT_ANGLE_RANDOM = 0.05;
 }
 
