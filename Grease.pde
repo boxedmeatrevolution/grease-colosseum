@@ -257,6 +257,7 @@ void createFire(int x, int y) {
   greaseGraphics.beginDraw();
   greaseGraphics.fill(color(0, 0, 0, 0));
   greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
+  greaseGraphics.fill(255);
   greaseGraphics.endDraw();
 }
 
