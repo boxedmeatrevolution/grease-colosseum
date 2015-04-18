@@ -1,4 +1,4 @@
-abstract class Collider extends Entity {
+class Collider extends Entity {
   
   Collider(float x_, float y_, float radius_) {
     x = x_;
@@ -6,13 +6,30 @@ abstract class Collider extends Entity {
     radius = radius_;
   }
   
-  abstract void onCollision(Collider other);
+  void onCollision(Collider other) {}
+  
+  void create() {
+    super.create();
+  }
+  
+  void destroy() {
+    super.destroy();
+  }
+  
+  void render() {
+    super.render();
+  }
   
   void update(int phase, float delta) {
+    super.update(phase, delta);
     if (phase == 0) {
       x += velocityX * delta;
       y += velocityY * delta;
     }
+  }
+  
+  int depth() {
+    return 0;
   }
   
   boolean collides(Collider other) {

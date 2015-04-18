@@ -1,14 +1,16 @@
-abstract class Entity {
+class Entity {
   // Called when the entity is added to the game
-  abstract void create();
+  void create() {}
   // Called when the entity is removed from the game
-  abstract void destroy();
+  void destroy() {}
   // Called whenever the entity is to be rendered
-  abstract void render();
+  void render() {}
   // Called when the entity is to be updated
-  abstract void update(int phase, float delta);
+  void update(int phase, float delta) {}
   // The order in the render and update list of the entity
-  abstract int depth();
+  int depth() {
+    return 0;
+  }
 }
 
 int firstUpdatePhase = 0;
@@ -51,10 +53,12 @@ var lastUpdate = Date.now();
 
 void draw () {
   if (state == STATE_IN_GAME) {
+    // Calculate the delta t
     var now = Date.now();
     var delta = now - lastUpdate;
     lastUpdate = now;
     
+    // Add entities in the add queue
     for (Entity entity : entitiesToBeAdded) {
       entities.add(entity);
       if (entity instanceof Collider) {
@@ -62,6 +66,7 @@ void draw () {
       }
       entity.create();
     }
+    // Remove entities in the remove queue
     for (Entity entity : entitiesToBeRemoved) {
       entities.remove(entity);
       if (entity instanceof Collider) {
@@ -71,11 +76,14 @@ void draw () {
     }
     entitiesToBeAdded.clear();
     entitiesToBeRemoved.clear();
+    // Entities are sorted by depth
     sortEntities();
     for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
+      // Update every entity
       for (Entity entity : entities) {
         entity.update(updatePhase, delta);
       }
+      // Find and handle collisions
       if (updatePhase == 0) {
         for (int i = 0; i < colliders.size() - 1; ++i) {
           Collider first = colliders.get(i);
@@ -89,6 +97,7 @@ void draw () {
         }
       }
     }
+    // Render every entity
     for (Entity entity : entities) {
       entity.render();
     }
