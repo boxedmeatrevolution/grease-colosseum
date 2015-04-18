@@ -1,8 +1,7 @@
-class Collider extends Entity {
+class Collider extends Moving {
   
-  Collider(float x_, float y_, float radius_, float ground_friction_) {
-    x = x_;
-    y = y_;
+  Collider(float x_, float y_, float radius_, float friction_) {
+    super(x_, y_, friction_);
     radius = radius_;
   }
   
@@ -22,10 +21,6 @@ class Collider extends Entity {
   
   void update(int phase, float delta) {
     super.update(phase, delta);
-    if (phase == 0) {
-      x += velocityX * delta;
-      y += velocityY * delta;
-    }
   }
   
   int depth() {
@@ -47,10 +42,6 @@ class Collider extends Entity {
     return distanceSqr <= radius * radius;
   }
   
-  float x;
-  float y;
-  float velocityX;
-  float velocityY;
   float radius;
 }
 

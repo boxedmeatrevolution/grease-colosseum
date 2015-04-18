@@ -1,6 +1,6 @@
 class PhysicsCollider extends Collider {
-  PhysicsCollider(float x_, float y_, float mass_, float radius_, float ground_friction_) {
-    super(x_, y_, radius_, ground_friction_);
+  PhysicsCollider(float x_, float y_, float mass_, float radius_, float friction_) {
+    super(x_, y_, radius_, friction_);
     mass = mass_;
   }
   
