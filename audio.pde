@@ -1,3 +1,20 @@
+// How to load an audio file:
+//
+//  loadAudio("gameMusic1", "assets/music1.ogg");
+//
+// When the audio file is loaded, 'audioFilesLoaded' is incremented by 1
+//
+//  if(audioFilesLoaded == 1) {
+//    text("One audio file is loaded!");
+//  }
+//
+// How to play the loaded audio file:
+//
+//  playSound("gameMusic1");
+//
+// Powered by javascript!
+//
+
 // Number of audio files loaded
 var audioFilesLoaded = 0;
 
