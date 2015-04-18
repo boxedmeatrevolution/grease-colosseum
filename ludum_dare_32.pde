@@ -6,7 +6,7 @@ abstract class Entity {
   // Called whenever the entity is to be rendered
   abstract void render();
   // Called when the entity is to be updated
-  abstract void update(int phase);
+  abstract void update(int phase, float delta);
   // The order in the render and update list of the entity
   abstract int depth();
 }
@@ -14,8 +14,8 @@ abstract class Entity {
 int firstUpdatePhase = 0;
 int lastUpdatePhase = 0;
 
-const int STATE_IN_GAME = 1;
-const int STATE_LOADING = 0;
+int STATE_IN_GAME = 1;
+int STATE_LOADING = 0;
 int state = STATE_IN_GAME;
 
 ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -46,25 +46,33 @@ void setup () {
   size(800, 600);
 }
 
+var lastUpdate = Date.now();
+
 void draw () {
-  for (Entity entity : entitiesToBeAdded) {
-    entities.add(entity);
-    entity.create();
-  }
-  for (Entity entity : entitiesToBeRemoved) {
-    entities.remove(entity);
-    entity.destroy();
-  }
-  entitiesToBeAdded.clear();
-  entitiesToBeRemoved.clear();
-  sortEntities();
-  for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
-    for (Entity entity : entities) {
-      entity.update(updatePhase);
+  if (state == STATE_IN_GAME) {
+    var now = Date.now();
+    var delta = now - lastUpdate;
+    lastUpdate = now;
+    
+    for (Entity entity : entitiesToBeAdded) {
+      entities.add(entity);
+      entity.create();
     }
-  }
-  for (Entity entity : entities) {
-    entity.render();
+    for (Entity entity : entitiesToBeRemoved) {
+      entities.remove(entity);
+      entity.destroy();
+    }
+    entitiesToBeAdded.clear();
+    entitiesToBeRemoved.clear();
+    sortEntities();
+    for (int updatePhase = firstUpdatePhase; updatePhase <= lastUpdatePhase; ++updatePhase) {
+      for (Entity entity : entities) {
+        entity.update(updatePhase, delta);
+      }
+    }
+    for (Entity entity : entities) {
+      entity.render();
+    }
   }
 }
 
