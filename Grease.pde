@@ -1,5 +1,9 @@
 class Grease extends Moving {
   
+  Grease(float x_, float y_) {
+    super(x_, y_, GREASE_FRIC);
+  }
+  
   void create() {
     super.create();
   }
@@ -7,7 +11,7 @@ class Grease extends Moving {
     super.destroy();
   }
   void render() {
-    // TODO draw grease
+    ellipse(x, y, radius, radius);
   }
   void update(int phase, float delta) {
     super.update(state, delta);
@@ -33,6 +37,8 @@ class Grease extends Moving {
   
   int MOVING_STATE = 0;
   int GROUND_STATE = 1;
+  
+  float GREASE_FRIC = 0.2;
 }
 
 class GreaseSurface extends Entity {
@@ -50,10 +56,14 @@ class GreaseSurface extends Entity {
           noStroke();
           fill(color(50, 50, 50));
           rect(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+          fill(color(255, 255, 255));
+          stroke()
         } else if(greaseMatrix[x][y] == FIRE) {
           noStroke();
           fill(color(100, 0, 0));
           rect(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+          fill(color(255, 255, 255));
+          stroke()
         }
       }
     }
