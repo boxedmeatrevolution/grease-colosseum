@@ -61,8 +61,10 @@ void setup () {
   addEntity(entityB);*/
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
+  FireEffect fireEffect = new FireEffect();
   addEntity(player);
   addEntity(surface);
+  addEntity(fireEffect);
 }
 
 var lastUpdate = Date.now();

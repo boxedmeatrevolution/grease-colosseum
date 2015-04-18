@@ -45,6 +45,42 @@ class Grease extends Moving {
   float GREASE_FRICTION = 500;
 }
 
+class FireEffect extends Entity {
+  FireEffect() {
+  }
+  void create() {
+    super.create();
+  }
+  void destroy() {
+    super.destroy();
+  }
+  void update(int phase, float delta) {
+    super.update(phase, delta);
+  }
+  void render() {
+    super.render();
+    fill(color(255, 0, 0));
+    noStroke();
+    for (int i = 0; i < (int) (floor(greaseMatrix.length / 2)); ++i) {
+      for (int j = 0; j < (int) (floor(greaseMatrix[0].length / 2)); ++j) {
+        int nFire = 0;
+        if (greaseMatrix[2 * i][2 * j] == FIRE) ++nFire;
+        if (greaseMatrix[2 * i + 1][2 * j] == FIRE) ++nFire;
+        if (greaseMatrix[2 * i][2 * j + 1] == FIRE) ++nFire;
+        if (greaseMatrix[2 * i + 1][2 * j + 1] == FIRE) ++nFire;
+        if (nFire != 0) {
+          ellipse(2 * (i + 1) * CELL_WIDTH, 2 * (j + 1) * CELL_HEIGHT, CELL_WIDTH * nFire, CELL_HEIGHT * nFire);
+        }
+      }
+    }
+    stroke(0);
+    fill(255);
+  }
+  int depth() {
+    return -5;
+  }
+}
+
 class GreaseSurface extends Entity {
   void create() {
     super.create();
@@ -79,6 +115,9 @@ class GreaseSurface extends Entity {
     if(phase == 0) {
       updateGreaseMatrix(delta);
     }
+    if (greaseMatrix[0][0] == GREASE) {
+      createFire(0, 0);
+    }
   }
 }
 
@@ -96,8 +135,8 @@ byte NO_GREASE = 0;
 byte GREASE = 1;
 byte FIRE = 2;
 
-float FLAMMABILITY = 0.3;
-float EXTINGUISHABILITY = 0.1;
+float FLAMMABILITY = 1;
+float EXTINGUISHABILITY = 0.3;
 
 // Given the width and height of the game,
 // create the underlying grid representing the grease
@@ -111,52 +150,97 @@ void updateGreaseMatrix(float delta) {
     for(int y = 0; y < greaseMatrix[0].length; y ++) {
       if(greaseMatrix[x][y] == FIRE) {
         boolean hasGreaseNeighbour = false;
-        if(x > 0 && y > 0 && greaseMatrix[x - 1][y - 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x - 1, y - 1);
+        int nFireNeighbours = 0;
+        if(x > 0 && y > 0) {
+          if (greaseMatrix[x - 1][y - 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x - 1, y - 1);
+            }
+          }
+          else if (greaseMatrix[x - 1][y - 1] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(y > 0 && greaseMatrix[x][y - 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x, y - 1);
+        if(y > 0) {
+          if (greaseMatrix[x][y - 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x, y - 1);
+            }
+          }
+          else if (greaseMatrix[x][y - 1] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(x < greaseMatrix.length - 1 && y > 0 && greaseMatrix[x + 1][y - 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x + 1, y - 1);
+        if(x < greaseMatrix.length - 1 && y > 0) {
+          if (greaseMatrix[x + 1][y - 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x + 1, y - 1);
+            }
+          }
+          else if (greaseMatrix[x + 1][y - 1] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(x > 0 && greaseMatrix[x - 1][y] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x - 1, y);
+        if(x > 0) {
+          if (greaseMatrix[x - 1][y] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x - 1, y);
+            }
+          }
+          else if (greaseMatrix[x - 1][y] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(x < greaseMatrix.length - 1 && greaseMatrix[x + 1][y] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x + 1, y);
+        if(x < greaseMatrix.length - 1) {
+          if (greaseMatrix[x + 1][y] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x + 1, y);
+            }
+          }
+          else if (greaseMatrix[x + 1][y] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(x > 0 && y < greaseMatrix[0].length - 1 && greaseMatrix[x - 1][y + 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x - 1, y + 1);
+        if(x > 0 && y < greaseMatrix[0].length - 1) {
+          if (greaseMatrix[x - 1][y + 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x - 1, y + 1);
+            }
+          }
+          else {
+            ++nFireNeighbours;
           }
         }
-        if(y < greaseMatrix[0].length - 1 && greaseMatrix[x][y + 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x, y + 1);
+        if(y < greaseMatrix[0].length - 1) {
+          if (greaseMatrix[x][y + 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x, y + 1);
+            }
+          }
+          else if (greaseMatrix[x][y + 1] == FIRE) {
+            ++nFireNeighbours;
           }
         }
-        if(x < greaseMatrix.length - 1 && y < greaseMatrix[0].length - 1 && greaseMatrix[x + 1][y + 1] == GREASE) {
-          hasGreaseNeighbour = true;
-          if(random(0, 1) > 1 - delta * FLAMMABILITY) {
-            createFire(x + 1, y + 1);
+        if(x < greaseMatrix.length - 1 && y < greaseMatrix[0].length - 1) {
+          if (greaseMatrix[x + 1][y + 1] == GREASE) {
+            hasGreaseNeighbour = true;
+            if(random(0, 1) > 1 - delta * FLAMMABILITY) {
+              createFire(x + 1, y + 1);
+            }
+          }
+          else if (greaseMatrix[x + 1][y + 1] == FIRE) {
+          }
+        }
+        if (!hasGreaseNeighbour) {
+          if (random(0, 1) > 1 - delta * EXTINGUISHABILITY * (8 - nFireNeighbours)) {
+            greaseMatrix[x][y] = NO_GREASE;
           }
         }
       }
@@ -166,8 +250,14 @@ void updateGreaseMatrix(float delta) {
 
 // Set the cell at x,y in the matrix on fire and create particle effect
 void createFire(int x, int y) {
+  if (x < 0 || x >= greaseMatrix.length || y < 0 || y > greaseMatrix[0].length) {
+    return;
+  }
   greaseMatrix[x][y] = FIRE;
-  // TODO fire particles
+  greaseGraphics.beginDraw();
+  greaseGraphics.fill(color(0, 0, 0, 0));
+  greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
+  greaseGraphics.endDraw();
 }
 
 // Add the grease to the grease matrix
@@ -189,16 +279,17 @@ void applyGreaseToMatrix(Grease grease) {
   greaseGraphics.endDraw();
 }
 
-// Returns true if the Collider has come into contact with grease
-boolean touchingGrease(Collider entity) {
-  int topLeftX = floor((entity.x - entity.radius) / CELL_WIDTH);
-  int topLeftY = floor((entity.y - entity.radius) / CELL_HEIGHT);
-  int botRightX = ceil((entity.x + entity.radius) / CELL_WIDTH);
-  int botRightY = ceil((entity.y + entity.radius) / CELL_HEIGHT);
+boolean touchingGrease(float x, float y, float radius) {
+  int topLeftX = floor((x - radius) / CELL_WIDTH);
+  int topLeftY = floor((y - radius) / CELL_HEIGHT);
+  int botRightX = ceil((x + radius) / CELL_WIDTH);
+  int botRightY = ceil((y + radius) / CELL_HEIGHT);
   for(int x = topLeftX; x <= botRightX; x ++) {
     for(int y = topLeftY; y <= botRightY; y ++) {
-      if(greaseMatrix[x][y] == GREASE) {
-        return true;  
+      if (x >= 0 && x < greaseMatrix.length && y >= 0 && y < greaseMatrix.length) {
+        if(greaseMatrix[x][y] == GREASE) {
+          return true;
+        }
       }
     }  
   }
