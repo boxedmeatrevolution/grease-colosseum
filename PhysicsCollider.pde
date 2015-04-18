@@ -18,6 +18,10 @@ class PhysicsCollider extends Collider {
       float deltaVelocityX = velocityX - other.velocityX;
       float deltaVelocityY = velocityY - other.velocityY;
       
+      if (deltaX * deltaVelocityX + deltaY * deltaVelocityY > 0) {
+        return;
+      }
+      
       float dotProduct = deltaX * deltaVelocityX + deltaY * deltaVelocityY;
       float distanceSqr = deltaX * deltaX + deltaY * deltaY;
       

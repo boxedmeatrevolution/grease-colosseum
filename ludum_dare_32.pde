@@ -83,11 +83,13 @@ void gotoInGameState() {
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
   Spikes spikes = new Spikes(64, 128, 64, 32);
+  Barrel barrel = new Barrel(64, 256);
   
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
   addEntity(spikes);
+  addEntity(barrel);
 }
 
 void gotoGameOverState() {

@@ -6,7 +6,9 @@ class Barrel extends PhysicsCollider {
   
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
-    triggered = true;
+    if (other instanceof Harmful || other instanceof ContinuousHarmful) {
+      triggered = true;
+    }
   }
   
   void create() {
@@ -19,19 +21,24 @@ class Barrel extends PhysicsCollider {
   
   void update(int phase, float delta) {
     super.update(phase, delta);
-    if (triggered) {
-      timer += delta;
-      if (timer > 1.5) {
-        addEntity(new Explosion(x, y, 64));
-        for (int i = 0; i < 5; ++i) {
-          Flame particle = new Flame(x, y);
-          float velocity = random(0, 400);
-          float angle = random(0, TAU);
-          particle.velocityX = velocity * cos(angle);
-          particle.velocityY = -velocity * sin(angle);
-          addEntity(particle);
+    if (phase == 0) {
+      if (triggered) {
+        timer += delta;
+        if (timer > 1.5) {
+          addEntity(new Explosion(x, y, 64));
+          for (int i = 0; i < 5; ++i) {
+            Flame particle = new Flame(x, y);
+            float velocity = random(0, 400);
+            float angle = random(0, TAU);
+            particle.velocityX = velocity * cos(angle);
+            particle.velocityY = -velocity * sin(angle);
+            addEntity(particle);
+          }
+          removeEntity(this);
         }
-        removeEntity(this);
+      }
+      if (touchingFire(x, y, radius)) {
+        triggered = true;
       }
     }
   }
