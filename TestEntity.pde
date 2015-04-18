@@ -12,7 +12,7 @@ class TestEntity extends PhysicsCollider {
     super.update(state, delta);
   }
   void render() {
-    ellipse(super.x, super.y, super.radius * 2, super.radius * 2);
+    ellipse(x, y, radius * 2, radius * 2);
   }
 }
 
