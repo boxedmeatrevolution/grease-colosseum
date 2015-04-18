@@ -63,10 +63,10 @@ class Player extends PhysicsCollider {
       
       int nFires = touchingFire(x, y, radius);
       if (nFires <= 2) {
-        heat = max(heat - 0.1, 0);
+        heat = max(heat - 1 * delta, 0);
       }
       else {
-        heat += nFires * 0.01;
+        heat += nFires * 1 * delta;
       }
       
       if (heat > 1) {

@@ -37,6 +37,17 @@ class EnemyEntity extends PhysicsCollider{
         score += value;
         removeEntity(this);
       }
+      int nFires = touchingFire(x, y, radius);
+      if (nFires <= 2) {
+        heat = max(heat - 1 * delta, 0);
+      }
+      else {
+        heat += nFires * 1 * delta;
+      }
+      
+      if (heat > 1) {
+        hp -= 1 * delta;
+      }
     }
   }
   
@@ -45,4 +56,5 @@ class EnemyEntity extends PhysicsCollider{
   float facingDirection;
   float acceleration;
   float maxVelocity;
+  float heat = 0;
 }
