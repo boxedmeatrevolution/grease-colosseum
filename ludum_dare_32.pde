@@ -50,6 +50,16 @@ void removeEntity(Entity entity) {
   entitiesToBeRemoved.add(entity);
 }
 
+ArrayList<Entity> getEntities(Class clazz) {
+  ArrayList<Entity> result = new ArrayList<Entity>();
+  for (Entity entity : entities) {
+    if (entity.getClass() == clazz) {
+      result.add(entity);
+    }
+  }
+  return result;
+}
+
 void sortEntities() {
   for (int i = 1; i < entities.size(); ++i) {
     Entity x = entities.get(i);
