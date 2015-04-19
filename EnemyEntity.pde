@@ -40,8 +40,9 @@ class EnemyEntity extends PhysicsCollider{
     hp -= 5;
   }
   
-  void turnTowardsPlayer(float delta) {
+  float turnTowardsPlayer(float delta) {
     last_refresh += delta;
+    float angle = TAU;
     //update player
     if (last_refresh > _ENTITY_REFRESH_TIME) {
       player = null;
@@ -53,9 +54,9 @@ class EnemyEntity extends PhysicsCollider{
       }
     }
     if (player != null) {
-      playerDirection = atan2(-(player.y - y), player.x - x);
+      float playerDirection = atan2(-(player.y - y), player.x - x);
       facingDirection = facingDirection % TAU;
-      pBigger = false;
+      boolean pBigger = false;
       if (playerDirection > facingDirection) {
         pBigger = true;
       }
@@ -65,11 +66,14 @@ class EnemyEntity extends PhysicsCollider{
       } else {
         facingDirection -= turnSpeed * delta;
       }
+      angle = abs(facingDirection - playerDirection) % PI;
     }
+    return angle;
   }
   
-  void walkTowardsPlayer(float delta) {
+  float walkTowardsPlayer(float delta) {
     last_refresh += delta;
+    float distToPlayer = 1000;
     //update repulsors + attractors
     if (last_refresh > _ENTITY_REFRESH_TIME) {
       repulsors.clear();
@@ -87,7 +91,7 @@ class EnemyEntity extends PhysicsCollider{
     ArrayList<Float> forces = new ArrayList<Float>();
     for (Entity repulsor : repulsors) {
       if (repulsor instanceof Harmful) {
-        dist = sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - repulsor.radius -  radius;
+        float dist = sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - repulsor.radius -  radius;
         if (dist != 0) {
           forces.add(1 / sq(dist));
         }
@@ -96,20 +100,21 @@ class EnemyEntity extends PhysicsCollider{
     }
     for (Entity attractor : attractors) {
       if (attractor instanceof Player) {
-        dist = sqrt(sq(attractor.x - x, 2) + sq(attractor.y - y)) - radius - attractor.radius;
+        float dist = sqrt(sq(attractor.x - x, 2) + sq(attractor.y - y)) - radius - attractor.radius;
+        distToPlayer = dist;
         if (dist != 0) {
           forces.add(1 / dist);
         }     
       }
       directions.add(atan2(-(attractor.y - y), attractor.x - x));
     }
-    dirX = 0;
-    dirY = 0;
+    float dirX = 0;
+    float dirY = 0;
     for (int i = 0; i < directions.size(); i++) {
       dirX += cos(directions.get(i)) * forces.get(i);
       dirY += sin(directions.get(i)) * forces.get(i);
     }
-    direction = atan2(dirY, dirX);
+    float direction = atan2(dirY, dirX);
     boolean onGrease = touchingGrease(x, y, radius);
     if (!onGrease) {
       friction = groundFriction;
@@ -128,6 +133,7 @@ class EnemyEntity extends PhysicsCollider{
         velocityY -= greaseAcceleration * sin(direction) * delta;
       }
     }
+    return distToPlayer;
   }
   
   void update(int phase, float delta) {
@@ -161,6 +167,7 @@ class EnemyEntity extends PhysicsCollider{
   float maxVelocity;
   float groundFriction;
   float heat = 0;
+  float turnSpeed;
   
    //References to other Entities (for walk())
   int _REPULSE_DIST = 20;

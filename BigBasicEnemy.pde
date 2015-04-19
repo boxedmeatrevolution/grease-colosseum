@@ -1,5 +1,5 @@
-class BasicEnemy extends EnemyEntity{
-  BasicEnemy(float x_, float y_, float facingDirection_) {
+class BigBasicEnemy extends EnemyEntity{
+  BigBasicEnemy(float x_, float y_, float facingDirection_) {
     super(x_, y_, _MASS, _RADIUS, _FRICTION, _VALUE, _HP, facingDirection_, _ACCELERATION, _MAXVELOCITY, _GREASE_ACCELERATION, _TURN_SPEED);
   }
   
@@ -52,20 +52,20 @@ class BasicEnemy extends EnemyEntity{
   }
 
   //Basic Enemy properties
-  float _MASS = 1;
-  float _RADIUS = 16;
-  int _VALUE = 5;
-  float _HP = 1;
-  float _ACCELERATION = 1200;
-  float _GREASE_ACCELERATION = 200;
+  float _MASS = 2;
+  float _RADIUS = 32;
+  int _VALUE = 20;
+  float _HP = 10;
+  float _ACCELERATION = 1000;
+  float _GREASE_ACCELERATION = 100;
   float _FRICTION = 600;
   float _MAXVELOCITY = 50;
-  float _TURN_SPEED = HALF_PI;
+  float _TURN_SPEED = 0.5;
   
   float _MAX_DIST_TO_DASH = 50;
   float _MAX_ANGLE_TO_DASH = PI/4;
-  float _DASH_FORCE = 400;
-  float _DASH_RELOAD = 2;
+  float _DASH_FORCE = 500;
+  float _DASH_RELOAD = 3;
   float dashTimer = 0;
   boolean canDash = true;
 }
