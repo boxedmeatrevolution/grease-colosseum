@@ -23,10 +23,11 @@ class Level {
 void spawnLevel(Level level) {
   level.respawnLevelObjects();
   for (Entity entity : level.levelObjects) {
-    addEntity(new Spawner(entity, level, false));
+    addEntity(new Spawner(entity, level));
+    ++level.nSpawners;
   }
   for (Entity entity : level.enemies) {
-    addEntity(new Spawner(entity, level, true));
+    addEntity(new Spawner(entity, level));
     ++level.nSpawners;
   }
 }
