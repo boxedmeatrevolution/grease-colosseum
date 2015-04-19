@@ -35,10 +35,10 @@ class Animation {
     
     // Only move to the next frame when enough time has passed
     float x = Date.now() / 1000;
-    if (time >= (lastCall - x)) {
-      x++;
-      x %= sprites.length;
-      lastCall = 0;
+    if (time >= (x - lastCall)) {
+      curr++;
+      curr %= sprites.length;
+      lastCall = x;
     }
   }
   
