@@ -50,6 +50,7 @@ class Player extends PhysicsCollider {
         addEntity(particle);
       }
       if (secondaryShootKeyPressed && canFireSecondary) {
+        /*
         Flame particle = new Flame(x, y);
         float deltaX = mouseX - x;
         float deltaY = mouseY - y;
@@ -59,6 +60,9 @@ class Player extends PhysicsCollider {
         particle.velocityY = -velocity * sin(facingDirection);
         addEntity(particle);
         canFireSecondary = false;
+        */
+        velocityX += 50 * cos(facingDirection);
+        velocityY -= 50 * sin(facingDirection);
       }
       if (!canFireSecondary) {
         secondaryFireTimer += delta;
@@ -104,6 +108,6 @@ class Player extends PhysicsCollider {
   float SHOOT_VELOCITY_RANDOM = 100;
   float SHOOT_ANGLE_RANDOM = 0.25;
   
-  float SECONDARY_RELOAD = 3;
+  float SECONDARY_RELOAD = 0.5; //3
 }
 
