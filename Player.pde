@@ -1,6 +1,6 @@
 class Player extends PhysicsCollider {
   Player(float x_, float y_) {
-    super(x_, y_, 1, 16, 600);
+    super(x_, y_, 1, 16, FRICTION);
   }
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
@@ -20,19 +20,25 @@ class Player extends PhysicsCollider {
     super.update(phase, delta);
     if (phase == 0) {
       boolean isOnGrease = touchingGrease(x, y, radius);
-      float maxVelocity = isOnGrease ? MAX_VELOCITY : DISABLED_VELOCITY;
       facingDirection = atan2(-(mouseY - y), mouseX - x);
-      if (leftKeyPressed && velocityX > -maxVelocity) {
-        velocityX -= ACCELERATION * delta;
+      if (isOnGrease) {
+        friction = 0;
       }
-      if (rightKeyPressed && velocityX < maxVelocity) {
-        velocityX += ACCELERATION * delta;
+      else {
+        friction = FRICTION;
       }
-      if (upKeyPressed && velocityY > -maxVelocity) {
-        velocityY -= ACCELERATION * delta;
+      float acceleration = isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
+      if (leftKeyPressed && velocityX > -MAX_VELOCITY) {
+        velocityX -= acceleration * delta;
       }
-      if (downKeyPressed && velocityY < maxVelocity) {
-        velocityY += ACCELERATION * delta;
+      if (rightKeyPressed && velocityX < MAX_VELOCITY) {
+        velocityX += acceleration * delta;
+      }
+      if (upKeyPressed && velocityY > -MAX_VELOCITY) {
+        velocityY -= acceleration * delta;
+      }
+      if (downKeyPressed && velocityY < MAX_VELOCITY) {
+        velocityY += acceleration * delta;
       }
       if (shootKeyPressed) {
         Grease particle = new Grease(x, y);
@@ -86,8 +92,9 @@ class Player extends PhysicsCollider {
   }
   float facingDirection = 0;
   float ACCELERATION = 1200;
+  float GREASE_ACCELERATION = 200;
+  float FRICTION = 600;
   float MAX_VELOCITY = 150;
-  float DISABLED_VELOCITY = 20;
   float secondaryFireTimer = 0;
   float heat = 0;
   boolean canFireSecondary = true;
