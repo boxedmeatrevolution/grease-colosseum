@@ -4,6 +4,17 @@ class Spikes extends Harmful {
     super(x_, y_, 10, radius_, 500, 5);
     nSpikes = nSpikes_;
     rotationSpeed = random(-1.0f, 1.0f);
+    
+    shape = createGraphics(radius * 2, radius * 2);
+    shape.beginDraw();
+    shape.beginShape();
+    for (int i = 0; i < nSpikes; ++i) {
+      float distance = i % 2 == 0 ? radius : radius * 0.5;
+      float angle = TAU / nSpikes * i;
+      shape.vertex(radius + distance * cos(angle), radius - distance * sin(angle));
+    }
+    shape.endShape(CLOSE);
+    shape.endDraw();
   }
   
   void onCollision(Collider other, boolean wasHandled) {
@@ -27,18 +38,18 @@ class Spikes extends Harmful {
   
   void render() {
     super.render();
-    beginShape();
-    for (int i = 0; i < nSpikes; ++i) {
-      float distance = i % 2 == 0 ? radius : radius * 0.5;
-      float angle = TAU / nSpikes * i + offsetAngle;
-      vertex(x + distance * cos(angle), y - distance * sin(angle));
-    }
-    endShape(CLOSE);
+    translate(x, y);
+    rotate(offsetAngle);
+    image(shape, - radius, - radius);
+    rotate(-offsetAngle);
+    translate(-x, -y);
   }
   
   int depth() {
     return -1;
   }
+  
+  PGraphics shape;
   
   int nSpikes;
   float offsetAngle = 0;
