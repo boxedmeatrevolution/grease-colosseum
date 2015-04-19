@@ -1,17 +1,18 @@
 // A class for the bullets Shooting Enemies Shoot. 
 class Bullet extends Entity {
-  
-  Player player;
-  
   float x, y;
   float dx, dy;
+  float sx, sy;
   
-  Bullet (float _x, float _y, float _dx, float _dy, Player _player) {
+  Bullet (float _x, float _y, float _dx, float _dy, float len) {
     x = _x;
     y = _y;
     dx = _dx;
     dy = _dy;
-    player = _player;
+    
+    float ang = atan2(dy, dx);
+    sx = len*cos(ang);
+    sy = len*sin(ang);
   }
   
   void create () {}
@@ -43,10 +44,10 @@ class Bullet extends Entity {
     float vx = px - x;
     float vy = py - y;
     
-    vx -= dx*((dx*vx + dy*vy) / (sq(dx) + sq(dy)));
-    vy -= dy*((dx*vx + dy*vy) / (sq(dx) + sq(dy)));
+    vx -= sx*((sx*vx + sy*vy) / (sq(dx) + sq(dy)));
+    vy -= sy*((sx*vx + sy*vy) / (sq(dx) + sq(dy)));
     
-    return iDist(0,0, vx, vy) <= pr && iDist(x,y, px - vx, py - vx) <= iDist(0,0, dx, dy);
+    return iDist(0,0, vx, vy) <= pr && iDist(x,y, px - vx, py - vx) <= iDist(0,0, sx, sy);
   }
   
   //Is run when cl is hit by the bullet!!
@@ -57,8 +58,8 @@ class Bullet extends Entity {
   }
   
   void render () {
-    float nx = x + dx;
-    float ny = y + dy;
+    float nx = x + sx;
+    float ny = y + sy;
     strokeWeight(3);
     stroke(color(255,255,255));
     line(x,y,nx,ny);

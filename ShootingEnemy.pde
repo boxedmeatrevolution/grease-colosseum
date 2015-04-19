@@ -41,12 +41,12 @@ class ShootingEnemy extends EnemyEntity {
     super.hitEdge();
   }
   
-  void turnTowardsPlayer (float delta) {
-    super.turnTowardsPlayer(delta);
+  float turnTowardsPlayer (float delta) {
+    return super.turnTowardsPlayer(delta);
   }
   
-  void walkTowardsPlayer (float delta) {
-    super.walkTowardsPlayer(delta);
+  float walkTowardsPlayer (float delta) {
+    return super.walkTowardsPlayer(delta);
   }
   
   int timeUntilNextFire;
@@ -73,10 +73,10 @@ class ShootingEnemy extends EnemyEntity {
     float dy = player.y - y;
     float len = iDist(0,0, dx,dy);
     
-    dx *= 15f/len;
-    dy *= 15f/len;
+    dx *= 30f/len;
+    dy *= 30f/len;
     
-    return new Bullet(x,y, dx,dy, player);
+    return new Bullet(x,y, dx,dy, 15);
   }
   
 }
