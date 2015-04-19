@@ -11,6 +11,7 @@ class Entity {
   int depth() {
     return 0;
   }
+  boolean exists = false;
 }
 
 int firstUpdatePhase = 0;
@@ -40,7 +41,6 @@ boolean secondaryShootKeyPressed = false;
 float gameOverTimer = 0;
 boolean isPlayerDead = false;
 
-float levelTimer = 0;
 int levelIndex;
 
 var lastUpdate = Date.now();
@@ -71,7 +71,6 @@ void gotoInGameState() {
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
-  levelTimer = 0;
   levelIndex = floor(random(levels.length));
   spawnLevel(levels[levelIndex]);
   
@@ -131,15 +130,29 @@ void draw () {
     var now = Date.now();
     timeDelta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
-    levelTimer += timeDelta;
-    if (levelTimer > 10) {
+    
+    boolean isLevelOver = true;
+    if (levels[levelIndex].nSpawners != 0) {
+      isLevelOver = false;
+      console.log("There be spawners! " + str(levels[levelIndex].nSpawners));
+    }
+    else {
+      for (Entity entity : levels[levelIndex].enemies) {
+        if (entity.exists) {
+          isLevelOver = false;
+          console.log("There be enemies!");
+          break;
+        }
+      }
+    }
+    
+    if (isLevelOver) {
       despawnLevel(levels[levelIndex]);
       int oldLevelIndex = levelIndex;
       while(levelIndex == oldLevelIndex) {
         levelIndex = floor(random(levels.length));
       }
       spawnLevel(levels[levelIndex]);
-      levelTimer = 0;
     }
     
     if (isPlayerDead) {
@@ -155,6 +168,7 @@ void draw () {
       if (entity instanceof Collider) {
         colliders.add(entity);
       }
+      entity.exists = true;
       entity.create();
     }
     // Remove entities in the remove queue
@@ -163,6 +177,7 @@ void draw () {
       if (entity instanceof Collider) {
         colliders.remove(entity);
       }
+      entity.exists = false;
       entity.destroy();
     }
     entitiesToBeAdded.clear();

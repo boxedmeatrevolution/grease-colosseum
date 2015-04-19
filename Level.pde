@@ -6,19 +6,28 @@ class Level {
   Entity[] init() {
   }
   
+  Entity[] initEnemies() {
+  }
+  
   void respawnLevelObjects() {
     levelObjects = init();
-    return levelObjects;
+    enemies = initEnemies();
   }
   
   Entity[] levelObjects;
+  Entity[] enemies;
+  int nSpawners = 0;
   
 }
 
 void spawnLevel(Level level) {
-  Entity[] levelObjects = level.respawnLevelObjects();
-  for (Entity entity : levelObjects) {
-    addEntity(new Spawner(entity, level));
+  level.respawnLevelObjects();
+  for (Entity entity : level.levelObjects) {
+    addEntity(new Spawner(entity, level, false));
+  }
+  for (Entity entity : level.enemies) {
+    addEntity(new Spawner(entity, level, true));
+    ++level.nSpawners;
   }
 }
 
@@ -47,7 +56,11 @@ class Level1 extends Level {
       new Spikes(128, 128, 32, 16),
       new Spikes(width - 128, 128, 32, 16),
       new Spikes(128, height - 128, 32, 16),
-      new Spikes(width - 128, height - 128, 32, 16),
+      new Spikes(width - 128, height - 128, 32, 16)
+    };
+  }
+  Entity[] initEnemies() {
+    return new Entity[] {
       new BasicEnemy(128, height / 2, 0),
       new BasicEnemy(width - 128, height / 2, 0)
     };
@@ -58,7 +71,11 @@ class Level2 extends Level {
   Entity[] init() {
     return new Entity[] {
       new Barrel(128, height / 2),
-      new Barrel(width - 128, height / 2),
+      new Barrel(width - 128, height / 2)
+    };
+  }
+  Entity[] initEnemies() {
+    return new Entity[] {
       new BasicEnemy(width / 2 - 128, height / 2, 0)
     };
   }
@@ -68,7 +85,11 @@ class Level3 extends Level {
   Entity[] init() {
     return new Entity[] {
       new Barrel(width / 2, 128),
-      new Spikes(width / 2, height - 128, 16, 8),
+      new Spikes(width / 2, height - 128, 16, 8)
+    };
+  }
+  Entity[] initEnemies() {
+    return new Entity[] {
       new BasicEnemy(width / 2, height / 2 - 128, 0),
       new BasicEnemy(width / 2 - 128, height / 2, 0),
       new BasicEnemy(width / 2 + 128, height / 2, 0)
