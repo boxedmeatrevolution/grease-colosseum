@@ -21,8 +21,8 @@ class BasicEnemy extends EnemyEntity{
     line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
   
-  void walkTowardsPlayer(float delta) {
-    super.walkTowardsPlayer(delta);
+  float walkTowardsPlayer(float delta) {
+    return super.walkTowardsPlayer(delta);
   }
   
   void update(int phase, float delta) {
