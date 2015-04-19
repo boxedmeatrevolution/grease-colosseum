@@ -55,12 +55,45 @@ class FireEffect extends Entity {
   }
   void create() {
     super.create();
+    largeFireSheet = loadSpriteSheet("/assets/large_fire.png", 4, 1, 24, 24);
+    mediumFireSheet = loadSpriteSheet("/assets/medium_fire.png", 7, 1, 16, 16);
+    smallFireSheet = loadSpriteSheet("/assets/small_fire.png", 5, 1, 8, 8);
+    
+    float time = 0.3;
+    
+    largeFireAnimations = new Animation[] {
+      new Animation(largeFireSheet, time, 0, 1, 2, 3),
+      new Animation(largeFireSheet, time, 1, 2, 3, 0),
+      new Animation(largeFireSheet, time, 2, 3, 0, 1),
+      new Animation(largeFireSheet, time, 3, 0, 1, 2)
+    };
+    mediumFireAnimations = new Animation[] {
+      new Animation(mediumFireSheet, time, 0, 1, 2, 3, 4, 5, 6),
+      new Animation(mediumFireSheet, time, 1, 2, 3, 4, 5, 6, 0),
+      new Animation(mediumFireSheet, time, 2, 3, 4, 5, 6, 0, 1),
+      new Animation(mediumFireSheet, time, 3, 4, 5, 6, 0, 1, 2)
+    };
+    smallFireAnimations = new Animation[] {
+      new Animation(smallFireSheet, time, 0, 1, 2, 3, 4),
+      new Animation(smallFireSheet, time, 1, 2, 3, 4, 0),
+      new Animation(smallFireSheet, time, 2, 3, 4, 0, 1),
+      new Animation(smallFireSheet, time, 3, 4, 0, 1, 2)
+    };
   }
   void destroy() {
     super.destroy();
   }
   void update(int phase, float delta) {
     super.update(phase, delta);
+    for (Animation animation : largeFireAnimations) {
+      animation.update(delta);
+    }
+    for (Animation animation : mediumFireAnimations) {
+      animation.update(delta);
+    }
+    for (Animation animation : smallFireAnimations) {
+      animation.update(delta);
+    }
   }
   void render() {
     super.render();
@@ -73,8 +106,15 @@ class FireEffect extends Entity {
         if (greaseMatrix[2 * i + 1][2 * j] == FIRE) ++nFire;
         if (greaseMatrix[2 * i][2 * j + 1] == FIRE) ++nFire;
         if (greaseMatrix[2 * i + 1][2 * j + 1] == FIRE) ++nFire;
-        if (nFire != 0) {
-          ellipse(2 * (i + 1) * CELL_WIDTH, 2 * (j + 1) * CELL_HEIGHT, CELL_WIDTH * nFire, CELL_HEIGHT * nFire);
+        int animChoice = (i + j) % 4;
+        if (nFire == 1) {
+          smallFireAnimations[animChoice].drawAnimation((2 * i + 1) * CELL_WIDTH - 4, (2 * j + 1) * CELL_HEIGHT - 4, 8, 8);
+        }
+        else if (nFire == 2 || nFire == 3) {
+          mediumFireAnimations[animChoice].drawAnimation((2 * i + 1) * CELL_WIDTH - 8, (2 * j + 1) * CELL_HEIGHT - 8, 16, 16);
+        }
+        else if (nFire == 4) {
+          largeFireAnimations[animChoice].drawAnimation((2 * i + 1) * CELL_WIDTH - 12, (2 * j + 1) * CELL_HEIGHT - 12, 24, 24);
         }
       }
     }
@@ -132,6 +172,16 @@ byte[][] greaseMatrix;
 
 // Graphics that draws the grease
 PGraphics greaseGraphics;
+
+
+Animation[] largeFireAnimations;
+Animation[] mediumFireAnimations;
+Animation[] smallFireAnimations;
+
+/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png" */
+SpriteSheet largeFireSheet;
+SpriteSheet mediumFireSheet;
+SpriteSheet smallFireSheet;
 
 // Dimensions of each grease grid cell
 int CELL_WIDTH = 8;

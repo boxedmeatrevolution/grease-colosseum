@@ -79,12 +79,14 @@ void gotoInGameState() {
   FireEffect fireEffect = new FireEffect();
   SpikeWall spikeWall = new SpikeWall();
   FlameThrowerEnemy flameThrowerEnemy = new FlameThrowerEnemy(width / 2, height / 2 + 128, 0);
+  FlameShooter flameShooter = new FlameShooter(width / 2, height / 2 - 128, 16, 0);
   
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
   addEntity(spikeWall);
   addEntity(flameThrowerEnemy);
+  addEntity(flameShooter);
 }
 
 void gotoGameOverState() {

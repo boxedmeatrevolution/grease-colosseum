@@ -7,7 +7,7 @@ class SpriteSheet {
     sprites = _sprites;
   }
   
-  void drawSprite (int index, int xPos, int yPos, int xRad, int yRad) {
+  void drawSprite (int index, float xPos, float yPos, float xRad, float yRad) {
     image(sprites[index], xPos, yPos, xRad, yRad);
   }
 }
@@ -19,26 +19,28 @@ class Animation {
   float time;
   
   int curr;
-  float lastCall;
+  float timeElapsed;
   
   Animation (SpriteSheet _sheet, float _time, int... _sprites) {
     sheet = _sheet;
     time = _time;
     sprites = _sprites;
-    
+    timeElapsed = 0;
     curr = 0;
   }
   
   //Draws and updates the animation.
-  void draw (int xPos, int yPos, int xRad, int yRad) {
-    sheet.drawSpriteSheet(sprites[curr] ,xPos, yPos, xRad, yRad);
-    
+  void drawAnimation (float xPos, float yPos, float xRad, float yRad) {
+    sheet.drawSprite(sprites[curr], xPos, yPos, xRad, yRad);
+  }
+  
+  void update(float delta) {
+    timeElapsed += delta;
     // Only move to the next frame when enough time has passed
-    float x = Date.now() / 1000;
-    if (time >= (x - lastCall)) {
+    if (timeElapsed >= time) {
       curr++;
       curr %= sprites.length;
-      lastCall = x;
+      timeElapsed = 0.0f;
     }
   }
   
@@ -47,19 +49,22 @@ class Animation {
   }
 }
 
-/* Loads a SpriteSheet from image at filename with x colums of sprites and y rows of sprites. */
-SpriteSheet loadSpriteSheet (String filename, int x, int y) {
+/* Loads a SpriteSheet from image at filename with x columns of sprites and y rows of sprites. */
+SpriteSheet loadSpriteSheet (String filename, int x, int y, int w, int h) {
   PImage img = loadImage(filename);
+  
+  console.log("initial image " + str(img));
   
   PImage[] sprites = new PImage[x*y];
   
-  int xSize = img.width / x;
-  int ySize = img.height / y;
+  int xSize = w;
+  int ySize = h;
   
   int a = 0;
   for (int j = 0; j < y; j++) {
     for (int i = 0; i < x; i++) {
-      sprites[a++] = img.get(i*xSize,j*ySize, xSize, ySize);
+      sprites[a] = img.get(i*xSize,j*ySize, xSize, ySize);
+      a++;
     }
   }
   return new SpriteSheet(sprites);
