@@ -1,8 +1,7 @@
-// Similar to the Grease class, but calls applyFlameToMatrix instead
-class Flame extends Moving {
+class FlameThrower extends Moving {
   
-  Flame(float x_, float y_) {
-    super(x_, y_, FLAME_FRICTION);
+  FlameThrower(float x_, float y_) {
+    super(x_, y_, FLAMETHROWER_FRICTION);
   }
   
   void create() {
@@ -12,21 +11,13 @@ class Flame extends Moving {
     super.destroy();
   }
   void render() {
-    noStroke();
-    fill(FLAME_COLOR);
-    ellipse(x, y, 2 * radius, 2 * radius);
-    fill(255);
-    stroke(0);
+    super.render();
   }
   void update(int phase, float delta) {
     super.update(state, delta);
     if (phase == 0) {
-      if(state == MOVING_STATE) {
-        if(!isMoving()) {
-          state = GROUND_STATE;
-          applyFlameToMatrix(this);
-        }
-      } else {
+      applyFlameToMatrix(this);
+      if (!isMoving()) {
         removeEntity(this);
       }
     }
@@ -45,8 +36,6 @@ class Flame extends Moving {
   int MOVING_STATE = 0;
   int GROUND_STATE = 1;
   
-  float FLAME_FRICTION = 500;
+  float FLAMETHROWER_FRICTION = 500;
 }
-
-color FLAME_COLOR = color(125, 20, 0);
 

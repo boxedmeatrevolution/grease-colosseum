@@ -19,14 +19,16 @@ class Grease extends Moving {
   }
   void update(int phase, float delta) {
     super.update(state, delta);
-    radius += 12 * delta;
-    if(state == MOVING_STATE) {
-      if(!isMoving()) {
-        state = GROUND_STATE;
-        applyGreaseToMatrix(this);
+    if (phase == 0) {
+      radius += 12 * delta;
+      if(state == MOVING_STATE) {
+        if(!isMoving()) {
+          state = GROUND_STATE;
+          applyGreaseToMatrix(this);
+        }
+      } else {
+        removeEntity(this);
       }
-    } else {
-      removeEntity(this);
     }
   }
   boolean isMoving() {
