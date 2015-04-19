@@ -263,3 +263,8 @@ void mouseReleased() {
   }
 }
 
+void mouseOut() {
+  shootKeyPressed = false;
+  secondaryShootPressed = false;
+}
+
