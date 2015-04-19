@@ -1,6 +1,6 @@
 class EnemyEntity extends PhysicsCollider{
   EnemyEntity(float x_, float y_, float mass_, float radius_, float friction_, 
-              int value_, float hp_, float facingDirection_, float acceleration,
+              int value_, float hp_, float facingDirection_, float acceleration_,
               float maxVelocity_) {
     super(x_, y_, mass_, radius_, friction_);
     value = value_;
