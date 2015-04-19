@@ -7,7 +7,7 @@ class Barrel extends PhysicsCollider {
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
     if (other instanceof Harmful || other instanceof ContinuousHarmful) {
-      triggered = true;
+      explode();
     }
   }
   
@@ -38,7 +38,7 @@ class Barrel extends PhysicsCollider {
         }
       }
       if (touchingFire(x, y, radius)) {
-        triggered = true;
+        explode();
       }
     }
   }
@@ -48,6 +48,10 @@ class Barrel extends PhysicsCollider {
     fill(color(50, 120, 50));
     ellipse(x, y, 2 * radius, 2 * radius);
     fill(255);
+  }
+  
+  void explode () {
+    triggered = true;
   }
   
   float timer = 0;
