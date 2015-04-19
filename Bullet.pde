@@ -51,7 +51,7 @@ class Bullet extends Entity {
   
   //Is run when cl is hit by the bullet!!
   void collided (Collider cl) {
-    //if (cl instanceof Player) ((Player) cl).kill();
+    if (cl instanceof Player) ((Player) cl).kill();
     if (cl instanceof Barrel) ((Barrel) cl).explode();
     //removeEntity(this);
   }
