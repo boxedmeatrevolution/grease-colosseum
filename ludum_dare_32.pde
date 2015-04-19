@@ -54,16 +54,6 @@ void removeEntity(Entity entity) {
   entitiesToBeRemoved.add(entity);
 }
 
-ArrayList<Entity> getEntities(Class clazz) {
-  ArrayList<Entity> result = new ArrayList<Entity>();
-  for (Entity entity : entities) {
-    if (entity.getClass() == clazz) {
-      result.add(entity);
-    }
-  }
-  return result;
-}
-
 void sortEntities() {
   for (int i = 1; i < entities.size(); ++i) {
     Entity x = entities.get(i);
@@ -88,8 +78,6 @@ void gotoInGameState() {
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
-  Spikes spikes = new Spikes(64, 128, 64, 32);
-  FlameShooter flameShooter = new FlameShooter(200, 200, 30, 1.24);
   
   addEntity(player);
   addEntity(surface);
@@ -116,16 +104,7 @@ void setup () {
   size(800, 600);
   textureMode(IMAGE);
   levels = new Level[] {
-    // Level 1
-    new Level(new Entity[] {
-      new Spikes(128, 128, 32, 16),
-      new Spikes(width - 128, 128, 32, 16),
-      new Spikes(128, height - 128, 32, 16),
-      new Spikes(width - 128, height - 128, 32, 16) }),
-    new Level(new Entity[] {
-      new Spikes(width / 2, 128, 16, 8) }),
-    new Level(new Entity[] {
-      new Spikes(width / 2, height - 128, 16, 8) })};
+    new Level1(), new Level2(), new Level3() };
 }
 
 void draw () {
