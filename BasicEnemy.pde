@@ -1,6 +1,6 @@
 class BasicEnemy extends EnemyEntity{
   BasicEnemy(float x_, float y_, float facingDirection_) {
-    super(x_, y_, _MASS, _RADIUS, _FRICTION, _VALUE, _HP, facingDirection_, _ACCELERATION, _MAXVELOCITY, _GREASE_ACCELERATION );
+    super(x_, y_, _MASS, _RADIUS, _FRICTION, _VALUE, _HP, facingDirection_, _ACCELERATION, _MAXVELOCITY, _GREASE_ACCELERATION, _TURN_SPEED);
   }
   
   void onCollision(Collider cOther, boolean wasHandled) {
@@ -29,6 +29,7 @@ class BasicEnemy extends EnemyEntity{
     super.update(phase, delta);
     if (phase == 0) {
       walkTowardsPlayer(delta);
+      turnTowardsPlayer(delta);
     }
   }
 
@@ -41,4 +42,5 @@ class BasicEnemy extends EnemyEntity{
   float _GREASE_ACCELERATION = 200;
   float _FRICTION = 600;
   float _MAXVELOCITY = 50;
+  float _TURN_SPEED = 50;
 }
