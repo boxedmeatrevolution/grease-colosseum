@@ -5,9 +5,7 @@ class Player extends PhysicsCollider {
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
     if (other instanceof Harmful || other instanceof ContinuousHarmful) {
-      addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
-      removeEntity(this);
-      isPlayerDead = true;
+      kill();
     }
   }
   void create() {
@@ -19,9 +17,7 @@ class Player extends PhysicsCollider {
   
   void hitEdge() {
     super.hitEdge();
-    addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
-    removeEntity(this);
-    isPlayerDead = true;
+    kill();
   }
   
   void update(int phase, float delta) {
@@ -92,20 +88,27 @@ class Player extends PhysicsCollider {
       }
       
       if (heat > 1) {
-        addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
-        removeEntity(this);
-        isPlayerDead = true;
+        kill();
       }
     }
   }
+  
   void render() {
     super.render();
     ellipse(x, y, 2 * radius, 2 * radius);
     line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
+  
   int depth() {
     return -10;
   }
+  
+  void kill () {
+    addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
+    removeEntity(this);
+    isPlayerDead = true;
+  }
+  
   float facingDirection = 0;
   float ACCELERATION = 1200;
   float GREASE_ACCELERATION = 200;

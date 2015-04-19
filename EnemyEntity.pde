@@ -138,6 +138,7 @@ class EnemyEntity extends PhysicsCollider{
         score += value;
         removeEntity(this);
       }
+      /*
       int nFires = touchingFire(x, y, radius);
       if (nFires <= 2) {
         heat = max(heat - 1 * delta, 0);
@@ -149,6 +150,7 @@ class EnemyEntity extends PhysicsCollider{
       if (heat > 1) {
         hp -= 1 * delta;
       }
+      */
     }
   }
   
