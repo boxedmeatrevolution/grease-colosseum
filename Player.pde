@@ -29,17 +29,19 @@ class Player extends PhysicsCollider {
       }*/
       float acceleration = ACCELERATION;//isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
       float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
-      if (leftKeyPressed && velocityX > -maxVelocity) {
-        velocityX -= acceleration * delta;
-      }
-      if (rightKeyPressed && velocityX < maxVelocity) {
-        velocityX += acceleration * delta;
-      }
-      if (upKeyPressed && velocityY > -maxVelocity) {
-        velocityY -= acceleration * delta;
-      }
-      if (downKeyPressed && velocityY < maxVelocity) {
-        velocityY += acceleration * delta;
+      if (canFireSecondary) {
+        if (leftKeyPressed && velocityX > -maxVelocity)  {
+          velocityX -= acceleration * delta;
+        }
+        if (rightKeyPressed && velocityX < maxVelocity) {
+          velocityX += acceleration * delta;
+        }
+        if (upKeyPressed && velocityY > -maxVelocity) {
+          velocityY -= acceleration * delta;
+        }
+        if (downKeyPressed && velocityY < maxVelocity) {
+          velocityY += acceleration * delta;
+        }
       }
       if (shootKeyPressed) {
         Grease particle = new Grease(x, y);
@@ -61,8 +63,9 @@ class Player extends PhysicsCollider {
         addEntity(particle);
         canFireSecondary = false;
         */
-        velocityX += 50 * cos(facingDirection);
-        velocityY -= 50 * sin(facingDirection);
+        velocityX += 500 * cos(facingDirection);
+        velocityY -= 500 * sin(facingDirection);
+        canFireSecondary = false;
       }
       if (!canFireSecondary) {
         secondaryFireTimer += delta;
@@ -108,6 +111,6 @@ class Player extends PhysicsCollider {
   float SHOOT_VELOCITY_RANDOM = 100;
   float SHOOT_ANGLE_RANDOM = 0.25;
   
-  float SECONDARY_RELOAD = 0.5; //3
+  float SECONDARY_RELOAD = 1; //3
 }
 
