@@ -16,6 +16,14 @@ class Player extends PhysicsCollider {
   void destroy() {
     super.destroy();
   }
+  
+  void hitEdge() {
+    super.hitEdge();
+    addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
+    removeEntity(this);
+    isPlayerDead = true;
+  }
+  
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
@@ -30,7 +38,7 @@ class Player extends PhysicsCollider {
       float acceleration = ACCELERATION;//isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
       float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
       if (canFireSecondary) {
-        if (leftKeyPressed && velocityX > -maxVelocity)  {
+        if (leftKeyPressed && velocityX > -maxVelocity) {
           velocityX -= acceleration * delta;
         }
         if (rightKeyPressed && velocityX < maxVelocity) {
@@ -63,8 +71,8 @@ class Player extends PhysicsCollider {
         addEntity(particle);
         canFireSecondary = false;
         */
-        velocityX += 500 * cos(facingDirection);
-        velocityY -= 500 * sin(facingDirection);
+        velocityX += 300 * cos(facingDirection);
+        velocityY -= 300 * sin(facingDirection);
         canFireSecondary = false;
       }
       if (!canFireSecondary) {
@@ -111,6 +119,6 @@ class Player extends PhysicsCollider {
   float SHOOT_VELOCITY_RANDOM = 100;
   float SHOOT_ANGLE_RANDOM = 0.25;
   
-  float SECONDARY_RELOAD = 1; //3
+  float SECONDARY_RELOAD = 0.5; //3
 }
 
