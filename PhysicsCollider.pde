@@ -48,6 +48,9 @@ class PhysicsCollider extends Collider {
     }
   }
   
+  void hitEdge() {
+  }
+  
   void create() {
     super.create();
   }
@@ -62,6 +65,40 @@ class PhysicsCollider extends Collider {
   
   void update(int phase, float delta) {
     super.update(phase, delta);
+    if (phase == 0) {
+      float centerX = width / 2;
+      float centerY = height / 2;
+      float deltaX = x - centerX;
+      float deltaY = y - centerY;
+      float distanceSq = sq(deltaX) + sq(deltaY);
+      float distance = sqrt(distanceSq);
+      if (distanceSq > sq(SPIKE_RADIUS)) {
+        x = SPIKE_RADIUS * deltaX / distance + centerX;
+        y = SPIKE_RADIUS * deltaY / distance + centerY;
+        float nx = -deltaX / distance;
+        float ny = -deltaY / distance;
+        float tx = -ny;
+        float ty = nx;
+        
+        float iy = nx;
+        float ix = tx;
+        
+        float jy = ny;
+        float jx = tx;
+        
+        float transformedY = velocityX * nx + velocityY * ny;
+        float transformedX = velocityX * tx + velocityY * ty;
+        
+        if (transformedY < 0) {
+          transformedY = -transformedY;
+        }
+        
+        velocityX = transformedX * ix + transformedY * iy;
+        velocityY = transformedX * jx + transformedY * jy;
+        
+        hitEdge();
+      }
+    }
   }
   
   float mass;

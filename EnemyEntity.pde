@@ -35,6 +35,11 @@ class EnemyEntity extends PhysicsCollider{
     super.render();
   }
   
+  void hitEdge() {
+    super.hitEdge();
+    hp -= 5;
+  }
+  
   void turnTowardsPlayer(float delta) {
     last_refresh += delta;
     //update player
