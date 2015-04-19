@@ -21,23 +21,24 @@ class Player extends PhysicsCollider {
     if (phase == 0) {
       boolean isOnGrease = touchingGrease(x, y, radius);
       facingDirection = atan2(-(mouseY - y), mouseX - x);
-      if (isOnGrease) {
+      /*if (isOnGrease) {
         friction = 0;
       }
       else {
         friction = FRICTION;
-      }
-      float acceleration = isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
-      if (leftKeyPressed && velocityX > -MAX_VELOCITY) {
+      }*/
+      float acceleration = ACCELERATION;//isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
+      float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
+      if (leftKeyPressed && velocityX > -maxVelocity) {
         velocityX -= acceleration * delta;
       }
-      if (rightKeyPressed && velocityX < MAX_VELOCITY) {
+      if (rightKeyPressed && velocityX < maxVelocity) {
         velocityX += acceleration * delta;
       }
-      if (upKeyPressed && velocityY > -MAX_VELOCITY) {
+      if (upKeyPressed && velocityY > -maxVelocity) {
         velocityY -= acceleration * delta;
       }
-      if (downKeyPressed && velocityY < MAX_VELOCITY) {
+      if (downKeyPressed && velocityY < maxVelocity) {
         velocityY += acceleration * delta;
       }
       if (shootKeyPressed) {

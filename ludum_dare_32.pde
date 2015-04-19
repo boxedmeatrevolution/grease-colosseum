@@ -77,14 +77,17 @@ void gotoInGameState() {
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
+  SpikeWall spikeWall = new SpikeWall();
   
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
+  addEntity(spikeWall);
 }
 
 void gotoGameOverState() {
   state = STATE_GAME_OVER;
+  levels[levelIndex].nSpawners = 0;
   entities.clear();
   entitiesToBeAdded.clear();
   entitiesToBeRemoved.clear();
@@ -93,6 +96,7 @@ void gotoGameOverState() {
 
 void gotoTitleState() {
   state = STATE_TITLE;
+  levels[levelIndex].nSpawners = 0;
   entities.clear();
   entitiesToBeAdded.clear();
   entitiesToBeRemoved.clear();
