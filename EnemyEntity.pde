@@ -43,19 +43,23 @@ class EnemyEntity extends PhysicsCollider{
       for (Entity entity : entities) {
         if (entity instanceof Player) {
           player = entity;
+          break;
         }
       }
     }
     if (player != null) {
       playerDirection = atan2(-(player.y - y), player.x - x);
-      diff = abs((playerDirection % TAU) - (facingDirection % TAU));
-      if ( diff > PI) {
-       playerDirection += turnSpeed * delta;
-      } else {
-        playerDirection -= turnSpeed * delta;
+      facingDirection = facingDirection % TAU;
+      pBigger = false;
+      if (playerDirection > facingDirection) {
+        pBigger = true;
       }
-    } else {
-      console.log("player is null");
+      if (((pBigger) && (playerDirection - facingDirection < PI)) ||
+      ((!pBigger) && (facingDirection - playerDirection > PI))) {
+        facingDirection += turnSpeed * delta;
+      } else {
+        facingDirection -= turnSpeed * delta;
+      }
     }
   }
   
@@ -153,7 +157,7 @@ class EnemyEntity extends PhysicsCollider{
   
    //References to other Entities (for walk())
   int _REPULSE_DIST = 20;
-  float _ENTITY_REFRESH_TIME = 1; //seconds 
+  float _ENTITY_REFRESH_TIME = 0.5; //seconds 
   float last_refresh = 0;
   ArrayList<Entity> repulsors = new ArrayList<Entity>();
   ArrayList<Entity> attractors = new ArrayList<Entity>();

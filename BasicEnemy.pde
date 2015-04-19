@@ -42,5 +42,5 @@ class BasicEnemy extends EnemyEntity{
   float _GREASE_ACCELERATION = 200;
   float _FRICTION = 600;
   float _MAXVELOCITY = 50;
-  float _TURN_SPEED = 50;
+  float _TURN_SPEED = 1;
 }
