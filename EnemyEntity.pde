@@ -1,7 +1,7 @@
 class EnemyEntity extends PhysicsCollider{
   EnemyEntity(float x_, float y_, float mass_, float radius_, float friction_, 
               int value_, float hp_, float facingDirection_, float acceleration_,
-              float maxVelocity_, float grease_acceleration_) {
+              float maxVelocity_, float greaseAcceleration_, float turnSpeed_) {
     super(x_, y_, mass_, radius_, friction_);
     value = value_;
     hp = hp_;
@@ -9,7 +9,8 @@ class EnemyEntity extends PhysicsCollider{
     acceleration = acceleration_;
     maxVelocity = maxVelocity_;
     groundFriction = friction_;
-    grease_acceleration = grease_acceleration_;
+    greaseAcceleration = greaseAcceleration_;
+    turnSpeed = turnSpeed_;
   }
   
   void onCollision(Collider cOther, boolean wasHandled) {
@@ -32,6 +33,28 @@ class EnemyEntity extends PhysicsCollider{
   
   void render() {
     super.render();
+  }
+  
+  void turnTowardsPlayer(float delta) {
+    last_refresh += delta;
+    //update player
+    if (last_refresh > _ENTITY_REFRESH_TIME) {
+      player = null;
+      for (Entity entity : entities) {
+        if (entity instanceof Player) {
+          player = entity;
+        }
+      }
+    }
+    if (player != null) {
+      playerDirection = atan2(-(player.y - y), player.x - x);
+      diff = abs((playerDirection % TAU) - (facingDirection % TAU));
+      if ( diff > PI) {
+       playerDirection += turnSpeed * delta;
+      } else {
+        playerDirection -= turnSpeed * delta;
+      }
+    }
   }
   
   void walkTowardsPlayer(float delta) {
@@ -65,7 +88,6 @@ class EnemyEntity extends PhysicsCollider{
     for (Entity attractor : attractors) {
       if (attractor instanceof Player) {
         dist = sqrt(sq(attractor.x - x, 2) + sq(attractor.y - y)) - radius - attractor.radius;
-        text(dist, 0, 340);
         forces.add(1 / dist);
         directions.add(atan2(-(attractor.y - y), attractor.x - x));
       }
@@ -75,7 +97,6 @@ class EnemyEntity extends PhysicsCollider{
     for (int i = 0; i < directions.size(); i++) {
       dirX += cos(directions.get(i)) * forces.get(i);
       dirY += sin(directions.get(i)) * forces.get(i);
-      console.log(str(directions.get(i)) +  str(forces.get(i)));
     }
     direction = atan2(dirY, dirX);
     boolean onGrease = touchingGrease(x, y, radius);
@@ -90,10 +111,10 @@ class EnemyEntity extends PhysicsCollider{
     } else {
       friction = 0;
       if (abs(velocityX) <= maxVelocity) {
-        velocityX += grease_acceleration * cos(direction) * delta;
+        velocityX += greaseAcceleration * cos(direction) * delta;
       }
       if (abs(velocityY) <= maxVelocity) {
-        velocityY -= grease_acceleration * sin(direction) * delta;
+        velocityY -= greaseAcceleration * sin(direction) * delta;
       }
     }
   }
@@ -134,4 +155,5 @@ class EnemyEntity extends PhysicsCollider{
   float last_refresh = 0;
   ArrayList<Entity> repulsors = new ArrayList<Entity>();
   ArrayList<Entity> attractors = new ArrayList<Entity>();
+  Entity player = null;
 }
