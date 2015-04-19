@@ -1,7 +1,4 @@
 
-/* @pjs preload="test2.png"; */
-
-
 class SpriteSheet {
   
   PImage[] sprites;
