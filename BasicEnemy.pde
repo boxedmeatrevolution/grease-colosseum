@@ -9,6 +9,12 @@ class BasicEnemy extends EnemyEntity{
   
   void create() {
     super.create();
+    if (gremlinLeftSheet == null) {
+      gremlinLeftSheet = loadSpriteSheet("/assets/gremlin_left.png", 5, 1, 32, 32);
+      gremlinRightSheet = loadSpriteSheet("/assets/gremlin_right.png", 5, 1, 32, 32);
+    }
+    gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 0, 1, 2, 3, 4);
+    gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 0, 1, 2, 3, 4);
   }
   
   void destroy() {
@@ -17,8 +23,12 @@ class BasicEnemy extends EnemyEntity{
   
   void render() {
     super.render();
-    ellipse(x, y, 2 * radius, 2 * radius);
-    line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
+    if (facingDirection % TAU - HALF_PI < 0) {
+      gremlinRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    else {
+      gremlinLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
   }
   
   float walkTowardsPlayer(float delta) {
@@ -32,6 +42,10 @@ class BasicEnemy extends EnemyEntity{
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      gremlinLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      gremlinRightAnimation.time = gremlinLeftAnimation.time;
+      gremlinLeftAnimation.update(delta);
+      gremlinRightAnimation.update(delta);
       dist = walkTowardsPlayer(delta);
       angle = turnTowardsPlayer(delta);
       
@@ -68,4 +82,10 @@ class BasicEnemy extends EnemyEntity{
   float _DASH_RELOAD = 2;
   float dashTimer = 0;
   boolean canDash = true;
+  
+  Animation gremlinLeftAnimation;
+  Animation gremlinRightAnimation;
 }
+
+SpriteSheet gremlinLeftSheet;
+SpriteSheet gremlinRightSheet;
