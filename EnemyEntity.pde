@@ -66,7 +66,7 @@ class EnemyEntity extends PhysicsCollider{
       repulsors.clear();
       attractors.clear();
       for (Entity entity : entities) {
-        if ((entity instanceof Flame) || (entity instanceof Harmful)) {
+        if (entity instanceof Harmful) {
           repulsors.add(entity);
         }
         if (entity instanceof Player) {
@@ -83,12 +83,6 @@ class EnemyEntity extends PhysicsCollider{
           forces.add(1 / sq(dist));
         }
       }
-      if (repulsor instanceof Flame) {
-        dist = (sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - radius < _REPULSE_DIST);
-        if (dist !=0) {
-          forces.add(1 / sq(dist));
-        }
-      }
       directions.add(atan2(-(repulsor.y - y), repulsor.x - x) + PI);
     }
     for (Entity attractor : attractors) {
@@ -96,9 +90,9 @@ class EnemyEntity extends PhysicsCollider{
         dist = sqrt(sq(attractor.x - x, 2) + sq(attractor.y - y)) - radius - attractor.radius;
         if (dist != 0) {
           forces.add(1 / dist);
-        }
-        directions.add(atan2(-(attractor.y - y), attractor.x - x));
+        }     
       }
+      directions.add(atan2(-(attractor.y - y), attractor.x - x));
     }
     dirX = 0;
     dirY = 0;
