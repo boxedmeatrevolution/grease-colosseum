@@ -36,12 +36,12 @@ void despawnLevel(Level level) {
   for (Entity entity : level.levelObjects) {
     Explosion explosion = new Explosion(entity.x, entity.y, entity.radius * 1.5);
     for (int i = 0; i < 5; ++i) {
-      Flame particle = new Flame(entity.x, entity.y);
+      /*Flame particle = new Flame(entity.x, entity.y);
       float velocity = random(0, 400);
       float angle = random(0, TAU);
       particle.velocityX = velocity * cos(angle);
       particle.velocityY = -velocity * sin(angle);
-      addEntity(particle);
+      addEntity(particle);*/
     }
     addEntity(explosion);
     

@@ -140,7 +140,7 @@ byte GREASE = 1;
 byte FIRE = 2;
 
 float FLAMMABILITY = 1;
-float EXTINGUISHABILITY = 0.3;
+float EXTINGUISHABILITY = 0.5;
 
 // Given the width and height of the game,
 // create the underlying grid representing the grease
@@ -219,7 +219,7 @@ void updateGreaseMatrix(float delta) {
               createFire(x - 1, y + 1);
             }
           }
-          else {
+          else if (greaseMatrix[x - 1][y + 1] == FIRE) {
             ++nFireNeighbours;
           }
         }
@@ -242,6 +242,7 @@ void updateGreaseMatrix(float delta) {
             }
           }
           else if (greaseMatrix[x + 1][y + 1] == FIRE) {
+            ++nFireNeighbours;
           }
         }
         if (!hasGreaseNeighbour) {
