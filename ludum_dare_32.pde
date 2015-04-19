@@ -104,7 +104,7 @@ void gotoTitleState() {
 }
 
 void setup () {
-  size(800, 600);
+  size(800, 800);
   textureMode(IMAGE);
   levels = new Level[] {
     new Level1(), new Level2(), new Level3() };
