@@ -54,6 +54,8 @@ class EnemyEntity extends PhysicsCollider{
       } else {
         playerDirection -= turnSpeed * delta;
       }
+    } else {
+      console.log("player is null");
     }
   }
   
@@ -77,18 +79,24 @@ class EnemyEntity extends PhysicsCollider{
     for (Entity repulsor : repulsors) {
       if (repulsor instanceof Harmful) {
         dist = sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - repulsor.radius -  radius;
-        forces.add(1 / sq(dist));
+        if (dist != 0) {
+          forces.add(1 / sq(dist));
+        }
       }
       if (repulsor instanceof Flame) {
         dist = (sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - radius < _REPULSE_DIST);
-        forces.add(1 / sq(dist));
+        if (dist !=0) {
+          forces.add(1 / sq(dist));
+        }
       }
       directions.add(atan2(-(repulsor.y - y), repulsor.x - x) + PI);
     }
     for (Entity attractor : attractors) {
       if (attractor instanceof Player) {
         dist = sqrt(sq(attractor.x - x, 2) + sq(attractor.y - y)) - radius - attractor.radius;
-        forces.add(1 / dist);
+        if (dist != 0) {
+          forces.add(1 / dist);
+        }
         directions.add(atan2(-(attractor.y - y), attractor.x - x));
       }
     }
