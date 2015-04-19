@@ -83,12 +83,16 @@ class EnemyEntity extends PhysicsCollider{
       friction = groundFriction;
       if (abs(velocityX) <= maxVelocity) {
         velocityX += acceleration * cos(direction) * delta;
+      }
+      if (abs(velocityY) <= maxVelocity) {
         velocityY -= acceleration * sin(direction) * delta;
       }
     } else {
       friction = 0;
       if (abs(velocityX) <= maxVelocity) {
         velocityX += grease_acceleration * cos(direction) * delta;
+      }
+      if (abs(velocityY) <= maxVelocity) {
         velocityY -= grease_acceleration * sin(direction) * delta;
       }
     }
