@@ -1,9 +1,10 @@
 class Spawner extends Collider {
   
-  Spawner(Entity entity_, Level owner_) {
+  Spawner(Entity entity_, Level owner_, boolean isEnemy_) {
     super(entity_.x, entity_.y, entity_.radius, 0);
     owner = owner_;
     entity = entity_;
+    isEnemy = isEnemy_;
   }
   
   void onCollision(Collider other, boolean wasHandled) {
@@ -21,6 +22,9 @@ class Spawner extends Collider {
   
   void destroy() {
     super.destroy();
+    if (isEnemy) {
+      owner.nSpawners -= 1;
+    }
   }
   
   void update(int phase, float delta) {
@@ -48,5 +52,6 @@ class Spawner extends Collider {
   boolean ready = false;
   Level owner;
   Entity entity;
+  boolean isEnemy;
 }
 
