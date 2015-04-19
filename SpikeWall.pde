@@ -1,6 +1,8 @@
 /* @pjs preload="/assets/spike_wall.png" */
 PImage spikeWallImage;
 
+float SPIKE_RADIUS;
+
 class SpikeWall extends Entity {
   
   SpikeWall() {
@@ -9,6 +11,7 @@ class SpikeWall extends Entity {
   void create() {
     super.create();
     spikeWallImage = loadImage("/assets/spike_wall.png");
+    SPIKE_RADIUS = width / 2 - 32;
     /*spikeGraphics = createGraphics(width / 2, height);
     int nSpikes = 500;
     float a = width / 2;
