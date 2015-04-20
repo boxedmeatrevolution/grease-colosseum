@@ -69,14 +69,11 @@ class ShootingEnemy extends EnemyEntity {
   }
   
   Bullet makeBullet () {
-    float dx = player.x - x;
-    float dy = player.y - y;
-    float len = iDist(0,0, dx,dy);
+    float ang = facingDirection;
     
-    dx *= 30f/len;
-    dy *= 30f/len;
+    ang = random(ang - PI/12, ang + PI/12);
     
-    return new Bullet(x,y, dx,dy, 15);
+    return new Bullet(x,y, 20*cos(ang), -20*sin(ang), 15);
   }
   
 }
