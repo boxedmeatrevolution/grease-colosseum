@@ -5,7 +5,7 @@ class Player extends PhysicsCollider {
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
     if (other instanceof Harmful || other instanceof ContinuousHarmful) {
-      kill();
+      hurt();
     }
   }
   void create() {
@@ -24,12 +24,15 @@ class Player extends PhysicsCollider {
   
   void hitEdge() {
     super.hitEdge();
-    kill();
+    hurt();
   }
   
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      if (invincibleTimer >= 0.0f) {
+        invincibleTimer -= delta;
+      }
       playerLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
       playerRightAnimation.time = playerLeftAnimation.time;
       playerLeftAnimation.update(delta);
@@ -118,7 +121,7 @@ class Player extends PhysicsCollider {
       }
       
       if (heat > 1) {
-        kill();
+        hurt();
       }
     }
   }
@@ -126,12 +129,16 @@ class Player extends PhysicsCollider {
   void render() {
     super.render();
     facingDirection = standardizeAngle(facingDirection);
+    if (invincibleTimer >= 0.0f) {
+      alpha(122);
+    }
     if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
       playerRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
     else {
       playerLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
+    alpha(255);
     if (isDashing) {
       translate(x, y);
       float angle = atan2(velocityY, velocityX);
@@ -148,8 +155,20 @@ class Player extends PhysicsCollider {
     return -10;
   }
   
+  void hurt() {
+    if (invincibleTimer < 0.0f) {
+      hearts -= 1;
+      invincibleTimer = 1.0f;
+      if (hearts <= 0) {
+        kill();
+      }
+      else {
+        sounds["enemyHurt"].play();
+      }
+    }
+  }
+  
   void kill () {
-    addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
     removeEntity(this);
     isPlayerDead = true;
     sounds["playerDeath"].play();
@@ -180,6 +199,9 @@ class Player extends PhysicsCollider {
   float SECONDARY_RELOAD = 0.5; //3
   
   float footstepTimer = 0.0f;
+  
+  float invincibleTimer = -1.0f;
+  int hearts = 3;
   
   Animation playerLeftAnimation;
   Animation playerRightAnimation;
