@@ -59,7 +59,7 @@ class BasicEnemy extends EnemyEntity{
       dist = walkTowardsPlayer(delta);
       angle = turnTowardsPlayer(delta);
       
-      if (reallyIsDashing && abs(velocityX) < _MAXVELOCITY * 1.5 && abs(velocityY) < _MAXVELOCITY * 1.5) {
+      if (reallyIsDashing && abs(velocityX) < _MAXVELOCITY * 4 && abs(velocityY) < _MAXVELOCITY * 4) {
         reallyIsDashing = false;
       }
       

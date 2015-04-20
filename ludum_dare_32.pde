@@ -265,7 +265,7 @@ void draw () {
     }
     fill(200, 50, 50);
     textFont(scoreFont);
-    text(str(score), width / 2, 64);
+    text(str(score), 64, 64);
   }
 }
 

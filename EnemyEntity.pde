@@ -17,12 +17,10 @@ class EnemyEntity extends PhysicsCollider{
   void onCollision(Collider cOther, boolean wasHandled) {
     super.onCollision(cOther, wasHandled);
     if (cOther instanceof Harmful) {
-      hp -= ((Harmful) cOther).damage;
-      sounds["enemyHurt"].play();
+      hurt(((Harmful) cOther).damage);
     }
     if (cOther instanceof ContinuousHarmful) {
-      hp -= ((ContinuousHarmful) cOther).damage * timeDelta;
-      sounds["enemyHurt"].play();
+      hurt(((ContinuousHarmful) cOther).damage * timeDelta);
     }
   }
   
@@ -41,7 +39,7 @@ class EnemyEntity extends PhysicsCollider{
   void hitEdge() {
     super.hitEdge();
     sounds["enemyHurt"].play();
-    hp -= 5;
+    hurt(5);
   }
   
   float turnTowardsPlayer(float delta) {
@@ -184,6 +182,21 @@ class EnemyEntity extends PhysicsCollider{
   
   int depth() {
     return -50;
+  }
+  
+  void hurt(float damage) {
+    if (this instanceof BasicEnemy) {
+      if (((BasicEnemy) this).reallyIsDashing) {
+        return;
+      }
+    }
+    if (this instanceof BigBasicEnemy) {
+      if(((BigBasicEnemy) this).reallyIsDashing) {
+        return;
+      }
+    }
+    hp -= damage;
+    sounds["enemyHurt"].play();
   }
   
   int value;
