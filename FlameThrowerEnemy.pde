@@ -13,6 +13,12 @@ class FlameThrowerEnemy extends EnemyEntity {
   
   void create() {
     super.create();
+    if (robotLeftSheet == null) {
+      robotLeftSheet = loadSpriteSheet("/assets/robot_left.png", 3, 1, 32, 32);
+      robotRightSheet = loadSpriteSheet("/assets/robot_right.png", 3, 1, 32, 32);
+    }
+    robotLeftAnimation = new Animation(robotLeftSheet, 0.1, 0, 1, 2);
+    robotRightAnimation = new Animation(robotRightSheet, 0.1, 0, 1, 2);
   }
   
   void destroy() {
@@ -22,6 +28,10 @@ class FlameThrowerEnemy extends EnemyEntity {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      robotLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      robotRightAnimation.time = robotLeftAnimation.time;
+      robotLeftAnimation.update(delta);
+      robotRightAnimation.update(delta);
       walkTowardsPlayer(delta);
       turnTowardsPlayer(delta);
       if (player != null) {
@@ -46,6 +56,13 @@ class FlameThrowerEnemy extends EnemyEntity {
   
   void render() {
     super.render();
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
+      robotRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    else {
+      robotLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
     fill(color(0, 255, 0));
     ellipse(x, y, 2 * radius, 2 * radius);
     line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
@@ -63,5 +80,11 @@ class FlameThrowerEnemy extends EnemyEntity {
   float _MAXVELOCITY = 25;
   float _TURN_SPEED = 0.5;
   
+  Animation robotLeftAnimation;
+  Animation robotRightAnimation;
+  
 }
+
+SpriteSheet robotLeftSheet;
+SpriteSheet robotRightSheet;
 

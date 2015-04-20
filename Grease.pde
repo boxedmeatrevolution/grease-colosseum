@@ -178,7 +178,6 @@ Animation[] largeFireAnimations;
 Animation[] mediumFireAnimations;
 Animation[] smallFireAnimations;
 
-/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png" */
 SpriteSheet largeFireSheet;
 SpriteSheet mediumFireSheet;
 SpriteSheet smallFireSheet;

@@ -10,6 +10,12 @@ class Player extends PhysicsCollider {
   }
   void create() {
     super.create();
+    if (playerLeftSheet == null) {
+      playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
+      playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
+    }
+    playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 0, 1, 2, 3, 4);
+    playerRightAnimation = new Animation(playerRightSheet, 0.1, 0, 1, 2, 3, 4);
   }
   void destroy() {
     super.destroy();
@@ -23,6 +29,10 @@ class Player extends PhysicsCollider {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      playerLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      playerRightAnimation.time = playerLeftAnimation.time;
+      playerLeftAnimation.update(delta);
+      playerRightAnimation.update(delta);
       boolean isOnGrease = touchingGrease(x, y, radius);
       facingDirection = atan2(-(mouseY - y), mouseX - x);
       if (isOnGrease) {
@@ -95,8 +105,15 @@ class Player extends PhysicsCollider {
   
   void render() {
     super.render();
-    ellipse(x, y, 2 * radius, 2 * radius);
-    line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
+      playerRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    else {
+      playerLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    //ellipse(x, y, 2 * radius, 2 * radius);
+    //line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
   
   int depth() {
@@ -123,5 +140,12 @@ class Player extends PhysicsCollider {
   float SHOOT_ANGLE_RANDOM = 0.25;
   
   float SECONDARY_RELOAD = 0.5; //3
+  
+  Animation playerLeftAnimation;
+  Animation playerRightAnimation;
+  
 }
+
+SpriteSheet playerLeftSheet;
+SpriteSheet playerRightSheet;
 

@@ -1,3 +1,4 @@
+/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png" */
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -66,6 +67,14 @@ void sortEntities() {
   }
 }
 
+float standardizeAngle(float angle) {
+  angle %= TAU;
+  if (angle < 0) {
+    angle += TAU;
+  }
+  return angle;
+}
+
 void gotoInGameState() {
   state = STATE_IN_GAME;
   lastUpdate = Date.now();
@@ -78,15 +87,11 @@ void gotoInGameState() {
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
   SpikeWall spikeWall = new SpikeWall();
-  FlameThrowerEnemy flameThrowerEnemy = new FlameThrowerEnemy(width / 2, height / 2 + 128, 0);
-  FlameShooter flameShooter = new FlameShooter(width / 2, height / 2 - 128, 16, 0);
   
   addEntity(player);
   addEntity(surface);
   addEntity(fireEffect);
   addEntity(spikeWall);
-  addEntity(flameThrowerEnemy);
-  addEntity(flameShooter);
 }
 
 void gotoGameOverState() {
