@@ -17,9 +17,11 @@ class Blood extends Moving {
   }
   void render() {
     super.render();
-    greaseGraphics.beginDraw();
-    greaseGraphics.image(bloodImage, x - radius, y - radius, 2 * radius, 2 * radius);
-    greaseGraphics.endDraw();
+    if (radius > 2) {
+      greaseGraphics.beginDraw();
+      greaseGraphics.image(bloodImage, x - radius, y - radius, 2 * radius, 2 * radius);
+      greaseGraphics.endDraw();
+    }
     //image(bloodImage, x - 4, y - 4, 8, 8);
   }
   void update(int phase, float delta) {
