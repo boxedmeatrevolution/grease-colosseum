@@ -13,6 +13,7 @@ class Player extends PhysicsCollider {
     if (playerLeftSheet == null) {
       playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
       playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
+      playerDashImage = loadImage("/assets/player_dash.png");
     }
     playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 1, 2, 3, 4);
     playerRightAnimation = new Animation(playerRightSheet, 0.1, 1, 2, 3, 4);
@@ -45,6 +46,9 @@ class Player extends PhysicsCollider {
       float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
       if (canFireSecondary) {
         boolean isWalking = (leftKeyPressed || rightKeyPressed || upKeyPressed || downKeyPressed);
+        if (isDashing && abs(velocityX) <= maxVelocity * 1.2 && abs(velocityY) <= maxVelocity * 1.2) {
+          isDashing = false;
+        }
         if (leftKeyPressed && velocityX > -maxVelocity) {
           velocityX -= acceleration * delta;
         }
@@ -79,7 +83,7 @@ class Player extends PhysicsCollider {
         particle.velocityY = -velocity * sin(angle);
         addEntity(particle);
       }
-      if (secondaryShootKeyPressed && canFireSecondary) {
+      if (secondaryShootKeyPressed && canFireSecondary && !isDashing) {
         /*
         Flame particle = new Flame(x, y);
         float deltaX = mouseX - x;
@@ -93,6 +97,7 @@ class Player extends PhysicsCollider {
         */
         velocityX += 300 * cos(facingDirection);
         velocityY -= 300 * sin(facingDirection);
+        isDashing = true;
         sounds["playerDash"].play();
         canFireSecondary = false;
       }
@@ -127,6 +132,14 @@ class Player extends PhysicsCollider {
     else {
       playerLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
+    if (isDashing) {
+      translate(x, y);
+      float angle = atan2(velocityY, velocityX);
+      rotate(angle);
+      image(playerDashImage, -24, -24);
+      rotate(-angle);
+      translate(-x, -y);
+    }
     //ellipse(x, y, 2 * radius, 2 * radius);
     //line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
@@ -158,6 +171,7 @@ class Player extends PhysicsCollider {
   float secondaryFireTimer = 0;
   float heat = 0;
   boolean canFireSecondary = true;
+  boolean isDashing = false;
   
   float SHOOT_VELOCITY = 200;
   float SHOOT_VELOCITY_RANDOM = 210;
@@ -174,4 +188,5 @@ class Player extends PhysicsCollider {
 
 SpriteSheet playerLeftSheet;
 SpriteSheet playerRightSheet;
+PImage playerDashImage;
 

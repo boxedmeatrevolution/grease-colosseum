@@ -1,4 +1,4 @@
-/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png", /assets/blood_particle.png, /assets/death.png; */
+/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png", /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png; */
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -130,7 +130,7 @@ void setup () {
   size(800, 800);
   textureMode(IMAGE);
   levels = new Level[] {
-    new Level1(), new Level2(), new Level3(), new Level4() };
+    new Level1(), new Level2(), new Level3(), new Level4(), new Level5(), new Level6(), new Level7() };
   groundImage = loadImage("/assets/background.png");
   loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
   loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");

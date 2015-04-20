@@ -186,10 +186,10 @@ class Level5 extends Level {
 class Level6 extends Level {
   Entity[] init() {
     return new Entity[] {
-      new Pillar(256, height / 2, 16),
-      new Pillar(width - 256, height / 2, 16),
-      new RotatingSpikes(256, height / 2, 8, PI, 32, PI / 3, 8),
-      new RotatingSpikes(width - 256, height / 2, 8, 0, 32, -PI / 3, 16)
+      new Pillar(256, height / 2, 24),
+      new Pillar(width - 256, height / 2, 24),
+      new RotatingSpikes(256, height / 2, 16, PI, 64, PI / 3, 16),
+      new RotatingSpikes(width - 256, height / 2, 16, 0, 64, -PI / 3, 16)
     };
   }
 }
