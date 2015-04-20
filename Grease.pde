@@ -6,16 +6,21 @@ class Grease extends Moving {
   
   void create() {
     super.create();
+    if (greaseImage == null) {
+      greaseImage = loadImage("/assets/grease_particle.png");
+    }
   }
   void destroy() {
     super.destroy();
   }
   void render() {
-    noStroke();
+    super.render();
+    image(greaseImage, x - radius, y - radius, 2 * radius, 2 * radius);
+    /*noStroke();
     fill(GREASE_COLOR);
     ellipse(x, y, 2 * radius, 2 * radius);
     fill(255);
-    stroke(0);
+    stroke(0);*/
   }
   void update(int phase, float delta) {
     super.update(state, delta);
@@ -47,6 +52,8 @@ class Grease extends Moving {
   
   float GREASE_FRICTION = 500;
 }
+
+PImage greaseImage;
 
 color GREASE_COLOR = color(173, 165, 50);
 
@@ -333,7 +340,8 @@ void applyGreaseToMatrix(Grease grease) {
     }
   }
   greaseGraphics.beginDraw();
-  greaseGraphics.ellipse(grease.x, grease.y, grease.radius * 2, grease.radius * 2);
+  greaseGraphics.image(greaseImage, grease.x - grease.radius, grease.y - grease.radius, 2 * grease.radius, 2 * grease.radius);
+  //greaseGraphics.ellipse(grease.x, grease.y, grease.radius * 2, grease.radius * 2);
   greaseGraphics.endDraw();
 }
 
