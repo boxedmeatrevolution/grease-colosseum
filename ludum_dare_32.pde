@@ -88,6 +88,7 @@ float angleBetween(float angle1, float angle2) {
 
 void gotoInGameState() {
   state = STATE_IN_GAME;
+  score = 0;
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
