@@ -105,7 +105,8 @@ class Player extends PhysicsCollider {
   
   void render() {
     super.render();
-    if (facingDirection % TAU - HALF_PI < 0) {
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
       playerRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
     else {
