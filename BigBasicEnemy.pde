@@ -107,7 +107,7 @@ class BigBasicEnemy extends EnemyEntity{
   //Basic Enemy properties
   float _MASS = 2;
   float _RADIUS = 32;
-  int _VALUE = 5;
+  int _VALUE = 4;
   float _HP = 20;
   float _ACCELERATION = 1000;
   float _GREASE_ACCELERATION = 100;

@@ -66,7 +66,7 @@ class BomberEnemy extends EnemyEntity {
   //Basic Enemy properties
   float _MASS = 1;
   float _RADIUS = 16;
-  int _VALUE = 3;
+  int _VALUE = 7;
   float _HP = 1;
   float _ACCELERATION = 1200;
   float _GREASE_ACCELERATION = 200;

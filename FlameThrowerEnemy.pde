@@ -85,7 +85,7 @@ class FlameThrowerEnemy extends EnemyEntity {
   //Basic Enemy properties
   float _MASS = 1;
   float _RADIUS = 16;
-  int _VALUE = 10;
+  int _VALUE = 5;
   float _HP = 10;
   float _ACCELERATION = 1200;
   float _GREASE_ACCELERATION = 200;
