@@ -92,54 +92,32 @@ Level[] levels;
 class Level1 extends Level {
   Entity[] init() {
     return new Entity[] {
-      new Spikes(128, 128, 32, 16),
-      new Spikes(width - 128, 128, 32, 16),
-      new Spikes(128, height - 128, 32, 16),
-      new Spikes(width - 128, height - 128, 32, 16)
+      new RotatingSpikes(height / 2, width / 2, 32, 0, width / 2 - 128, PI / 8, 16),
+      new RotatingSpikes(height / 2, width / 2, 32, PI / 2, width / 2 - 128, PI / 8, 16),
+      new RotatingSpikes(height / 2, width / 2, 32, 3 * PI / 2, width / 2 - 128, PI / 8, 16),
+      new RotatingSpikes(height / 2, width / 2, 32, PI, width / 2 - 128, PI / 8, 16)
     };
   }
-  /*
-  Entity[] initEnemies() {
-    return new Entity[] {
-      new BasicEnemy(128, height / 2, 0),
-      new BasicEnemy(width - 128, height / 2, 0)
-    };
-  }
-  */
 }
 
 class Level2 extends Level {
   Entity[] init() {
-    return new Entity[] {
-      new Barrel(128, height / 2),
-      new Barrel(width - 128, height / 2)
-    };
+    Entity[] result = new Entity[8];
+    for (int i = 0; i < 8; ++i) {
+      float angle = TAU / 8 * i;
+      result[i] = new Barrel(width / 2 + 64 * cos(angle), height / 2 - 64 * sin(angle));
+    }
+    return result;
   }
-  /*
-  Entity[] initEnemies() {
-    return new Entity[] {
-      new BasicEnemy(width / 2 - 128, height / 2, 0)
-    };
-  }
-  */
 }
 
 class Level3 extends Level {
   Entity[] init() {
     return new Entity[] {
-      new Barrel(width / 2, 128),
-      new Spikes(width / 2, height - 128, 16, 8)
+      new FlameShooter(width - 128, height / 2, 2),
+      new FlameShooter(128, height / 2, 0)
     };
   }
-  /*
-  Entity[] initEnemies() {
-    return new Entity[] {
-      new BasicEnemy(width / 2, height / 2 - 128, 0),
-      new BasicEnemy(width / 2 - 128, height / 2, 0),
-      new BasicEnemy(width / 2 + 128, height / 2, 0)
-    };
-  }
-  */
 }
 
 
