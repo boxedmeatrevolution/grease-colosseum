@@ -32,7 +32,6 @@ class EnemyEntity extends PhysicsCollider{
   
   void destroy() {
     super.destroy();
-    sounds["enemyDeath"].play();
   }
   
   void render() {
@@ -156,7 +155,16 @@ class EnemyEntity extends PhysicsCollider{
       if (hp <= 0) {
         addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
         score += value;
+        for (int i = 0; i < 7; ++i) {
+          Blood particle = new Blood(x, y);
+          float direction = random(TAU);
+          float velocity = random(200, 400);
+          particle.velocityX = velocity * cos(direction);
+          particle.velocityY = -velocity * sin(direction);
+          addEntity(particle);
+        }
         removeEntity(this);
+        sounds["enemyDeath"].play();
       }
       /*
       int nFires = touchingFire(x, y, radius);

@@ -21,8 +21,8 @@ class DeadBody extends Moving {
   
   void render() {
     super.render();
-    fill(color(20, 20, 20));
-    ellipse(x, y, 2 * radius, 2 * radius);
+    /*fill(color(20, 20, 20));
+    ellipse(x, y, 2 * radius, 2 * radius);*/
   }
   
   int depth() {
