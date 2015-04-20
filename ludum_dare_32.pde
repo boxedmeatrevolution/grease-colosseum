@@ -1,4 +1,4 @@
-/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/barrel.png, /assets/flaming_barrel.png" */
+/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/background.png" */
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -44,6 +44,8 @@ float gameOverTimer = 0;
 boolean isPlayerDead = false;
 
 int levelIndex;
+
+PGraphics groundImage;
 
 var lastUpdate = Date.now();
 var timeDelta;
@@ -126,6 +128,7 @@ void setup () {
   textureMode(IMAGE);
   levels = new Level[] {
     new Level1(), new Level2(), new Level3() };
+  groundImage = loadImage("/assets/background.png");
 }
 
 void draw () {
@@ -152,6 +155,8 @@ void draw () {
     var now = Date.now();
     timeDelta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
+    
+    image(groundImage, 0, 0);
     
     boolean isLevelOver = true;
     if (levels[levelIndex].nSpawners != 0) {
