@@ -94,6 +94,7 @@ class Player extends PhysicsCollider {
         */
         velocityX += 300 * cos(facingDirection);
         velocityY -= 300 * sin(facingDirection);
+        sounds["playerDash"].play();
         canFireSecondary = false;
       }
       if (!canFireSecondary) {

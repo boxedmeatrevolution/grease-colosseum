@@ -30,7 +30,7 @@ class Spawner extends Collider {
     super.update(phase, delta);
     if (phase == 0) {
       timeElapsed += delta;
-      if (timeElapsed > 1.5) {
+      if (timeElapsed > 1.2) {
         ready = true;
       }
       if (ready) {

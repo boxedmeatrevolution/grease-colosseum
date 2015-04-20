@@ -64,6 +64,7 @@ class BigBasicEnemy extends EnemyEntity{
         if (chargeTimer > _CHARGE_TIME) {
           velocityX += cos(facingDirection) * _DASH_FORCE;
           velocityY -= sin(facingDirection) * _DASH_FORCE;
+          sounds["enemyDash"].play();
           isDashing = false;
         }
         else {
