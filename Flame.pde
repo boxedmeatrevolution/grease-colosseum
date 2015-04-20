@@ -13,10 +13,11 @@ class Flame extends Moving {
   }
   void render() {
     noStroke();
-    fill(FLAME_COLOR);
+    smallFireAnimations[0].drawAnimation(x - 4, y - 4, 8, 8);
+    /*fill(FLAME_COLOR);
     ellipse(x, y, 2 * radius, 2 * radius);
     fill(255);
-    stroke(0);
+    stroke(0);*/
   }
   void update(int phase, float delta) {
     super.update(state, delta);
