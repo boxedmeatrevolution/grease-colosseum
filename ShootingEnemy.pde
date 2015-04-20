@@ -5,7 +5,7 @@ class ShootingEnemy extends EnemyEntity {
   final float _MASS = 1;
   final float _RADIUS = 16;
   final int _VALUE = 3;
-  final float _HP = 1;
+  final float _HP = 10;
   final float _ACCELERATION = 1200;
   final float _GREASE_ACCELERATION = 200;
   final float _FRICTION = 600;
