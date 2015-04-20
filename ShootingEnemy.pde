@@ -96,9 +96,9 @@ class ShootingEnemy extends EnemyEntity {
   Bullet makeBullet () {
     float ang = facingDirection;
     
-    ang = random(ang - PI/12, ang + PI/12);
+    ang = random(ang - PI/8, ang + PI/8);
     
-    return new Bullet(x,y, 20*cos(ang), -20*sin(ang), 15);
+    return new Bullet(x,y, 15*cos(ang), -15*sin(ang));
   }
   
   float MAX_CHARGE_TIME = 1;
