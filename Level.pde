@@ -25,7 +25,17 @@ class Level {
         pointCounter -= enemyTypes[r].value;
       }
     }
-    float angleIncrement = TAU / numEnemies;
+    Entity[] returnEnemies = new Entity[numEnemies];
+    for (int i = 0; i < numEnemies; ++i) {
+      float x;
+      float y;
+      do {
+        x = random(width);
+        y = random(height);
+      } while (!isPositionValid(x, y));
+      returnEnemies[i] = getEnemy(enemies.get(i), x, y);
+    }
+    /*float angleIncrement = TAU / numEnemies;
     float circleRadius = 200;
     Entity[] returnEnemies = new Entity[numEnemies];
     for (int i = 0; i < numEnemies; i++) {
@@ -42,7 +52,7 @@ class Level {
         } else {
           returnEnemies[i] = new BasicEnemy(x, y, random(TAU));
         }
-    }
+    }*/
     return returnEnemies;
   }
   
@@ -51,10 +61,41 @@ class Level {
     enemies = initEnemies(pointsValue);
   }
   
+  boolean isPositionValid(float x, float y) {
+    float centerDistance = sqrt(sq(x - width / 2) + sq(y - height / 2));
+    if (centerDistance > width / 2 - 32 - 32 - 16) {
+      return false;
+    }
+    for (Entity entity : levelObjects) {
+      if (entity instanceof Moving) {
+        Moving other = (Moving) entity;
+        float distance = sqrt(sq(other.x - x) + sq(other.y - y));
+        if (distance < other.radius + 32 + 16) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  
   Entity[] levelObjects;
   Entity[] enemies;
   int nSpawners = 0;
   
+}
+
+EnemyEntity getEnemy(int i, float x, float y) {
+  if (i == 1) {
+    return new BigBasicEnemy(x, y, random(TAU));
+  } else if (i == 2) {
+    return new FlameThrowerEnemy(x, y, random(TAU));
+  } else if (i == 3) {
+    return new ShootingEnemy(x, y, random(TAU));
+  } else if (i == 4) {
+    return new BomberEnemy(x, y, random(TAU));
+  } else {
+    return new BasicEnemy(x, y, random(TAU));
+  }
 }
 
 void spawnLevel(Level level, int pointsValue) {
