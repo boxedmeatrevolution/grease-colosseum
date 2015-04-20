@@ -130,6 +130,15 @@ void setup () {
   levels = new Level[] {
     new Level1(), new Level2(), new Level3() };
   groundImage = loadImage("/assets/background.png");
+  loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
+  loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
+  sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
+  sounds["musicLoop"].loop = true;
+  sounds["musicFirstTime"].play();
+}
+
+function startLoop() {
+  sounds["musicLoop"].play();
 }
 
 void draw () {
