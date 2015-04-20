@@ -9,6 +9,10 @@ class DeadBody extends Moving {
   
   void create() {
     super.create();
+    if (deathSheet == null) {
+      deathSheet = loadSpriteSheet("/assets/death.png", 10, 1, 32, 64);
+    }
+    deathAnimation = new Animation(deathSheet, 0.1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
   }
   
   void destroy() {
@@ -17,12 +21,12 @@ class DeadBody extends Moving {
   
   void update(int phase, float delta) {
     super.update(phase, delta);
+    deathAnimation.update(delta);
   }
   
   void render() {
     super.render();
-    /*fill(color(20, 20, 20));
-    ellipse(x, y, 2 * radius, 2 * radius);*/
+    deathAnimation.drawAnimation(x - 16, y - 16 - 32, 32, 64);
   }
   
   int depth() {
@@ -30,6 +34,9 @@ class DeadBody extends Moving {
   }
   
   float radius;
+  Animation deathAnimation;
   
 }
+
+SpriteSheet deathSheet;
 

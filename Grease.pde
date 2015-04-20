@@ -54,6 +54,7 @@ class Grease extends Moving {
 }
 
 PImage greaseImage;
+PImage sootImage;
 
 color GREASE_COLOR = color(173, 165, 50);
 
@@ -62,6 +63,7 @@ class FireEffect extends Entity {
   }
   void create() {
     super.create();
+    sootImage = loadImage("/assets/soot.png");
     largeFireSheet = loadSpriteSheet("/assets/large_fire.png", 4, 1, 24, 24);
     mediumFireSheet = loadSpriteSheet("/assets/medium_fire.png", 7, 1, 16, 16);
     smallFireSheet = loadSpriteSheet("/assets/small_fire.png", 5, 1, 8, 8);
@@ -320,7 +322,8 @@ void createFire(int x, int y) {
   }
   greaseMatrix[x][y] = FIRE;
   greaseGraphics.beginDraw();
-  greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
+  greaseGraphics.image(sootImage, x * CELL_WIDTH, y * CELL_HEIGHT, 12, 12);
+  //greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
   greaseGraphics.endDraw();
 }
 

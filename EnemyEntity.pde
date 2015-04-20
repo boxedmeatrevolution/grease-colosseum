@@ -153,7 +153,6 @@ class EnemyEntity extends PhysicsCollider{
         addEntity(new HurtBox(this));
       } 
       if (hp <= 0) {
-        addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
         score += value;
         for (int i = 0; i < 7; ++i) {
           Blood particle = new Blood(x, y);
