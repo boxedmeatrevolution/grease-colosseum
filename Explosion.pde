@@ -1,7 +1,7 @@
 class Explosion extends ContinuousHarmful {
   
   Explosion(float x_, float y_, float maxRadius_) {
-    super(x_, y_, 0, 0, 0.01);
+    super(x_, y_, 0, 0, 0.5);
     maxRadius = maxRadius_;
   }
   

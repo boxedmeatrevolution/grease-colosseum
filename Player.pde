@@ -14,8 +14,8 @@ class Player extends PhysicsCollider {
       playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
       playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
     }
-    playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 0, 1, 2, 3, 4);
-    playerRightAnimation = new Animation(playerRightSheet, 0.1, 0, 1, 2, 3, 4);
+    playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 1, 2, 3, 4);
+    playerRightAnimation = new Animation(playerRightSheet, 0.1, 1, 2, 3, 4);
   }
   void destroy() {
     super.destroy();
@@ -63,6 +63,7 @@ class Player extends PhysicsCollider {
         float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
         particle.velocityX = velocity * cos(angle);
         particle.velocityY = -velocity * sin(angle);
+        
         addEntity(particle);
       }
       if (secondaryShootKeyPressed && canFireSecondary) {
@@ -135,8 +136,8 @@ class Player extends PhysicsCollider {
   float heat = 0;
   boolean canFireSecondary = true;
   
-  float SHOOT_VELOCITY = 300;
-  float SHOOT_VELOCITY_RANDOM = 100;
+  float SHOOT_VELOCITY = 200;
+  float SHOOT_VELOCITY_RANDOM = 210;
   float SHOOT_ANGLE_RANDOM = 0.25;
   
   float SECONDARY_RELOAD = 0.5; //3
