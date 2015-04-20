@@ -314,7 +314,12 @@ void mouseReleased() {
     shootKeyPressed = false;
   }
   if (mouseButton = RIGHT) {
-    secondaryShootKeyPressed = false;
+    if (secondaryShootKeyPressed) {
+      secondaryShootKeyPressed = false;
+    }
+    else {
+      shootKeyPressed = false;
+    }
   }
 }
 
