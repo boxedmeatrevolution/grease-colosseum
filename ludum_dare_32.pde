@@ -132,13 +132,16 @@ void setup () {
   groundImage = loadImage("/assets/background.png");
   loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
   loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
+  loadAudio("collision", "/assets/sounds/collision.wav");
   loadAudio("dwarfShoot", "/assets/sounds/dwarf_shoot.wav");
   loadAudio("enemyHurt", "/assets/sounds/enemy_hurt.wav");
   loadAudio("enemyDash", "/assets/sounds/enemy_dash.wav");
+  loadAudio("enemyDeath", "/assets/sounds/enemy_death.wav");
   loadAudio("explosion", "/assets/sounds/explosion.wav");
   loadAudio("footstep", "/assets/sounds/footstep.wav");
   loadAudio("ninjaShoot", "/assets/sounds/ninja_shoot.wav");
   loadAudio("playerDash", "/assets/sounds/player_dash.wav");
+  loadAudio("playerDeath", "/assets/sounds/player_death.wav");
   loadAudio("prepareSpawn", "/assets/sounds/prepare_spawn.wav");
   loadAudio("robotShoot", "/assets/sounds/robot_shoot.wav");
   loadAudio("spawn", "/assets/sounds/spawn.wav");

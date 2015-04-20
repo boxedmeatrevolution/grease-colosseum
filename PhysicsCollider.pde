@@ -18,15 +18,19 @@ class PhysicsCollider extends Collider {
       float deltaVelocityX = velocityX - other.velocityX;
       float deltaVelocityY = velocityY - other.velocityY;
       
-      if (deltaX * deltaVelocityX + deltaY * deltaVelocityY > 0) {
-        return;
-      }
-      
       float dotProduct = deltaX * deltaVelocityX + deltaY * deltaVelocityY;
       float distanceSqr = deltaX * deltaX + deltaY * deltaY;
       
       float massFactor1 = 2 * other.mass / (mass + other.mass);
       float massFactor2 = 2 * mass / (mass + other.mass);
+      
+      if (dotProduct > 0) {
+        return;
+      }
+      
+      if (sq(deltaVelocityX) + sq(deltaVelocityY) > 50 * 50) {
+        sounds["collision"].play();
+      }
       
       if (kinematic) {
         massFactor1 = 0;

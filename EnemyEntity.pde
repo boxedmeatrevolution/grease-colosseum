@@ -32,6 +32,7 @@ class EnemyEntity extends PhysicsCollider{
   
   void destroy() {
     super.destroy();
+    sounds["enemyDeath"].play();
   }
   
   void render() {

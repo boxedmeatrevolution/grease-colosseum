@@ -77,7 +77,6 @@ class Player extends PhysicsCollider {
         float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
         particle.velocityX = velocity * cos(angle);
         particle.velocityY = -velocity * sin(angle);
-        
         addEntity(particle);
       }
       if (secondaryShootKeyPressed && canFireSecondary) {
@@ -140,6 +139,7 @@ class Player extends PhysicsCollider {
     addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
     removeEntity(this);
     isPlayerDead = true;
+    sounds["playerDeath"].play();
   }
   
   float facingDirection = 0;
