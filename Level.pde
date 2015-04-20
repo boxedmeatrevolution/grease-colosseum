@@ -6,12 +6,44 @@ class Level {
   Entity[] init() {
   }
   
-  Entity[] initEnemies() {
+  Entity[] initEnemies(int pointsValue) {
+    Entity[] enemyTypes = new Entity []{
+      new BasicEnemy(0, 0, 0),
+      new BigBasicEnemy(0, 0, 0),
+      new FlameThrowerEnemy(0, 0, 0)
+    };
+    float pointCounter = pointsValue;
+    ArrayList<Integer> enemies = new ArrayList<Integer>();
+    int numEnemies = 0;
+    while (pointCounter > 0) {
+      r = int(random(0, enemyTypes.length));
+      console.log(pointCounter);
+      if (enemyTypes[r].value <= pointCounter) {
+        enemies.add(r);
+        numEnemies ++;
+        pointCounter -= enemyTypes[r].value;
+      }
+    }
+    float angleIncrement = TAU / numEnemies;
+    float circleRadius = 200;
+    Entity[] returnEnemies = new Entity[numEnemies];
+    for (int i = 0; i < numEnemies; i++) {
+        float x = (width / 2) + circleRadius * cos(angleIncrement * i);
+        float y = (height/ 2) + circleRadius * sin(angleIncrement * i);
+        if (enemies.get(i) == 1) {
+          returnEnemies[i] = new BigBasicEnemy(x, y, 0);
+        } else if (enemies.get(i) == 2) {
+          returnEnemies[i] = new FlameThrowerEnemy(x, y, 0);
+        } else {
+          returnEnemies[i] = new BasicEnemy(x, y, 0);
+        }
+    }
+    return returnEnemies;
   }
   
-  void respawnLevelObjects() {
+  void respawnLevelObjects(int pointsValue) {
     levelObjects = init();
-    enemies = initEnemies();
+    enemies = initEnemies(pointsValue);
   }
   
   Entity[] levelObjects;
@@ -20,8 +52,8 @@ class Level {
   
 }
 
-void spawnLevel(Level level) {
-  level.respawnLevelObjects();
+void spawnLevel(Level level, int pointsValue) {
+  level.respawnLevelObjects(pointsValue);
   for (Entity entity : level.levelObjects) {
     addEntity(new Spawner(entity, level));
     ++level.nSpawners;
@@ -60,12 +92,14 @@ class Level1 extends Level {
       new Spikes(width - 128, height - 128, 32, 16)
     };
   }
+  /*
   Entity[] initEnemies() {
     return new Entity[] {
       new BasicEnemy(128, height / 2, 0),
       new BasicEnemy(width - 128, height / 2, 0)
     };
   }
+  */
 }
 
 class Level2 extends Level {
@@ -75,11 +109,13 @@ class Level2 extends Level {
       new Barrel(width - 128, height / 2)
     };
   }
+  /*
   Entity[] initEnemies() {
     return new Entity[] {
       new BasicEnemy(width / 2 - 128, height / 2, 0)
     };
   }
+  */
 }
 
 class Level3 extends Level {
@@ -89,6 +125,7 @@ class Level3 extends Level {
       new Spikes(width / 2, height - 128, 16, 8)
     };
   }
+  /*
   Entity[] initEnemies() {
     return new Entity[] {
       new BasicEnemy(width / 2, height / 2 - 128, 0),
@@ -96,6 +133,7 @@ class Level3 extends Level {
       new BasicEnemy(width / 2 + 128, height / 2, 0)
     };
   }
+  */
 }
 
 

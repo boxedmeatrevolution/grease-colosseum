@@ -9,6 +9,12 @@ class BigBasicEnemy extends EnemyEntity{
   
   void create() {
     super.create();
+    if (skeletonLeftSheet == null) {
+      skeletonLeftSheet = loadSpriteSheet("/assets/skeleton_left.png", 5, 1, 32, 32);
+      skeletonRightSheet = loadSpriteSheet("/assets/skeleton_right.png", 5, 1, 32, 32);
+    }
+    skeletonLeftAnimation = new Animation(skeletonLeftSheet, 0.2, 1, 2, 3, 4);
+    skeletonRightAnimation = new Animation(skeletonRightSheet, 0.2, 1, 2, 3, 4);
   }
   
   void destroy() {
@@ -17,8 +23,13 @@ class BigBasicEnemy extends EnemyEntity{
   
   void render() {
     super.render();
-    ellipse(x, y, 2 * radius, 2 * radius);
-    line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
+      skeletonRightAnimation.drawAnimation(x - 32, y - 32, 64, 64);
+    }
+    else {
+      skeletonLeftAnimation.drawAnimation(x - 32, y - 32, 64, 64);
+    }
   }
   
   float walkTowardsPlayer(float delta) {
@@ -32,6 +43,11 @@ class BigBasicEnemy extends EnemyEntity{
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      skeletonLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      skeletonRightAnimation.time = skeletonLeftAnimation.time;
+      skeletonLeftAnimation.update(delta);
+      skeletonRightAnimation.update(delta);
+      
       dist = walkTowardsPlayer(delta);
       angle = turnTowardsPlayer(delta);
       
@@ -54,7 +70,7 @@ class BigBasicEnemy extends EnemyEntity{
   //Basic Enemy properties
   float _MASS = 2;
   float _RADIUS = 32;
-  int _VALUE = 20;
+  int _VALUE = 5;
   float _HP = 10;
   float _ACCELERATION = 1000;
   float _GREASE_ACCELERATION = 100;
@@ -68,4 +84,11 @@ class BigBasicEnemy extends EnemyEntity{
   float _DASH_RELOAD = 3;
   float dashTimer = 0;
   boolean canDash = true;
+  
+  Animation skeletonLeftAnimation;
+  Animation skeletonRightAnimation;
 }
+
+SpriteSheet skeletonLeftSheet;
+SpriteSheet skeletonRightSheet;
+

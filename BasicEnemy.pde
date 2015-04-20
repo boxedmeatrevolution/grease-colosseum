@@ -13,8 +13,8 @@ class BasicEnemy extends EnemyEntity{
       gremlinLeftSheet = loadSpriteSheet("/assets/gremlin_left.png", 5, 1, 32, 32);
       gremlinRightSheet = loadSpriteSheet("/assets/gremlin_right.png", 5, 1, 32, 32);
     }
-    gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 0, 1, 2, 3, 4);
-    gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 0, 1, 2, 3, 4);
+    gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 1, 2, 3, 4);
+    gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 1, 2, 3, 4);
   }
   
   void destroy() {
@@ -23,7 +23,8 @@ class BasicEnemy extends EnemyEntity{
   
   void render() {
     super.render();
-    if (facingDirection % TAU - HALF_PI < 0) {
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
       gremlinRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
     else {
@@ -68,7 +69,7 @@ class BasicEnemy extends EnemyEntity{
   //Basic Enemy properties
   float _MASS = 1;
   float _RADIUS = 16;
-  int _VALUE = 5;
+  int _VALUE = 1;
   float _HP = 1;
   float _ACCELERATION = 1200;
   float _GREASE_ACCELERATION = 200;

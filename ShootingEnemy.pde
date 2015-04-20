@@ -23,6 +23,12 @@ class ShootingEnemy extends EnemyEntity {
   
   void create () {
     super.create();
+    if (ninjaLeftSheet == null) {
+      ninjaLeftSheet = loadSpriteSheet("/assets/ninja_left.png", 5, 1, 32, 32);
+      ninjaRightSheet = loaderSpriteSheet("/assets/ninja_right.png", 5, 1, 32, 32);
+    }
+    ninjaLeftAnimation = new Animation(ninjaLeftSheet, 0.2, 1, 2, 3, 4);
+    ninjaRightAnimation = new Animation(ninjaRightSheet, 0.2, 1, 2, 3, 4);
   }
   
   void destroy () {
@@ -31,10 +37,13 @@ class ShootingEnemy extends EnemyEntity {
   
   void render () {
     super.render();
-    fill(color(0, 255, 0));
-    ellipse(x, y, 2 * radius, 2 * radius);
-    line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
-    fill(255);
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
+      ninjaRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    else {
+      ninjaLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
   }
   
   void hitEdge () {
@@ -54,6 +63,10 @@ class ShootingEnemy extends EnemyEntity {
   void update (int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      ninjaLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      ninjaRightAnimation.time = ninjaLeftAnimation.time;
+      ninjaLeftAnimation.update(delta);
+      ninjaRightAnimation.update(delta);
       walkTowardsPlayer(delta);
       turnTowardsPlayer(delta);
       if (timeUntilNextFire <= 0) {
@@ -69,18 +82,20 @@ class ShootingEnemy extends EnemyEntity {
   }
   
   Bullet makeBullet () {
-    float dx = player.x - x;
-    float dy = player.y - y;
-    float len = iDist(0,0, dx,dy);
+    float ang = facingDirection;
     
-    dx *= 30f/len;
-    dy *= 30f/len;
+    ang = random(ang - PI/12, ang + PI/12);
     
-    return new Bullet(x,y, dx,dy, 15);
+    return new Bullet(x,y, 20*cos(ang), -20*sin(ang), 15);
   }
+  
+  Animation ninjaLeftAnimation;
+  Animation ninjaRightAnimation;
   
 }
 
+SpriteSheet ninjaLeftSheet;
+SpriteSheet ninjaRightSheet;
 
 
 
