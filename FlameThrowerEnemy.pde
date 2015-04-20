@@ -63,10 +63,6 @@ class FlameThrowerEnemy extends EnemyEntity {
     else {
       robotLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
     }
-    fill(color(0, 255, 0));
-    ellipse(x, y, 2 * radius, 2 * radius);
-    line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
-    fill(255);
   }
   
   //Basic Enemy properties
