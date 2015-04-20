@@ -116,7 +116,7 @@ class Player extends PhysicsCollider {
       if (nFires <= 2) {
         heat = max(heat - 1 * delta, 0);
       }
-      else {
+      else if (invincibleTimer < 0.0f) {
         heat += nFires * 1 * delta;
       }
       
@@ -158,12 +158,22 @@ class Player extends PhysicsCollider {
   void hurt() {
     if (invincibleTimer < 0.0f) {
       hearts -= 1;
+      heat = 0;
       invincibleTimer = 1.0f;
       if (hearts <= 0) {
         kill();
       }
       else {
         sounds["enemyHurt"].play();
+        addEntity(new HurtBox(this));
+        for (int i = 0; i < 7; ++i) {
+          Blood particle = new Blood(x, y);
+          float direction = random(TAU);
+          float velocity = random(200, 400);
+          particle.velocityX = velocity * cos(direction);
+          particle.velocityY = -velocity * sin(direction);
+          addEntity(particle);
+        }
       }
     }
   }
@@ -172,7 +182,7 @@ class Player extends PhysicsCollider {
     removeEntity(this);
     isPlayerDead = true;
     sounds["playerDeath"].play();
-    for (int i = 0; i < 7; ++i) {
+    for (int i = 0; i < 14; ++i) {
       Blood particle = new Blood(x, y);
       float direction = random(TAU);
       float velocity = random(200, 400);
