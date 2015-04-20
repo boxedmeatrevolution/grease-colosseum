@@ -271,31 +271,31 @@ void draw () {
 
 // Handle input
 void keyPressed() {
-  if (keyCode == UP || key == 'w') {
+  if (keyCode == UP || key == 'w' || key == 'W' || key == 'z' || key == 'Z') {
     upKeyPressed = true;
   }
-  else if (keyCode == DOWN || key == 's') {
+  else if (keyCode == DOWN || key == 's' || key == 'S') {
     downKeyPressed = true;
   }
-  else if (keyCode == LEFT || key == 'a') {
+  else if (keyCode == LEFT || key == 'a' || key == 'A' || key == 'q' || key == 'Q') {
     leftKeyPressed = true;
   }
-  else if (keyCode == RIGHT || key == 'd') {
+  else if (keyCode == RIGHT || key == 'd' || key == 'D') {
     rightKeyPressed = true;
   }
 }
 
 void keyReleased() {
-  if (keyCode == UP || key == 'w') {
+  if (keyCode == UP || key == 'w' || key == 'W' || key == 'z' || key == 'Z') {
     upKeyPressed = false;
   }
-  else if (keyCode == DOWN || key == 's') {
+  else if (keyCode == DOWN || key == 's' || key == 'S') {
     downKeyPressed = false;
   }
-  else if (keyCode == LEFT || key == 'a') {
+  else if (keyCode == LEFT || key == 'a' || key == 'A' || key == 'q' || key == 'Q') {
     leftKeyPressed = false;
   }
-  else if (keyCode == RIGHT || key == 'd') {
+  else if (keyCode == RIGHT || key == 'd' || key == 'D') {
     rightKeyPressed = false;
   }
 }
