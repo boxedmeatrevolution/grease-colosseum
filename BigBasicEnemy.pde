@@ -65,7 +65,8 @@ class BigBasicEnemy extends EnemyEntity{
           velocityX += cos(facingDirection) * _DASH_FORCE;
           velocityY -= sin(facingDirection) * _DASH_FORCE;
           sounds["enemyDash"].play();
-          isDashing = false;
+          flameTimer = _FLAME_TIME;
+          isDashing = false; 
         }
         else {
           chargeTimer += delta;
@@ -76,6 +77,15 @@ class BigBasicEnemy extends EnemyEntity{
         if (dashTimer > _DASH_RELOAD) {
           canDash = true;
         }
+      }
+      if (flameTimer > 0) {
+        Flame f = new Flame(x, y);
+        float angle = atan2(-velocityY, velocityY);
+        angle = random(angle - PI/10, angle + PI/10);
+        f.velocityX = _FLAME_SPEED*cos(angle);
+        f.velocityY = _FLAME_SPEED*sin(angle);
+        addEntity(f);
+        flameTimer -= delta;
       }
     }
   }
@@ -96,11 +106,14 @@ class BigBasicEnemy extends EnemyEntity{
   float _DASH_FORCE = 500;
   float _DASH_RELOAD = 3;
   float _CHARGE_TIME = 1;
+  float _FLAME_TIME = 0.66; // 2/3 of a second;
+  float _FLAME_SPEED = 75;
   float dashTimer = 0;
   boolean canDash = true;
   float chargeTimer = 0;
   boolean isDashing = false;
   boolean canDash = true;
+  float flameTimer = 0;
   
   Animation skeletonLeftAnimation;
   Animation skeletonRightAnimation;
