@@ -63,7 +63,7 @@ class Level {
   
   boolean isPositionValid(float x, float y) {
     float centerDistance = sqrt(sq(x - width / 2) + sq(y - height / 2));
-    if (centerDistance > width / 2 - 32 - 32 - 16) {
+    if (centerDistance > width / 2 - 32 - 32 - 16 || centerDistance < 32 + 32 + 16) {
       return false;
     }
     for (Entity entity : levelObjects) {
