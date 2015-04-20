@@ -1,4 +1,4 @@
-/* @pjs preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/grease_particle.png, /assets/background.png" */
+/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/grease_particle.png, /assets/background.png"; */
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -46,6 +46,7 @@ boolean isPlayerDead = false;
 int levelIndex;
 
 PGraphics groundImage;
+PFont scoreFont;
 
 var lastUpdate = Date.now();
 var timeDelta;
@@ -148,6 +149,7 @@ void setup () {
   sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
   sounds["musicLoop"].loop = true;
   sounds["musicFirstTime"].play();
+  scoreFont = createFont("/assets/corbelb.ttf", 32);
 }
 
 function startLoop() {
@@ -179,7 +181,6 @@ void draw () {
     } 
   }
   else if (state == STATE_IN_GAME) {
-    text(frameRate, 32, 32);
     // Calculate the delta t
     var now = Date.now();
     timeDelta = (now - lastUpdate) / 1000.0f;
@@ -263,6 +264,9 @@ void draw () {
     for (Entity entity : entities) {
       entity.render();
     }
+    fill(200, 50, 50);
+    textFont(scoreFont);
+    text(str(score), width / 2, 64);
   }
 }
 

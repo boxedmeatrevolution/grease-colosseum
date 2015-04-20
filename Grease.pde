@@ -206,7 +206,7 @@ void initGreaseMatrix() {
   greaseMatrix = new byte[ceil(((float)width)/((float)CELL_WIDTH))][ceil(((float)height)/((float)CELL_HEIGHT))];
   greaseGraphics = createGraphics(width, height);
   greaseGraphics.noStroke();
-  greaseGraphics.fill(GREASE_COLOR);
+  greaseGraphics.fill(0, 0, 0);
 }
 
 void updateGreaseMatrix(float delta) {
@@ -320,9 +320,7 @@ void createFire(int x, int y) {
   }
   greaseMatrix[x][y] = FIRE;
   greaseGraphics.beginDraw();
-  greaseGraphics.fill(color(0, 0, 0, 0));
   greaseGraphics.ellipse(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH * sqrt(2), CELL_HEIGHT * sqrt(2));
-  greaseGraphics.fill(GREASE_COLOR);
   greaseGraphics.endDraw();
 }
 
