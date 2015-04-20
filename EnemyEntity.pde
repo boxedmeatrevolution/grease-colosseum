@@ -99,7 +99,7 @@ class EnemyEntity extends PhysicsCollider{
         if (dist != 0) {
           forces.add(1 / sq(dist));
         }
-      }
+      } 
       directions.add(atan2(-(repulsor.y - y), repulsor.x - x) + PI);
     }
     for (Entity attractor : attractors) {
@@ -112,6 +112,12 @@ class EnemyEntity extends PhysicsCollider{
       }
       directions.add(atan2(-(attractor.y - y), attractor.x - x));
     }
+    //Add force away from edge of screen:
+    float dx = x - (width/2);
+    float dy = y - (height/2);
+    forces.add(1f/sq(SPIKE_RADIUS - sqrt(dx*dx + dy*dy)));
+    directions.add(atan2(dy, -dx));
+    
     float dirX = 0;
     float dirY = 0;
     for (int i = 0; i < directions.size(); i++) {
