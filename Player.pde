@@ -44,6 +44,7 @@ class Player extends PhysicsCollider {
       float acceleration = isOnGrease ? ACCELERATION / 2 : ACCELERATION;//isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
       float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
       if (canFireSecondary) {
+        boolean isWalking = (leftKeyPressed || rightKeyPressed || upKeyPressed || downKeyPressed);
         if (leftKeyPressed && velocityX > -maxVelocity) {
           velocityX -= acceleration * delta;
         }
@@ -55,6 +56,19 @@ class Player extends PhysicsCollider {
         }
         if (downKeyPressed && velocityY < maxVelocity) {
           velocityY += acceleration * delta;
+        }
+        footstepTimer = min(0.4f * MAX_VELOCITY / sqrt(sq(velocityX) + sq(velocityY)), footstepTimer);
+        if (isWalking) {
+          if (footstepTimer <= 0.0) {
+            sounds["footstep"].play();
+            footstepTimer = 0.4;
+          }
+          else {
+            footstepTimer -= delta;
+          }
+        }
+        else {
+          footstepTimer = 0.05f;
         }
       }
       if (shootKeyPressed) {
@@ -141,6 +155,8 @@ class Player extends PhysicsCollider {
   float SHOOT_ANGLE_RANDOM = 0.25;
   
   float SECONDARY_RELOAD = 0.5; //3
+  
+  float footstepTimer = 0.0f;
   
   Animation playerLeftAnimation;
   Animation playerRightAnimation;

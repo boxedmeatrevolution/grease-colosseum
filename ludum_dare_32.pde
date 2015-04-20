@@ -22,7 +22,7 @@ int STATE_LOADING = 0;
 int STATE_IN_GAME = 1;
 int STATE_GAME_OVER = 2;
 int STATE_TITLE = 3;
-int state = STATE_TITLE;
+int state = STATE_LOADING;
 
 ArrayList<Entity> entities = new ArrayList<Entity>();
 ArrayList<Entity> entitiesToBeAdded = new ArrayList<Entity>();
@@ -132,6 +132,14 @@ void setup () {
   groundImage = loadImage("/assets/background.png");
   loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
   loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
+  loadAudio("dwarfShoot", "/assets/sounds/dwarf_shoot.wav");
+  loadAudio("enemyHurt", "/assets/sounds/enemy_hurt.wav");
+  loadAudio("explosion", "/assets/sounds/explosion.wav");
+  loadAudio("footstep", "/assets/sounds/footstep.wav");
+  loadAudio("ninjaShoot", "/assets/sounds/ninja_shoot.wav");
+  loadAudio("prepareSpawn", "/assets/sounds/prepare_spawn.wav");
+  loadAudio("robotShoot", "/assets/sounds/robot_shoot.wav");
+  loadAudio("spawn", "/assets/sounds/spawn.wav");
   sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
   sounds["musicLoop"].loop = true;
   sounds["musicFirstTime"].play();
@@ -144,6 +152,12 @@ function startLoop() {
 void draw () {
   background(0, 0, 0);
   fill(255);
+  if (state == STATE_LOADING) {
+    text("Loading", 64, 64);
+    if (audioFilesLoaded == nAudioFiles) {
+      gotoTitleState();
+    }
+  }
   if (state == STATE_TITLE) {
     text("GREASE WARS!!!!!!!", 64, 64);
     text("Press space to begin.", 64, 128);

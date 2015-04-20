@@ -77,6 +77,7 @@ class ShootingEnemy extends EnemyEntity {
           chargeTime += delta;
           if (chargeTime > MAX_CHARGE_TIME) {
             addEntity(makeBullet());
+            sounds["ninjaShoot"].play();
             isCharging = false;
             timeUntilNextFire = random(1.0f, 2.0f);
           }

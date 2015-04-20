@@ -18,9 +18,11 @@ class EnemyEntity extends PhysicsCollider{
     super.onCollision(cOther, wasHandled);
     if (cOther instanceof Harmful) {
       hp -= ((Harmful) cOther).damage;
+      sounds["enemyHurt"].play();
     }
     if (cOther instanceof ContinuousHarmful) {
       hp -= ((ContinuousHarmful) cOther).damage * timeDelta;
+      sounds["enemyHurt"].play();
     }
   }
   

@@ -17,6 +17,7 @@
 
 // Number of audio files loaded
 var audioFilesLoaded = 0;
+var nAudioFiles = 0;
 
 // A map of all the audio files that have been loaded
 var sounds = new Object();
@@ -36,6 +37,7 @@ function loadAudio(var name, var uri)
     sounds[name] = audio;
     audio.addEventListener("canplaythrough", audioFileLoaded, false); // It works!!
     audio.src = uri;
+    nAudioFiles++;
     return audio;
 }
 

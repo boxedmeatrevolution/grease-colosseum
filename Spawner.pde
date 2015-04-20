@@ -17,18 +17,20 @@ class Spawner extends Collider {
   
   void create() {
     super.create();
+    sounds["prepareSpawn"].play();
   }
   
   void destroy() {
     super.destroy();
     owner.nSpawners -= 1;
+    sounds["spawn"].play();
   }
   
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
       timeElapsed += delta;
-      if (timeElapsed > 2.5) {
+      if (timeElapsed > 1.5) {
         ready = true;
       }
       if (ready) {

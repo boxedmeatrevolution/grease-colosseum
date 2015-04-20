@@ -38,6 +38,7 @@ class BomberEnemy extends EnemyEntity {
           Bomb bomb = new Bomb(x + radius * cos(facingDirection), y - radius * sin(facingDirection));
           addEntity(bomb);
           timeUntilNextBomb = random(3.0f, 4.0f);
+          sounds["dwarfShoot"].play();
         }
       }
       else if (timeUntilNextBomb < 0.0f) {

@@ -11,6 +11,7 @@ class Explosion extends ContinuousHarmful {
   
   void create() {
     super.create();
+    sounds["explosion"].play();
   }
   
   void destroy() {

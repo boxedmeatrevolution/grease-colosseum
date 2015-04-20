@@ -45,6 +45,7 @@ class FlameThrowerEnemy extends EnemyEntity {
           flameThrower.velocityX = 200 * cos(facingDirection);
           flameThrower.velocityY = -200 * sin(facingDirection);
           addEntity(flameThrower);
+          sounds["robotShoot"].play();
           
           if (flameThrowerTime > _MAX_FLAME_TIME) {
             isFlaming = false;
