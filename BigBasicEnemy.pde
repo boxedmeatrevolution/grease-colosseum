@@ -53,12 +53,24 @@ class BigBasicEnemy extends EnemyEntity{
       
       if (canDash) {
         if ((dist < _MAX_DIST_TO_DASH) && (angle < _MAX_ANGLE_TO_DASH)) {
-          velocityX += cos(facingDirection) * _DASH_FORCE;
-          velocityY -= sin(facingDirection) * _DASH_FORCE;
+          isDashing = true;
+          chargeTimer = 0;
           canDash = false;
           dashTimer = 0;
+          addEntity(new ChargeBox(this, _CHARGE_TIME));
         }
-      } else {
+      }
+      else if (isDashing) {
+        if (chargeTimer > _CHARGE_TIME) {
+          velocityX += cos(facingDirection) * _DASH_FORCE;
+          velocityY -= sin(facingDirection) * _DASH_FORCE;
+          isDashing = false;
+        }
+        else {
+          chargeTimer += delta;
+        }
+      }
+      else {
         dashTimer += delta;
         if (dashTimer > _DASH_RELOAD) {
           canDash = true;
@@ -78,11 +90,15 @@ class BigBasicEnemy extends EnemyEntity{
   float _MAXVELOCITY = 50;
   float _TURN_SPEED = 0.5;
   
-  float _MAX_DIST_TO_DASH = 50;
+  float _MAX_DIST_TO_DASH = 200;
   float _MAX_ANGLE_TO_DASH = PI/4;
   float _DASH_FORCE = 500;
   float _DASH_RELOAD = 3;
+  float _CHARGE_TIME = 1;
   float dashTimer = 0;
+  boolean canDash = true;
+  float chargeTimer = 0;
+  boolean isDashing = false;
   boolean canDash = true;
   
   Animation skeletonLeftAnimation;

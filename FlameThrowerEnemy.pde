@@ -38,16 +38,32 @@ class FlameThrowerEnemy extends EnemyEntity {
         float deltaX = player.x - x;
         float deltaY = player.y - y;
         float distanceSq = sq(deltaX) + sq(deltaY);
-        if (distanceSq < 128 * 128) {
-          float deltaAngle = atan2(-deltaY, deltaX) - facingDirection;
-          while (abs(deltaAngle) > TAU) {
-            deltaAngle -= TAU * deltaAngle / abs(deltaAngle);
+        
+        if (isFlaming) {
+          flameThrowerTime += delta;
+          FlameThrower flameThrower = new FlameThrower(x + radius * cos(facingDirection), y - radius * sin(facingDirection));
+          flameThrower.velocityX = 200 * cos(facingDirection);
+          flameThrower.velocityY = -200 * sin(facingDirection);
+          addEntity(flameThrower);
+          
+          if (flameThrowerTime > _MAX_FLAME_TIME) {
+            isFlaming = false;
           }
-          if (abs(deltaAngle) < PI / 4) {
-            FlameThrower flameThrower = new FlameThrower(x + radius * cos(facingDirection), y - radius * sin(facingDirection));
-            flameThrower.velocityX = 200 * cos(facingDirection);
-            flameThrower.velocityY = -200 * sin(facingDirection);
-            addEntity(flameThrower);
+          
+        }
+        else if (isCharging) {
+          chargeTime += delta;
+          if (chargeTime > _MAX_CHARGE_TIME) {
+            isCharging = false;
+            isFlaming = true;
+            flameThrowerTime = 0;
+          }
+        }
+        else {
+          if (distanceSq < 128 * 128 && standardizeAngle(atan2(-deltaY, deltaX) - facingDirection) < PI / 4) {
+            isCharging = true;
+            chargeTime = 0;
+            addEntity(new ChargeBox(this, _MAX_CHARGE_TIME));
           }
         }
       }
@@ -75,6 +91,13 @@ class FlameThrowerEnemy extends EnemyEntity {
   float _FRICTION = 600;
   float _MAXVELOCITY = 25;
   float _TURN_SPEED = 0.5;
+  
+  float _MAX_FLAME_TIME = 2;
+  float _MAX_CHARGE_TIME = 2;
+  float flameThrowerTime = 0;
+  float chargeTime = 0;
+  float isFlaming = false;
+  float isCharging = false;
   
   Animation robotLeftAnimation;
   Animation robotRightAnimation;
