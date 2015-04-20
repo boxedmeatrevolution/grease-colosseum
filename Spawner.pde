@@ -9,9 +9,7 @@ class Spawner extends Collider {
   void onCollision(Collider other, boolean wasHandled) {
     super.onCollision(other, wasHandled);
     if (ready && other instanceof Player) {
-        addEntity(new DeadBody(other.x, other.y, other.velocityX, other.velocityY, other.radius));
-        removeEntity(other);
-        isPlayerDead = true;
+        ((Player) other).kill();
     }
   }
   

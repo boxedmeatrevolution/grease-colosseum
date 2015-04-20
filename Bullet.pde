@@ -27,8 +27,8 @@ class Bullet extends Entity {
     super.update(phase, delta);
     if (phase == 0) {
       ninjaStarAnimation.update(delta);
-      x += dx;
-      y += dy;
+      x += dx * delta;
+      y += dy * delta;
       
       //If bullet has left the screen
       if (x < 0 || y < 0 || x > width || y > height) {
@@ -43,7 +43,7 @@ class Bullet extends Entity {
   
   //Test if cl is hit by bullet
   boolean colliding (Collider cl) {
-    float px = cl.x;
+    /*float px = cl.x;
     float py = cl.y;
     float pr = cl.radius;
     
@@ -53,12 +53,13 @@ class Bullet extends Entity {
     vx -= dx*((dx*vx + dy*vy) / (sq(dx) + sq(dy)));
     vy -= dy*((dx*vx + dy*vy) / (sq(dx) + sq(dy)));
     
-    return iDist(0,0, vx, vy) <= pr && iDist(x,y, px - vx, py - vx) <= iDist(0,0, dx, dy);
+    return iDist(0,0, vx, vy) <= pr && iDist(x,y, px - vx, py - vx) <= iDist(0,0, dx, dy);*/
+    return iDist(x, y, cl.x, cl.y) <= cl.radius + 8;
   }
   
   //Is run when cl is hit by the bullet!!
   void collided (Collider cl) {
-    if (cl instanceof Player) ((Player) cl).kill();
+    if (cl instanceof Player) ((Player) cl).hurt();
     if (cl instanceof Barrel) ((Barrel) cl).explode();
     //removeEntity(this);
   }

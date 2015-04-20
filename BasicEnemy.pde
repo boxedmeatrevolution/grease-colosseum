@@ -97,7 +97,7 @@ class BasicEnemy extends EnemyEntity{
   float _MASS = 1;
   float _RADIUS = 16;
   int _VALUE = 1;
-  float _HP = 1;
+  float _HP = 10;
   float _ACCELERATION = 1200;
   float _GREASE_ACCELERATION = 200;
   float _FRICTION = 600;
