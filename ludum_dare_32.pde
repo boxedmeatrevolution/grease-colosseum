@@ -192,13 +192,11 @@ void draw () {
     boolean isLevelOver = true;
     if (levels[levelIndex].nSpawners != 0) {
       isLevelOver = false;
-      console.log("There be spawners! " + str(levels[levelIndex].nSpawners));
     }
     else {
       for (Entity entity : levels[levelIndex].enemies) {
         if (entity.exists) {
           isLevelOver = false;
-          console.log("There be enemies!");
           break;
         }
       }

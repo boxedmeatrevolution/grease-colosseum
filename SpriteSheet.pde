@@ -53,8 +53,6 @@ class Animation {
 SpriteSheet loadSpriteSheet (String filename, int x, int y, int w, int h) {
   PImage img = loadImage(filename);
   
-  console.log("initial image " + str(img));
-  
   PImage[] sprites = new PImage[x*y];
   
   int xSize = w;
