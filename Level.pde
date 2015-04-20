@@ -10,7 +10,8 @@ class Level {
     Entity[] enemyTypes = new Entity []{
       new BasicEnemy(0, 0, 0),
       new BigBasicEnemy(0, 0, 0),
-      new FlameThrowerEnemy(0, 0, 0)
+      new FlameThrowerEnemy(0, 0, 0),
+      new ShootingEnemy(0, 0, 0)
     };
     float pointCounter = pointsValue;
     ArrayList<Integer> enemies = new ArrayList<Integer>();
@@ -31,11 +32,13 @@ class Level {
         float x = (width / 2) + circleRadius * cos(angleIncrement * i);
         float y = (height/ 2) + circleRadius * sin(angleIncrement * i);
         if (enemies.get(i) == 1) {
-          returnEnemies[i] = new BigBasicEnemy(x, y, 0);
+          returnEnemies[i] = new BigBasicEnemy(x, y, random(TAU));
         } else if (enemies.get(i) == 2) {
-          returnEnemies[i] = new FlameThrowerEnemy(x, y, 0);
+          returnEnemies[i] = new FlameThrowerEnemy(x, y, random(TAU));
+        } else if (enemies.get(i) == 3) {
+          returnEnemies[i] = new ShootingEnemy(x, y, random(TAU));
         } else {
-          returnEnemies[i] = new BasicEnemy(x, y, 0);
+          returnEnemies[i] = new BasicEnemy(x, y, random(TAU));
         }
     }
     return returnEnemies;

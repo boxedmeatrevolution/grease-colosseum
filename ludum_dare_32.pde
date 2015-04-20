@@ -76,6 +76,14 @@ float standardizeAngle(float angle) {
   return angle;
 }
 
+float angleBetween(float angle1, float angle2) {
+  float result = standardizeAngle(angle1 - angle2);
+  if (result > PI) {
+    result -= TAU;
+  }
+  return result;
+}
+
 void gotoInGameState() {
   state = STATE_IN_GAME;
   lastUpdate = Date.now();

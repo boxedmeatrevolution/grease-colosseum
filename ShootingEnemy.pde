@@ -14,7 +14,7 @@ class ShootingEnemy extends EnemyEntity {
   
   ShootingEnemy(float x_, float y_, float facingDirection_) {
     super(x_, y_, _MASS, _RADIUS, _FRICTION, _VALUE, _HP, facingDirection_, _ACCELERATION, _MAXVELOCITY, _GREASE_ACCELERATION, _TURN_SPEED);
-    timeUntilNextFire = random(50, 100);
+    timeUntilNextFire = random(1.0f, 2.0f);
   }
   
   void onCollision (Collider cOther, boolean wasHandled) {
@@ -25,7 +25,7 @@ class ShootingEnemy extends EnemyEntity {
     super.create();
     if (ninjaLeftSheet == null) {
       ninjaLeftSheet = loadSpriteSheet("/assets/ninja_left.png", 5, 1, 32, 32);
-      ninjaRightSheet = loaderSpriteSheet("/assets/ninja_right.png", 5, 1, 32, 32);
+      ninjaRightSheet = loadSpriteSheet("/assets/ninja_right.png", 5, 1, 32, 32);
     }
     ninjaLeftAnimation = new Animation(ninjaLeftSheet, 0.2, 1, 2, 3, 4);
     ninjaRightAnimation = new Animation(ninjaRightSheet, 0.2, 1, 2, 3, 4);
@@ -58,7 +58,7 @@ class ShootingEnemy extends EnemyEntity {
     return super.walkTowardsPlayer(delta);
   }
   
-  int timeUntilNextFire;
+  float timeUntilNextFire;
   
   void update (int phase, float delta) {
     super.update(phase, delta);
@@ -69,14 +69,25 @@ class ShootingEnemy extends EnemyEntity {
       ninjaRightAnimation.update(delta);
       walkTowardsPlayer(delta);
       turnTowardsPlayer(delta);
-      if (timeUntilNextFire <= 0) {
-        timeUntilNextFire = random(50, 100);
-        
-        if (player != null){
-          addEntity(makeBullet());
+      if (player != null) {
+        float deltaX = player.x - x;
+        float deltaY = player.y - y;
+        float distanceSq = sq(deltaX) + sq(deltaY);
+        if (isCharging) {
+          chargeTime += delta;
+          if (chargeTime > MAX_CHARGE_TIME) {
+            addEntity(makeBullet());
+            isCharging = false;
+            timeUntilNextFire = random(1.0f, 2.0f);
+          }
         }
-      } else {
-        timeUntilNextFire--;
+        else if (timeUntilNextFire <= 0 && abs(angleBetween(facingDirection, atan2(-deltaY, deltaX))) < PI / 4) {
+          isCharging = true;
+          chargeTime = 0;
+          addEntity(new ChargeBox(this, MAX_CHARGE_TIME));
+        } else {
+          timeUntilNextFire -= delta;
+        }
       }
     }
   }
@@ -88,6 +99,10 @@ class ShootingEnemy extends EnemyEntity {
     
     return new Bullet(x,y, 20*cos(ang), -20*sin(ang), 15);
   }
+  
+  float MAX_CHARGE_TIME = 1;
+  float isCharging = false;
+  float chargeTime = 0;
   
   Animation ninjaLeftAnimation;
   Animation ninjaRightAnimation;

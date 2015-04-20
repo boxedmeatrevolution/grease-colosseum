@@ -60,7 +60,7 @@ class FlameThrowerEnemy extends EnemyEntity {
           }
         }
         else {
-          if (distanceSq < 128 * 128 && standardizeAngle(atan2(-deltaY, deltaX) - facingDirection) < PI / 4) {
+          if (distanceSq < 128 * 128 && abs(angleBetween(facingDirection, atan2(-deltaY, deltaX))) < PI / 4) {
             isCharging = true;
             chargeTime = 0;
             addEntity(new ChargeBox(this, _MAX_CHARGE_TIME));

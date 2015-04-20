@@ -48,7 +48,7 @@ class Grease extends Moving {
   float GREASE_FRICTION = 500;
 }
 
-color GREASE_COLOR = color(125, 125, 125);
+color GREASE_COLOR = color(173, 165, 50);
 
 class FireEffect extends Entity {
   FireEffect() {
