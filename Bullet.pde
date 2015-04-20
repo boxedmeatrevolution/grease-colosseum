@@ -15,12 +15,22 @@ class Bullet extends Entity {
     sy = len*sin(ang);
   }
   
-  void create () {}
+  void create () {
+    super.create();
+    if (ninjaStarSheet == null) {
+      ninjaStarSheet = loadSpriteSheet("/assets/ninja_star.png", 4, 1, 24, 24);
+    }
+    ninjaStarAnimation = new Animation(ninjaStarSheet, 0.2, 0, 1, 2, 3);
+  }
   
-  void destroy () {}
+  void destroy () {
+    super.destroy();
+  }
   
   void update (int phase, float delta) {
+    super.update(phase, delta);
     if (phase == 0) {
+      ninjaStarAnimation.update(delta);
       x += dx;
       y += dy;
       
@@ -58,16 +68,16 @@ class Bullet extends Entity {
   }
   
   void render () {
-    float nx = x + sx;
-    float ny = y + sy;
-    strokeWeight(3);
-    stroke(color(255,255,255));
-    line(x,y,nx,ny);
-    strokeWeight(1);
+    super.render();
+    ninjaStarAnimation.drawAnimation(x + sx / 2 - 12, y + sx / 2 - 12, 24, 24);
   }
+  
+  Animation ninjaStarAnimation;
   
 }
 
 float iDist (float x, float y, float a, float b) {
   return sqrt(sq(x-a) + sq(y - b));
 }
+
+SpriteSheet ninjaStarSheet;

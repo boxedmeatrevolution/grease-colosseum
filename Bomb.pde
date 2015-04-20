@@ -5,6 +5,10 @@ class Bomb extends PhysicsCollider {
   
   void create() {
     super.create();
+    if (bombSheet == null) {
+      bombSheet = loadSpriteSheet("/assets/bomb.png", 3, 1, 16, 16);
+    }
+    bombAnimation = new Animation(bombSheet, 0.2, 0, 1, 2);
   }
   
   void destroy() {
@@ -14,6 +18,7 @@ class Bomb extends PhysicsCollider {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      bombAnimation.update(delta);
       timer += delta;
       if (timer > 3) {
         addEntity(new Explosion(x, y, 64));
@@ -32,10 +37,14 @@ class Bomb extends PhysicsCollider {
   
   void render() {
     super.render();
-    ellipse(x, y, 2 * radius, 2 * radius);
+    bombAnimation.drawAnimation(x - radius, y - radius, 16, 16);
   }
   
   float timer = 0;
   
+  Animation bombAnimation;
+  
 }
+
+SpriteSheet bombSheet;
 
