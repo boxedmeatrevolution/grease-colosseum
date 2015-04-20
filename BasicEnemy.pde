@@ -12,6 +12,7 @@ class BasicEnemy extends EnemyEntity{
     if (gremlinLeftSheet == null) {
       gremlinLeftSheet = loadSpriteSheet("/assets/gremlin_left.png", 5, 1, 32, 32);
       gremlinRightSheet = loadSpriteSheet("/assets/gremlin_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("/assets/enemy_dash.png");
     }
     gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 1, 2, 3, 4);
     gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 1, 2, 3, 4);
@@ -29,6 +30,14 @@ class BasicEnemy extends EnemyEntity{
     }
     else {
       gremlinLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    if (reallyIsDashing) {
+      translate(x, y);
+      float angle = atan2(velocityY, velocityX);
+      rotate(angle);
+      image(enemyDashImage, -24, -24);
+      rotate(-angle);
+      translate(-x, -y);
     }
   }
   
@@ -50,6 +59,10 @@ class BasicEnemy extends EnemyEntity{
       dist = walkTowardsPlayer(delta);
       angle = turnTowardsPlayer(delta);
       
+      if (reallyIsDashing && abs(velocityX) < _MAXVELOCITY * 1.5 && abs(velocityY) < _MAXVELOCITY * 1.5) {
+        reallyIsDashing = false;
+      }
+      
       if (canDash) {
         if ((dist < _MAX_DIST_TO_DASH) && (angle < _MAX_ANGLE_TO_DASH)) {
           isDashing = true;
@@ -63,6 +76,7 @@ class BasicEnemy extends EnemyEntity{
         if (chargeTimer > _CHARGE_TIME) {
           velocityX += cos(facingDirection) * _DASH_FORCE;
           velocityY -= sin(facingDirection) * _DASH_FORCE;
+          reallyIsDashing = true;
           sounds["enemyDash"].play();
           isDashing = false;
         }
@@ -98,6 +112,7 @@ class BasicEnemy extends EnemyEntity{
   float dashTimer = 0;
   float chargeTimer = 0;
   boolean isDashing = false;
+  boolean reallyIsDashing = false;
   boolean canDash = true;
   
   Animation gremlinLeftAnimation;
@@ -106,3 +121,5 @@ class BasicEnemy extends EnemyEntity{
 
 SpriteSheet gremlinLeftSheet;
 SpriteSheet gremlinRightSheet;
+
+PImage enemyDashImage;

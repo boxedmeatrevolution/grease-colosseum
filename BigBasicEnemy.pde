@@ -12,6 +12,7 @@ class BigBasicEnemy extends EnemyEntity{
     if (skeletonLeftSheet == null) {
       skeletonLeftSheet = loadSpriteSheet("/assets/skeleton_left.png", 5, 1, 32, 32);
       skeletonRightSheet = loadSpriteSheet("/assets/skeleton_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("/assets/enemy_dash.png");
     }
     skeletonLeftAnimation = new Animation(skeletonLeftSheet, 0.2, 1, 2, 3, 4);
     skeletonRightAnimation = new Animation(skeletonRightSheet, 0.2, 1, 2, 3, 4);
@@ -29,6 +30,14 @@ class BigBasicEnemy extends EnemyEntity{
     }
     else {
       skeletonLeftAnimation.drawAnimation(x - 32, y - 32, 64, 64);
+    }
+    if (reallyIsDashing) {
+      translate(x, y);
+      float angle = atan2(velocityY, velocityX);
+      rotate(angle);
+      image(enemyDashImage, -24, -24);
+      rotate(-angle);
+      translate(-x, -y);
     }
   }
   
@@ -51,6 +60,10 @@ class BigBasicEnemy extends EnemyEntity{
       dist = walkTowardsPlayer(delta);
       angle = turnTowardsPlayer(delta);
       
+      if (reallyIsDashing && abs(velocityX) < _MAXVELOCITY * 1.5 && abs(velocityY) < _MAXVELOCITY * 1.5) {
+        reallyIsDashing = false;
+      }
+      
       if (canDash) {
         if ((dist < _MAX_DIST_TO_DASH) && (angle < _MAX_ANGLE_TO_DASH)) {
           isDashing = true;
@@ -67,6 +80,7 @@ class BigBasicEnemy extends EnemyEntity{
           sounds["enemyDash"].play();
           flameTimer = _FLAME_TIME;
           isDashing = false; 
+          reallyIsDashing = true;
         }
         else {
           chargeTimer += delta;
@@ -114,6 +128,7 @@ class BigBasicEnemy extends EnemyEntity{
   boolean isDashing = false;
   boolean canDash = true;
   float flameTimer = 0;
+  boolean reallyIsDashing = false;
   
   Animation skeletonLeftAnimation;
   Animation skeletonRightAnimation;

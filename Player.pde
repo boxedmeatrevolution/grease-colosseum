@@ -44,11 +44,11 @@ class Player extends PhysicsCollider {
       }
       float acceleration = isOnGrease ? ACCELERATION / 2 : ACCELERATION;//isOnGrease ? GREASE_ACCELERATION : ACCELERATION;
       float maxVelocity = isOnGrease ? MAX_VELOCITY : MAX_VELOCITY / 10;
+      if (isDashing && abs(velocityX) <= maxVelocity * 1.5 && abs(velocityY) <= maxVelocity * 1.5) {
+        isDashing = false;
+      }
       if (canFireSecondary) {
         boolean isWalking = (leftKeyPressed || rightKeyPressed || upKeyPressed || downKeyPressed);
-        if (isDashing && abs(velocityX) <= maxVelocity * 1.2 && abs(velocityY) <= maxVelocity * 1.2) {
-          isDashing = false;
-        }
         if (leftKeyPressed && velocityX > -maxVelocity) {
           velocityX -= acceleration * delta;
         }
