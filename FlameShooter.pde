@@ -1,5 +1,7 @@
 class FlameShooter extends PhysicsCollider {
   int facing;
+  boolean isFiring = false;
+  float firingTime = 0;
   FlameShooter(float x_, float y_, int facingDirection_) {
     super(x_, y_, 10, 12, 500);
     facingDirection = facingDirection_ * TAU / 4;
@@ -40,12 +42,22 @@ class FlameShooter extends PhysicsCollider {
   
   void update(int phase, float delta) {
     super.update(phase, delta);
-    Flame particle = new Flame(x, y);
-    float velocity = SHOOT_VELOCITY + random(-SHOOT_VELOCITY_RANDOM, +SHOOT_VELOCITY_RANDOM);
-    float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
-    particle.velocityX = velocity * cos(angle);
-    particle.velocityY = -velocity * sin(angle);
-    addEntity(particle);
+    if (phase == 0) {
+      if (isFiring) {
+        Flame particle = new Flame(x, y);
+        float velocity = SHOOT_VELOCITY + random(-SHOOT_VELOCITY_RANDOM, +SHOOT_VELOCITY_RANDOM);
+        float angle = facingDirection + random(-SHOOT_ANGLE_RANDOM, +SHOOT_ANGLE_RANDOM);
+        particle.velocityX = velocity * cos(angle);
+        particle.velocityY = -velocity * sin(angle);
+        addEntity(particle);
+      }
+      else {
+        firingTime += delta;
+        if (firingTime > 2) {
+          isFiring = true;
+        }
+      }
+    }
   }
   
   //PGraphics shape;

@@ -38,17 +38,21 @@ class PhysicsCollider extends Collider {
       }
       else if (other.kinematic) {
         massFactor1 = 2;
-        massFactor2 = 2;
+        massFactor2 = 0;
       }
       
       float factor1 = massFactor1 * dotProduct / distanceSqr;
       float factor2 = massFactor2 * dotProduct / distanceSqr;
       
-      velocityX -= factor1 * deltaX;
-      velocityY -= factor1 * deltaY;
+      if (!kinematic) {
+        velocityX -= factor1 * deltaX;
+        velocityY -= factor1 * deltaY;
+      }
       
-      other.velocityX += factor2 * deltaX;
-      other.velocityY += factor2 * deltaY;
+      if (!other.kinematic) {
+        other.velocityX += factor2 * deltaX;
+        other.velocityY += factor2 * deltaY;
+      }
     }
   }
   

@@ -140,6 +140,14 @@ class Player extends PhysicsCollider {
     removeEntity(this);
     isPlayerDead = true;
     sounds["playerDeath"].play();
+    for (int i = 0; i < 7; ++i) {
+      Blood particle = new Blood(x, y);
+      float direction = random(TAU);
+      float velocity = random(200, 400);
+      particle.velocityX = velocity * cos(direction);
+      particle.velocityY = -velocity * sin(direction);
+      addEntity(particle);
+    }
   }
   
   float facingDirection = 0;

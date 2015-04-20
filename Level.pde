@@ -106,7 +106,7 @@ class Level2 extends Level {
     Entity[] result = new Entity[8];
     for (int i = 0; i < 8; ++i) {
       float angle = TAU / 8 * i;
-      result[i] = new Barrel(width / 2 + 64 * cos(angle), height / 2 - 64 * sin(angle));
+      result[i] = new Barrel(width / 2 + 256 * cos(angle), height / 2 - 256 * sin(angle));
     }
     return result;
   }
@@ -120,5 +120,50 @@ class Level3 extends Level {
     };
   }
 }
+
+class Level4 extends Level {
+  Entity[] init() {
+    return new Entity[] {
+      new Pillar(width / 2, 256, 32),
+      new Pillar(width / 2, height - 256, 32),
+      new Spikes(256, height / 2, 32, 16),
+      new Spikes(width - 256, height / 2, 32, 16)
+    };
+  }
+}
+
+class Level5 extends Level {
+  Entity[] init() {
+    return new Entity[] {
+      new FlameShooter(width / 2, 128, 3),
+      new Barrel(width / 2 - 64, height - 128),
+      new Barrel(width / 2, height - 128),
+      new Barrel(width / 2 + 64, height - 128)
+    };
+  }
+}
+
+class Level6 extends Level {
+  Entity[] init() {
+    return new Entity[] {
+      new Pillar(256, height / 2, 16),
+      new Pillar(width - 256, height / 2, 16),
+      new RotatingSpikes(256, height / 2, 8, PI, 32, PI / 3, 8),
+      new RotatingSpikes(width - 256, height / 2, 8, 0, 32, -PI / 3, 16)
+    };
+  }
+}
+
+class Level7 extends Level {
+  Entity[] init() {
+    return new Entity[] {
+      new Pillar(256, 256, 16),
+      new Pillar(width - 256, 256, 16),
+      new Pillar(256, height - 256, 16),
+      new Pillar(width - 256, height - 256, 16)
+    };
+  }
+}
+
 
 
