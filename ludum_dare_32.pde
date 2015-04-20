@@ -30,7 +30,7 @@ ArrayList<Entity> entitiesToBeRemoved = new ArrayList<Entity>();
 ArrayList<Collider> colliders = new ArrayList<Collider>();
 
 long score = 0;
-long levelPointsValue = 11;
+long levelPointsValue = 4;
 
 boolean leftKeyPressed = false;
 boolean rightKeyPressed = false;

@@ -68,6 +68,7 @@ void spawnLevel(Level level, int pointsValue) {
     addEntity(new Spawner(entity, level));
     ++level.nSpawners;
   }
+  levelPointsValue += 2;
 }
 
 void despawnLevel(Level level) {
