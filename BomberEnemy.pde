@@ -10,6 +10,12 @@ class BomberEnemy extends EnemyEntity {
   
   void create() {
     super.create();
+    if (dwarfLeftSheet == null) {
+      dwarfLeftSheet = loadSpriteSheet("/assets/dwarf_left.png", 5, 1, 32, 32);
+      dwarfRightSheet = loadSpriteSheet("/assets/dwarf_right.png", 5, 1, 32, 32);
+    }
+    dwarfLeftAnimation = new Animation(dwarfLeftSheet, 0.2, 1, 2, 3, 4);
+    dwarfRightAnimation = new Animation(dwarfRightSheet, 0.2, 1, 2, 3, 4);
   }
   
   void destroy() {
@@ -19,6 +25,10 @@ class BomberEnemy extends EnemyEntity {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      dwarfLeftAnimation.time = 10 / sqrt(sq(velocityX) + sq(velocityY));
+      dwarfRightAnimation.time = dwarfLeftAnimation.time;
+      dwarfLeftAnimation.update(delta);
+      dwarfRightAnimation.update(delta);
       walkTowardsPlayer(delta);
       turnTowardsPlayer(delta);
       if (isCharging) {
@@ -43,7 +53,13 @@ class BomberEnemy extends EnemyEntity {
   
   void render() {
     super.render();
-    ellipse(x, y, 2 * radius, 2 * radius);
+    facingDirection = standardizeAngle(facingDirection);
+    if (facingDirection < HALF_PI || facingDirection > 3 * HALF_PI) {
+      dwarfRightAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
+    else {
+      dwarfLeftAnimation.drawAnimation(x - 16, y - 16, 32, 32);
+    }
   }
   
   //Basic Enemy properties
@@ -62,5 +78,11 @@ class BomberEnemy extends EnemyEntity {
   boolean isCharging = false;
   float timeUntilNextBomb = random(2.0f, 3.0f);
   
+  Animation dwarfLeftAnimation;
+  Animation dwarfRightAnimation;
+  
 }
+
+SpriteSheet dwarfLeftSheet;
+SpriteSheet dwarfRightSheet;
 
