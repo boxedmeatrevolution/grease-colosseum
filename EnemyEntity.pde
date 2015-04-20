@@ -5,6 +5,7 @@ class EnemyEntity extends PhysicsCollider{
     super(x_, y_, mass_, radius_, friction_);
     value = value_;
     hp = hp_;
+    lastHp = hp_;
     facingDirection = facingDirection_;
     acceleration = acceleration_;
     maxVelocity = maxVelocity_;
@@ -139,6 +140,10 @@ class EnemyEntity extends PhysicsCollider{
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      if ((hp < lastHp) && ( hp > 0)) {
+        lastHp = hp;
+        addEntity(new HurtBox(this));
+      } 
       if (hp <= 0) {
         addEntity(new DeadBody(x, y, velocityX, velocityY, radius));
         score += value;
@@ -168,6 +173,8 @@ class EnemyEntity extends PhysicsCollider{
   float groundFriction;
   float heat = 0;
   float turnSpeed;
+  
+  float lastHp;
   
    //References to other Entities (for walk())
   int _REPULSE_DIST = 20;

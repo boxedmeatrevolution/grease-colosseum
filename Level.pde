@@ -17,7 +17,6 @@ class Level {
     int numEnemies = 0;
     while (pointCounter > 0) {
       r = int(random(0, enemyTypes.length));
-      console.log(r);
       console.log(pointCounter);
       if (enemyTypes[r].value <= pointCounter) {
         enemies.add(r);
