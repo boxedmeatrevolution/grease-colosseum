@@ -81,7 +81,7 @@ void gotoInGameState() {
   gameOverTimer = 0;
   isPlayerDead = false;
   levelIndex = floor(random(levels.length));
-  spawnLevel(levels[levelIndex]);
+  spawnLevel(levels[levelIndex], 11);
   
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
