@@ -30,6 +30,7 @@ ArrayList<Entity> entitiesToBeRemoved = new ArrayList<Entity>();
 ArrayList<Collider> colliders = new ArrayList<Collider>();
 
 long score = 0;
+long levelPointsValue = 11;
 
 boolean leftKeyPressed = false;
 boolean rightKeyPressed = false;
@@ -81,7 +82,7 @@ void gotoInGameState() {
   gameOverTimer = 0;
   isPlayerDead = false;
   levelIndex = floor(random(levels.length));
-  spawnLevel(levels[levelIndex], 11);
+  spawnLevel(levels[levelIndex], levelPointsValue);
   
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
@@ -165,7 +166,7 @@ void draw () {
       while(levelIndex == oldLevelIndex) {
         levelIndex = floor(random(levels.length));
       }
-      spawnLevel(levels[levelIndex]);
+      spawnLevel(levels[levelIndex], levelPointsValue);
     }
     
     if (isPlayerDead) {
