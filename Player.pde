@@ -14,6 +14,7 @@ class Player extends PhysicsCollider {
       playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
       playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
       playerDashImage = loadImage("/assets/player_dash.png");
+      heartImage = loadImage("/assets/heart.png");
     }
     playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 1, 2, 3, 4);
     playerRightAnimation = new Animation(playerRightSheet, 0.1, 1, 2, 3, 4);
@@ -147,12 +148,15 @@ class Player extends PhysicsCollider {
       rotate(-angle);
       translate(-x, -y);
     }
+    for (int i = 1; i <= hearts; ++i) {
+      image(heartImage, width - i * (32 + 16), 16);
+    }
     //ellipse(x, y, 2 * radius, 2 * radius);
     //line(x, y, x + radius * cos(facingDirection), y - radius * sin(facingDirection));
   }
   
   int depth() {
-    return -10;
+    return -100;
   }
   
   void hurt() {
@@ -221,4 +225,5 @@ class Player extends PhysicsCollider {
 SpriteSheet playerLeftSheet;
 SpriteSheet playerRightSheet;
 PImage playerDashImage;
+PImage heartImage;
 

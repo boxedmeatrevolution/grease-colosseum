@@ -40,6 +40,10 @@ class Flame extends Moving {
     return true;
   }
   
+  int depth() {
+    return 0;
+  }
+  
   int state = 0;
   float radius = 4;
   

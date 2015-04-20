@@ -44,6 +44,10 @@ class Grease extends Moving {
     return true;
   }
   
+  int depth() {
+    return 0;
+  }
+  
   int state = 0;
   float radius = 4;
   
@@ -131,7 +135,7 @@ class FireEffect extends Entity {
     fill(255);
   }
   int depth() {
-    return -5;
+    return 90;
   }
 }
 
@@ -172,7 +176,7 @@ class GreaseSurface extends Entity {
   }
   
   int depth() {
-    return 10;
+    return 100;
   }
 }
 

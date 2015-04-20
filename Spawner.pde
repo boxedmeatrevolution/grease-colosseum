@@ -47,6 +47,10 @@ class Spawner extends Collider {
     fill(255);
   }
   
+  int depth() {
+    return -25;
+  }
+  
   float timeElapsed = 0;
   boolean ready = false;
   Level owner;

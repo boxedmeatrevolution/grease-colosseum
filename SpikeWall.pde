@@ -49,6 +49,10 @@ class SpikeWall extends Entity {
     //image(spikeGraphics, 0, 0);
   }
   
+  int depth() {
+    return -90;
+  }
+  
   //PGraphics spikeGraphics;
   
 }

@@ -61,6 +61,10 @@ class Barrel extends PhysicsCollider {
     }
   }
   
+  int depth() {
+    return -70;
+  }
+  
   void explode () {
     triggered = true;
   }

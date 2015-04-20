@@ -60,6 +60,10 @@ class FlameShooter extends PhysicsCollider {
     }
   }
   
+  int depth() {
+    return -70;
+  }
+  
   //PGraphics shape;
   float facingDirection;
   

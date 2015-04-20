@@ -45,6 +45,6 @@ class RotatingSpikes extends Spikes {
   }
   
   int depth () {
-    return super.depth();
+    return -70;
   }
 }

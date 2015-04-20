@@ -40,6 +40,10 @@ class Bomb extends PhysicsCollider {
     bombAnimation.drawAnimation(x - radius, y - radius, 16, 16);
   }
   
+  int depth() {
+    return -70;
+  }
+  
   float timer = 0;
   
   Animation bombAnimation;

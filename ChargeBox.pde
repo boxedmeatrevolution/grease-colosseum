@@ -36,6 +36,10 @@ class ChargeBox extends Moving {
     timer += delta;
   }
   
+  int depth() {
+    return -110;
+  }
+  
   int alpha = 255;
   int timer = 0;
   float stayTime = 1;

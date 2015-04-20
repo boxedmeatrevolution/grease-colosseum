@@ -46,7 +46,7 @@ class Spikes extends Harmful {
   }
   
   int depth() {
-    return -1;
+    return -70;
   }
   
   PGraphics shape;

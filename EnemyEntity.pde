@@ -40,6 +40,7 @@ class EnemyEntity extends PhysicsCollider{
   
   void hitEdge() {
     super.hitEdge();
+    sounds["enemyHurt"].play();
     hp -= 5;
   }
   
@@ -179,6 +180,10 @@ class EnemyEntity extends PhysicsCollider{
       }
       */
     }
+  }
+  
+  int depth() {
+    return -50;
   }
   
   int value;

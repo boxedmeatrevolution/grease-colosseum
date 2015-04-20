@@ -68,6 +68,10 @@ class Bullet extends Entity {
     ninjaStarAnimation.drawAnimation(x + dx / 2 - 12, y + dx / 2 - 12, 24, 24);
   }
   
+  int depth() {
+    return -80;
+  }
+  
   Animation ninjaStarAnimation;
   
 }

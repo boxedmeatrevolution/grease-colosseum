@@ -35,6 +35,10 @@ class Explosion extends ContinuousHarmful {
     fill(255);
   }
   
+  int depth() {
+    return -110;
+  }
+  
   float maxRadius;
   float growthRate = 250;
   

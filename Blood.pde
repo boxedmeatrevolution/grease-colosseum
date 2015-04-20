@@ -48,6 +48,10 @@ class Blood extends Moving {
     return true;
   }
   
+  int depth() {
+    return 0;
+  }
+  
   int state = 0;
   
   int MOVING_STATE = 0;

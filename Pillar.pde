@@ -32,6 +32,10 @@ class Pillar extends PhysicsCollider {
     pillarSheet.drawSprite(frame, x - radius, y - radius, 2 * radius, 2 * radius);
   }
   
+  int depth() {
+    return -70;
+  }
+  
 }
 
 SpriteSheet pillarSheet;
