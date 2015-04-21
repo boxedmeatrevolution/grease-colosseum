@@ -91,11 +91,21 @@ class EnemyEntity extends PhysicsCollider{
     }
     ArrayList<Float> directions = new ArrayList<Float>();
     ArrayList<Float> forces = new ArrayList<Float>();
+    
+    numEnemies = 12;
+    float angleIncrement = TAU / numEnemies;
+    float circleRadius = 200;
+    Entity[] returnEnemies = new Entity[numEnemies];
+    for (int i = 0; i < numEnemies; i++) {
+      float xx = (width / 2) + (width / 2) * cos(angleIncrement * i);
+      float yy = (height/ 2) + (height/ 2) * sin(angleIncrement * i);
+      repulsors.add(new Harmful(xx, yy, 0, 16, 0, 0));
+    }
     for (Entity repulsor : repulsors) {
       if (repulsor instanceof Harmful) {
         float dist = sqrt(sq(repulsor.x - x) + sq(repulsor.y - y)) - repulsor.radius -  radius;
         if (dist != 0) {
-          forces.add(1 / sq(dist));
+          forces.add(1 / sq(dist) * 5);
         }
       } 
       directions.add(atan2(-(repulsor.y - y), repulsor.x - x) + PI);
@@ -111,11 +121,12 @@ class EnemyEntity extends PhysicsCollider{
       directions.add(atan2(-(attractor.y - y), attractor.x - x));
     }
     //Add force away from edge of screen:
+    /*
     float dx = x - (width/2);
     float dy = y - (height/2);
     forces.add(1f/sq(SPIKE_RADIUS - sqrt(dx*dx + dy*dy)));
     directions.add(atan2(dy, -dx));
-    
+    */
     float dirX = 0;
     float dirY = 0;
     for (int i = 0; i < directions.size(); i++) {

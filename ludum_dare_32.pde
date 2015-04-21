@@ -1,4 +1,5 @@
-/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png", /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png, /assets/outline.png, /assets/TitleScreen.png, /assets/GameOver.png; */
+/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png, /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png, /assets/explosion.png, /assets/portalLoop.png, /assets/portalStart.png, /assets/outline.png, /assets/TitleScreen.png, /assets/GameOver.png"; */
+
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -88,13 +89,17 @@ float angleBetween(float angle1, float angle2) {
 }
 
 void gotoInGameState() {
+  sounds["fire"].volume = 0;
+  sounds["fire"].loop = true;
+  sounds["fire"].play();
+  
   state = STATE_IN_GAME;
   levelPointsValue = 4;
   score = 0;
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
-  levelIndex = floor(random(levels.length));
+  levelIndex = 0;//floor(random(levels.length));
   spawnLevel(levels[levelIndex], levelPointsValue);
   
   Player player = new Player(width / 2, height / 2);
@@ -109,6 +114,8 @@ void gotoInGameState() {
 }
 
 void gotoGameOverState() {
+  sounds["fire"].pause();
+  
   state = STATE_GAME_OVER;
   levels[levelIndex].nSpawners = 0;
   entities.clear();
@@ -147,6 +154,8 @@ void setup () {
   loadAudio("prepareSpawn", "/assets/sounds/prepare_spawn.wav");
   loadAudio("robotShoot", "/assets/sounds/robot_shoot.wav");
   loadAudio("spawn", "/assets/sounds/spawn.wav");
+  loadAudio("fire", "/assets/sounds/veryLoudFireLoop.ogg");
+  loadAudio("bombTick", "/assets/sounds/bombTick.wav");
   sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
   sounds["musicLoop"].loop = true;
   sounds["musicFirstTime"].play();
