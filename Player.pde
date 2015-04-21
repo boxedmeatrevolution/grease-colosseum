@@ -41,7 +41,7 @@ class Player extends PhysicsCollider {
       boolean isOnGrease = touchingGrease(x, y, radius);
       facingDirection = atan2(-(mouseY - y), mouseX - x);
       if (isOnGrease) {
-        friction = 0;
+        friction = FRICTION;
       }
       else {
         friction = FRICTION;
@@ -197,9 +197,9 @@ class Player extends PhysicsCollider {
   }
   
   float facingDirection = 0;
-  float ACCELERATION = 1200;
+  float ACCELERATION = 1500;
   float GREASE_ACCELERATION = 200;
-  float FRICTION = 600;
+  float FRICTION = 500;
   float MAX_VELOCITY = 150;
   float secondaryFireTimer = 0;
   float heat = 0;
