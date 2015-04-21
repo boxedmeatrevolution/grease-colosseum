@@ -46,6 +46,7 @@ class SpikeWall extends Entity {
   void render() {
     super.render();
     image(spikeWallImage, 0, 0);
+    image(outline, 0, 0);
     //image(spikeGraphics, 0, 0);
   }
   
