@@ -20,6 +20,11 @@ class Bomb extends PhysicsCollider {
     if (phase == 0) {
       bombAnimation.update(delta);
       timer += delta;
+      tickTimer -= delta;
+      if (tickTimer < 0) {
+        tickTimer = 0.75;
+        sounds["bombTick"].play();
+      }
       if (timer > 3) {
         addEntity(new Explosion(x, y, 64));
         for (int i = 0; i < 5; ++i) {
@@ -45,6 +50,7 @@ class Bomb extends PhysicsCollider {
   }
   
   float timer = 0;
+  float tickTimer = 0.75;
   
   Animation bombAnimation;
   

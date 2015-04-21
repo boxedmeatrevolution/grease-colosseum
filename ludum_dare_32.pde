@@ -1,4 +1,4 @@
-/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png", /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png; */
+/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png", /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png, /assets/explosion.png; */
 class Entity {
   // Called when the entity is added to the game
   void create() {}
@@ -97,6 +97,11 @@ void gotoInGameState() {
   levelIndex = floor(random(levels.length));
   spawnLevel(levels[levelIndex], levelPointsValue);
   
+  sounds["fire"].volume = 0;
+  sounds["fire"].loop = true;
+  
+  sounds["fire"].play();
+  
   Player player = new Player(width / 2, height / 2);
   GreaseSurface surface = new GreaseSurface();
   FireEffect fireEffect = new FireEffect();
@@ -115,6 +120,7 @@ void gotoGameOverState() {
   entitiesToBeAdded.clear();
   entitiesToBeRemoved.clear();
   colliders.clear();
+  sounds["fire"].pause();
 }
 
 void gotoTitleState() {
@@ -134,6 +140,8 @@ void setup () {
   groundImage = loadImage("/assets/background.png");
   loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
   loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
+  loadAudio("fire", "/assets/sounds/veryLoudFireLoop.ogg");
+  loadAudio("bombTick", "/assets/sounds/bombTick.wav");
   loadAudio("collision", "/assets/sounds/collision.wav");
   loadAudio("dwarfShoot", "/assets/sounds/dwarf_shoot.wav");
   loadAudio("enemyHurt", "/assets/sounds/enemy_hurt.wav");

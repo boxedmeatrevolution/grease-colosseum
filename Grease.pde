@@ -98,20 +98,23 @@ class FireEffect extends Entity {
   }
   void update(int phase, float delta) {
     super.update(phase, delta);
-    for (Animation animation : largeFireAnimations) {
-      animation.update(delta);
-    }
-    for (Animation animation : mediumFireAnimations) {
-      animation.update(delta);
-    }
-    for (Animation animation : smallFireAnimations) {
-      animation.update(delta);
+    if (phase == 0) {
+      float fireLevel = min(totalFire / 2500.0f, 1.0f);
+      sounds["fire"].volume = fireLevel;
+      for (Animation animation : largeFireAnimations) {
+        animation.update(delta);
+      }
+      for (Animation animation : mediumFireAnimations) {
+        animation.update(delta);
+      }
+      for (Animation animation : smallFireAnimations) {
+        animation.update(delta);
+      }
     }
   }
   void render() {
     super.render();
-    fill(color(255, 0, 0));
-    noStroke();
+    totalFire = 0;
     for (int i = 0; i < (int) (floor(greaseMatrix.length / 2)); ++i) {
       for (int j = 0; j < (int) (floor(greaseMatrix[0].length / 2)); ++j) {
         int nFire = 0;
@@ -120,6 +123,7 @@ class FireEffect extends Entity {
         if (greaseMatrix[2 * i][2 * j + 1] == FIRE) ++nFire;
         if (greaseMatrix[2 * i + 1][2 * j + 1] == FIRE) ++nFire;
         int animChoice = (i + j) % 4;
+        totalFire += nFire;
         if (nFire == 1) {
           smallFireAnimations[animChoice].drawAnimation((2 * i + 1) * CELL_WIDTH - 4, (2 * j + 1) * CELL_HEIGHT - 4, 8, 8);
         }
@@ -131,12 +135,12 @@ class FireEffect extends Entity {
         }
       }
     }
-    stroke(0);
-    fill(255);
   }
   int depth() {
     return 90;
   }
+  
+  int totalFire;
 }
 
 class GreaseSurface extends Entity {

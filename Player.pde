@@ -164,6 +164,7 @@ class Player extends PhysicsCollider {
       hearts -= 1;
       heat = 0;
       invincibleTimer = 1.0f;
+      sounds["playerDeath"].play();
       if (hearts <= 0) {
         kill();
       }
