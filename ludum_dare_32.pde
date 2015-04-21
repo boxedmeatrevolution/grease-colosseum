@@ -1,4 +1,4 @@
-/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png, /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png, /assets/explosion.png, /assets/portalLoop.png, /assets/portalStart.png, /assets/outline.png, /assets/TitleScreen.png, /assets/GameOver.png"; */
+/* @pjs font="/LudumDare32/assets/corbelb.ttf"; preload="/LudumDare32/assets/large_fire.png, /LudumDare32/assets/medium_fire.png, /LudumDare32/assets/small_fire.png, /LudumDare32/assets/hatguy_left.png, /LudumDare32/assets/hatguy_right.png, /LudumDare32/assets/gremlin_left.png, /LudumDare32/assets/gremlin_right.png, /LudumDare32/assets/ninja_left.png, /LudumDare32/assets/ninja_right.png, /LudumDare32/assets/robot_left.png, /LudumDare32/assets/robot_right.png, /LudumDare32/assets/skeleton_left.png, /LudumDare32/assets/skeleton_right.png, /LudumDare32/assets/dwarf_left.png, /LudumDare32/assets/dwarf_right.png, /LudumDare32/assets/barrel.png, /LudumDare32/assets/flaming_barrel.png, /LudumDare32/assets/bomb.png, /LudumDare32/assets/ninja_star.png, /LudumDare32/assets/pillar.png, /LudumDare32/assets/flame_shooter.png, /LudumDare32/assets/grease_particle.png, /LudumDare32/assets/soot.png, /LudumDare32/assets/background.png, /LudumDare32/assets/blood_particle.png, /LudumDare32/assets/death.png, /LudumDare32/assets/player_dash.png, /LudumDare32/assets/enemy_dash.png, /LudumDare32/assets/heart.png, /LudumDare32/assets/explosion.png, /LudumDare32/assets/portalLoop.png, /LudumDare32/assets/portalStart.png, /LudumDare32/assets/outline.png, /LudumDare32/assets/TitleScreen.png, /LudumDare32/assets/GameOver.png"; */
 
 class Entity {
   // Called when the entity is added to the game
@@ -138,37 +138,37 @@ void setup () {
   textureMode(IMAGE);
   levels = new Level[] {
     new Level1(), new Level2(), new Level3(), new Level4(), new Level5(), new Level6(), new Level7() };
-  groundImage = loadImage("/assets/background.png");
-  loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
-  loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
-  loadAudio("collision", "/assets/sounds/collision.wav");
-  loadAudio("dwarfShoot", "/assets/sounds/dwarf_shoot.wav");
-  loadAudio("enemyHurt", "/assets/sounds/enemy_hurt.wav");
-  loadAudio("enemyDash", "/assets/sounds/enemy_dash.wav");
-  loadAudio("enemyDeath", "/assets/sounds/enemy_death.wav");
-  loadAudio("explosion", "/assets/sounds/explosion.wav");
-  loadAudio("footstep", "/assets/sounds/footstep.wav");
-  loadAudio("ninjaShoot", "/assets/sounds/ninja_shoot.wav");
-  loadAudio("playerDash", "/assets/sounds/player_dash.wav");
-  loadAudio("playerDeath", "/assets/sounds/player_death.wav");
-  loadAudio("prepareSpawn", "/assets/sounds/prepare_spawn.wav");
-  loadAudio("robotShoot", "/assets/sounds/robot_shoot.wav");
-  loadAudio("spawn", "/assets/sounds/spawn.wav");
-  loadAudio("fire", "/assets/sounds/veryLoudFireLoop.ogg");
-  loadAudio("bombTick", "/assets/sounds/bombTick.wav");
+  groundImage = loadImage("/LudumDare32/assets/background.png");
+  loadAudio("musicFirstTime", "/LudumDare32/assets/ld32greaseArenaFirstTime.ogg");
+  loadAudio("musicLoop", "/LudumDare32/assets/ld32greaseArenaLoop.ogg");
+  loadAudio("collision", "/LudumDare32/assets/sounds/collision.wav");
+  loadAudio("dwarfShoot", "/LudumDare32/assets/sounds/dwarf_shoot.wav");
+  loadAudio("enemyHurt", "/LudumDare32/assets/sounds/enemy_hurt.wav");
+  loadAudio("enemyDash", "/LudumDare32/assets/sounds/enemy_dash.wav");
+  loadAudio("enemyDeath", "/LudumDare32/assets/sounds/enemy_death.wav");
+  loadAudio("explosion", "/LudumDare32/assets/sounds/explosion.wav");
+  loadAudio("footstep", "/LudumDare32/assets/sounds/footstep.wav");
+  loadAudio("ninjaShoot", "/LudumDare32/assets/sounds/ninja_shoot.wav");
+  loadAudio("playerDash", "/LudumDare32/assets/sounds/player_dash.wav");
+  loadAudio("playerDeath", "/LudumDare32/assets/sounds/player_death.wav");
+  loadAudio("prepareSpawn", "/LudumDare32/assets/sounds/prepare_spawn.wav");
+  loadAudio("robotShoot", "/LudumDare32/assets/sounds/robot_shoot.wav");
+  loadAudio("spawn", "/LudumDare32/assets/sounds/spawn.wav");
+  loadAudio("fire", "/LudumDare32/assets/sounds/veryLoudFireLoop.ogg");
+  loadAudio("bombTick", "/LudumDare32/assets/sounds/bombTick.wav");
   sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
   sounds["musicLoop"].loop = true;
   sounds["musicFirstTime"].play();
-  scoreFont = createFont("/assets/corbelb.ttf", 32);
+  scoreFont = createFont("/LudumDare32/assets/corbelb.ttf", 32);
 }
 
 function startLoop() {
   sounds["musicLoop"].play();
 }
 
-PImage outline = loadImage("/assets/outline.png");
-PImage titleScreen = loadImage("/assets/TitleScreen.png");
-PImage gameOver = loadImage("/assets/GameOver.png");
+PImage outline = loadImage("/LudumDare32/assets/outline.png");
+PImage titleScreen = loadImage("/LudumDare32/assets/TitleScreen.png");
+PImage gameOver = loadImage("/LudumDare32/assets/GameOver.png");
 
 void draw () {
   background(0, 0, 0);
@@ -345,7 +345,7 @@ void mouseOut() {
 
 // How to load an audio file:
 //
-//  loadAudio("gameMusic1", "assets/music1.ogg");
+//  loadAudio("gameMusic1", "LudumDare32/assets/music1.ogg");
 //
 // When the audio file is loaded, 'audioFilesLoaded' is incremented by 1
 //
@@ -407,8 +407,8 @@ class Barrel extends PhysicsCollider {
   void create() {
     super.create();
     if (barrelSheet == null) {
-      barrelSheet = loadSpriteSheet("/assets/barrel.png", 1, 1, 32, 32);
-      flamingBarrelSheet = loadSpriteSheet("/assets/flaming_barrel.png", 3, 1, 32, 32);
+      barrelSheet = loadSpriteSheet("/LudumDare32/assets/barrel.png", 1, 1, 32, 32);
+      flamingBarrelSheet = loadSpriteSheet("/LudumDare32/assets/flaming_barrel.png", 3, 1, 32, 32);
     }
     barrelAnimation = new Animation(barrelSheet, 1, 0);
     flamingBarrelAnimation = new Animation(flamingBarrelSheet, 0.2, 0, 1, 2);
@@ -485,9 +485,9 @@ class BasicEnemy extends EnemyEntity{
   void create() {
     super.create();
     if (gremlinLeftSheet == null) {
-      gremlinLeftSheet = loadSpriteSheet("/assets/gremlin_left.png", 5, 1, 32, 32);
-      gremlinRightSheet = loadSpriteSheet("/assets/gremlin_right.png", 5, 1, 32, 32);
-      enemyDashImage = loadImage("/assets/enemy_dash.png");
+      gremlinLeftSheet = loadSpriteSheet("/LudumDare32/assets/gremlin_left.png", 5, 1, 32, 32);
+      gremlinRightSheet = loadSpriteSheet("/LudumDare32/assets/gremlin_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("/LudumDare32/assets/enemy_dash.png");
     }
     gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 1, 2, 3, 4);
     gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 1, 2, 3, 4);
@@ -610,9 +610,9 @@ class BigBasicEnemy extends EnemyEntity{
   void create() {
     super.create();
     if (skeletonLeftSheet == null) {
-      skeletonLeftSheet = loadSpriteSheet("/assets/skeleton_left.png", 5, 1, 32, 32);
-      skeletonRightSheet = loadSpriteSheet("/assets/skeleton_right.png", 5, 1, 32, 32);
-      enemyDashImage = loadImage("/assets/enemy_dash.png");
+      skeletonLeftSheet = loadSpriteSheet("/LudumDare32/assets/skeleton_left.png", 5, 1, 32, 32);
+      skeletonRightSheet = loadSpriteSheet("/LudumDare32/assets/skeleton_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("/LudumDare32/assets/enemy_dash.png");
     }
     skeletonLeftAnimation = new Animation(skeletonLeftSheet, 0.2, 1, 2, 3, 4);
     skeletonRightAnimation = new Animation(skeletonRightSheet, 0.2, 1, 2, 3, 4);
@@ -748,7 +748,7 @@ class Blood extends Moving {
   void create() {
     super.create();
     if (bloodImage == null) {
-      bloodImage = loadImage("/assets/blood_particle.png");
+      bloodImage = loadImage("/LudumDare32/assets/blood_particle.png");
     }
   }
   void destroy() {
@@ -809,7 +809,7 @@ class Bomb extends PhysicsCollider {
   void create() {
     super.create();
     if (bombSheet == null) {
-      bombSheet = loadSpriteSheet("/assets/bomb.png", 3, 1, 16, 16);
+      bombSheet = loadSpriteSheet("/LudumDare32/assets/bomb.png", 3, 1, 16, 16);
     }
     bombAnimation = new Animation(bombSheet, 0.2, 0, 1, 2);
   }
@@ -874,8 +874,8 @@ class BomberEnemy extends EnemyEntity {
   void create() {
     super.create();
     if (dwarfLeftSheet == null) {
-      dwarfLeftSheet = loadSpriteSheet("/assets/dwarf_left.png", 5, 1, 32, 32);
-      dwarfRightSheet = loadSpriteSheet("/assets/dwarf_right.png", 5, 1, 32, 32);
+      dwarfLeftSheet = loadSpriteSheet("/LudumDare32/assets/dwarf_left.png", 5, 1, 32, 32);
+      dwarfRightSheet = loadSpriteSheet("/LudumDare32/assets/dwarf_right.png", 5, 1, 32, 32);
     }
     dwarfLeftAnimation = new Animation(dwarfLeftSheet, 0.2, 1, 2, 3, 4);
     dwarfRightAnimation = new Animation(dwarfRightSheet, 0.2, 1, 2, 3, 4);
@@ -966,7 +966,7 @@ class Bullet extends Entity {
   void create () {
     super.create();
     if (ninjaStarSheet == null) {
-      ninjaStarSheet = loadSpriteSheet("/assets/ninja_star.png", 4, 1, 24, 24);
+      ninjaStarSheet = loadSpriteSheet("/LudumDare32/assets/ninja_star.png", 4, 1, 24, 24);
     }
     ninjaStarAnimation = new Animation(ninjaStarSheet, 0.2, 0, 1, 2, 3);
   }
@@ -1169,7 +1169,7 @@ class DeadBody extends Moving {
   void create() {
     super.create();
     if (deathSheet == null) {
-      deathSheet = loadSpriteSheet("/assets/death.png", 10, 1, 32, 64);
+      deathSheet = loadSpriteSheet("/LudumDare32/assets/death.png", 10, 1, 32, 64);
     }
     deathAnimation = new Animation(deathSheet, 0.1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
   }
@@ -1443,7 +1443,7 @@ class Explosion extends ContinuousHarmful {
   void create() {
     super.create();
     if (explosionSheet == null) {
-      explosionSheet = loadSpriteSheet("/assets/explosion.png", 16, 1, 64, 64);
+      explosionSheet = loadSpriteSheet("/LudumDare32/assets/explosion.png", 16, 1, 64, 64);
     }
     explosionAnimation = new Animation(explosionSheet, 0.04, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
     explosionAnimation.loop = false;
@@ -1690,7 +1690,7 @@ class FlameShooter extends PhysicsCollider {
   void create() {
     super.create();
     if (flameShooterSheet == null) {
-      flameShooterSheet = loadSpriteSheet("/assets/flame_shooter.png", 4, 1, 24, 24);
+      flameShooterSheet = loadSpriteSheet("/LudumDare32/assets/flame_shooter.png", 4, 1, 24, 24);
     }
   }
   
@@ -1795,8 +1795,8 @@ class FlameThrowerEnemy extends EnemyEntity {
   void create() {
     super.create();
     if (robotLeftSheet == null) {
-      robotLeftSheet = loadSpriteSheet("/assets/robot_left.png", 3, 1, 32, 32);
-      robotRightSheet = loadSpriteSheet("/assets/robot_right.png", 3, 1, 32, 32);
+      robotLeftSheet = loadSpriteSheet("/LudumDare32/assets/robot_left.png", 3, 1, 32, 32);
+      robotRightSheet = loadSpriteSheet("/LudumDare32/assets/robot_right.png", 3, 1, 32, 32);
     }
     robotLeftAnimation = new Animation(robotLeftSheet, 0.1, 1, 2);
     robotRightAnimation = new Animation(robotRightSheet, 0.1, 1, 2);
@@ -1898,7 +1898,7 @@ class Grease extends Moving {
   void create() {
     super.create();
     if (greaseImage == null) {
-      greaseImage = loadImage("/assets/grease_particle.png");
+      greaseImage = loadImage("/LudumDare32/assets/grease_particle.png");
     }
   }
   void destroy() {
@@ -1958,10 +1958,10 @@ class FireEffect extends Entity {
   }
   void create() {
     super.create();
-    sootImage = loadImage("/assets/soot.png");
-    largeFireSheet = loadSpriteSheet("/assets/large_fire.png", 4, 1, 24, 24);
-    mediumFireSheet = loadSpriteSheet("/assets/medium_fire.png", 7, 1, 16, 16);
-    smallFireSheet = loadSpriteSheet("/assets/small_fire.png", 5, 1, 8, 8);
+    sootImage = loadImage("/LudumDare32/assets/soot.png");
+    largeFireSheet = loadSpriteSheet("/LudumDare32/assets/large_fire.png", 4, 1, 24, 24);
+    mediumFireSheet = loadSpriteSheet("/LudumDare32/assets/medium_fire.png", 7, 1, 16, 16);
+    smallFireSheet = loadSpriteSheet("/LudumDare32/assets/small_fire.png", 5, 1, 8, 8);
     
     float time = 0.3;
     
@@ -2791,7 +2791,7 @@ class Pillar extends PhysicsCollider {
   void create() {
     super.create();
     if (pillarSheet == null) {
-      pillarSheet = loadSpriteSheet("/assets/pillar.png", 3, 1, 128, 128);
+      pillarSheet = loadSpriteSheet("/LudumDare32/assets/pillar.png", 3, 1, 128, 128);
     }
   }
   
@@ -2832,10 +2832,10 @@ class Player extends PhysicsCollider {
   void create() {
     super.create();
     if (playerLeftSheet == null) {
-      playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
-      playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
-      playerDashImage = loadImage("/assets/player_dash.png");
-      heartImage = loadImage("/assets/heart.png");
+      playerLeftSheet = loadSpriteSheet("/LudumDare32/assets/hatguy_left.png", 5, 1, 32, 32);
+      playerRightSheet = loadSpriteSheet("/LudumDare32/assets/hatguy_right.png", 5, 1, 32, 32);
+      playerDashImage = loadImage("/LudumDare32/assets/player_dash.png");
+      heartImage = loadImage("/LudumDare32/assets/heart.png");
     }
     playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 1, 2, 3, 4);
     playerRightAnimation = new Animation(playerRightSheet, 0.1, 1, 2, 3, 4);
@@ -3125,8 +3125,8 @@ class ShootingEnemy extends EnemyEntity {
   void create () {
     super.create();
     if (ninjaLeftSheet == null) {
-      ninjaLeftSheet = loadSpriteSheet("/assets/ninja_left.png", 5, 1, 32, 32);
-      ninjaRightSheet = loadSpriteSheet("/assets/ninja_right.png", 5, 1, 32, 32);
+      ninjaLeftSheet = loadSpriteSheet("/LudumDare32/assets/ninja_left.png", 5, 1, 32, 32);
+      ninjaRightSheet = loadSpriteSheet("/LudumDare32/assets/ninja_right.png", 5, 1, 32, 32);
     }
     ninjaLeftAnimation = new Animation(ninjaLeftSheet, 0.2, 1, 2, 3, 4);
     ninjaRightAnimation = new Animation(ninjaRightSheet, 0.2, 1, 2, 3, 4);
@@ -3235,8 +3235,8 @@ class Spawner extends Collider {
   void create() {
     super.create();
     if (portalSheet == null) {
-      portalSheet = loadSpriteSheet("/assets/portalLoop.png", 4, 1, 32, 32);
-      prePortalSheet = loadSpriteSheet("/assets/portalStart.png", 8, 1, 32, 32);
+      portalSheet = loadSpriteSheet("/LudumDare32/assets/portalLoop.png", 4, 1, 32, 32);
+      prePortalSheet = loadSpriteSheet("/LudumDare32/assets/portalStart.png", 8, 1, 32, 32);
     }
     portalAnimation = new Animation(portalSheet, 0.2, 0, 1, 2, 3);
     prePortalAnimation = new Animation(prePortalSheet, 0.1, 0, 1, 2, 3, 4, 5, 6, 7);
@@ -3291,7 +3291,7 @@ class Spawner extends Collider {
 SpriteSheet portalSheet;
 SpriteSheet prePortalSheet;
 
-/* @pjs preload="/assets/spike_wall.png" */
+/* @pjs preload="/LudumDare32/assets/spike_wall.png" */
 PImage spikeWallImage;
 
 float SPIKE_RADIUS;
@@ -3303,7 +3303,7 @@ class SpikeWall extends Entity {
   
   void create() {
     super.create();
-    spikeWallImage = loadImage("/assets/spike_wall.png");
+    spikeWallImage = loadImage("/LudumDare32/assets/spike_wall.png");
     SPIKE_RADIUS = width / 2 - 32;
     /*spikeGraphics = createGraphics(width / 2, height);
     int nSpikes = 500;
