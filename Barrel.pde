@@ -33,7 +33,7 @@ class Barrel extends PhysicsCollider {
       if (triggered) {
         timer += delta;
         if (timer > 1.5) {
-          addEntity(new Explosion(x, y, 64));
+          addEntity(new Explosion(x, y));
           for (int i = 0; i < 5; ++i) {
             Flame particle = new Flame(x, y);
             float velocity = random(0, 400);

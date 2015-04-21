@@ -21,6 +21,8 @@ class Animation {
   int curr;
   float timeElapsed;
   
+  boolean loop = true;
+  
   Animation (SpriteSheet _sheet, float _time, int... _sprites) {
     sheet = _sheet;
     time = _time;
@@ -39,7 +41,14 @@ class Animation {
     // Only move to the next frame when enough time has passed
     if (timeElapsed >= time) {
       curr++;
-      curr %= sprites.length;
+      if (loop) {
+        curr %= sprites.length;
+      }
+      else {
+        if (curr >= sprites.length) {
+          curr = sprites.length - 1;
+        }
+      }
       timeElapsed = 0.0f;
     }
   }

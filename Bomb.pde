@@ -26,7 +26,7 @@ class Bomb extends PhysicsCollider {
         sounds["bombTick"].play();
       }
       if (timer > 3) {
-        addEntity(new Explosion(x, y, 64));
+        addEntity(new Explosion(x, y));
         for (int i = 0; i < 5; ++i) {
           Flame particle = new Flame(x, y);
           float velocity = random(0, 400);
