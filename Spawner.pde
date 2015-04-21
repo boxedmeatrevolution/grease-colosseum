@@ -15,6 +15,10 @@ class Spawner extends Collider {
   
   void create() {
     super.create();
+    if (portalSheet == null) {
+      portalSheet = loadSpriteSheet("/assets/portalLoop.png", 4, 1, 32, 32);
+    }
+    portalAnimation = new Animation(portalSheet, 0.2, 0, 1, 2, 3);
     sounds["prepareSpawn"].play();
   }
   
@@ -27,6 +31,7 @@ class Spawner extends Collider {
   void update(int phase, float delta) {
     super.update(phase, delta);
     if (phase == 0) {
+      portalAnimation.update();
       timeElapsed += delta;
       if (timeElapsed > 1.2) {
         ready = true;
@@ -40,9 +45,7 @@ class Spawner extends Collider {
   
   void render() {
     super.render();
-    fill(color(0, 255, 255));
-    ellipse(x, y, 2 * radius, 2 * radius);
-    fill(255);
+    portalAnimation.drawAnimation(x - radius, y - radius, 2 * radius, 2 * radius);
   }
   
   int depth() {
@@ -53,5 +56,8 @@ class Spawner extends Collider {
   boolean ready = false;
   Level owner;
   Entity entity;
+  SpriteAnimation portalAnimation;
 }
+
+SpriteSheet portalSheet;
 
