@@ -7,6 +7,9 @@ class Player extends PhysicsCollider {
     if (other instanceof Harmful || other instanceof ContinuousHarmful) {
       hurt();
     }
+    if (other instanceof Heart) {
+      hearts ++;
+    }
   }
   void create() {
     super.create();

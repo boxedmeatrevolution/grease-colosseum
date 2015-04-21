@@ -108,6 +108,9 @@ void spawnLevel(Level level, int pointsValue) {
     addEntity(new Spawner(entity, level));
     ++level.nSpawners;
   }
+  if (levelPointsValue != 4){
+    addEntity(new Heart(width/2, height/2));
+  }
   levelPointsValue += 2;
 }
 

@@ -94,7 +94,7 @@ void gotoInGameState() {
   lastUpdate = Date.now();
   gameOverTimer = 0;
   isPlayerDead = false;
-  levelIndex = floor(random(levels.length));
+  levelIndex = 0;//floor(random(levels.length));
   spawnLevel(levels[levelIndex], levelPointsValue);
   
   sounds["fire"].volume = 0;
