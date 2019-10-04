@@ -9,7 +9,7 @@ class Blood extends Moving {
   void create() {
     super.create();
     if (bloodImage == null) {
-      bloodImage = loadImage("/assets/blood_particle.png");
+      bloodImage = loadImage("./assets/blood_particle.png");
     }
   }
   void destroy() {

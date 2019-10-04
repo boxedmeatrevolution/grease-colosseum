@@ -16,8 +16,8 @@ class Spawner extends Collider {
   void create() {
     super.create();
     if (portalSheet == null) {
-      portalSheet = loadSpriteSheet("/assets/portalLoop.png", 4, 1, 32, 32);
-      prePortalSheet = loadSpriteSheet("/assets/portalStart.png", 8, 1, 32, 32);
+      portalSheet = loadSpriteSheet("./assets/portalLoop.png", 4, 1, 32, 32);
+      prePortalSheet = loadSpriteSheet("./assets/portalStart.png", 8, 1, 32, 32);
     }
     portalAnimation = new Animation(portalSheet, 0.2, 0, 1, 2, 3);
     prePortalAnimation = new Animation(prePortalSheet, 0.1, 0, 1, 2, 3, 4, 5, 6, 7);

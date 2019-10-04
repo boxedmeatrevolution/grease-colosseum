@@ -14,8 +14,8 @@ class Barrel extends PhysicsCollider {
   void create() {
     super.create();
     if (barrelSheet == null) {
-      barrelSheet = loadSpriteSheet("/assets/barrel.png", 1, 1, 32, 32);
-      flamingBarrelSheet = loadSpriteSheet("/assets/flaming_barrel.png", 3, 1, 32, 32);
+      barrelSheet = loadSpriteSheet("./assets/barrel.png", 1, 1, 32, 32);
+      flamingBarrelSheet = loadSpriteSheet("./assets/flaming_barrel.png", 3, 1, 32, 32);
     }
     barrelAnimation = new Animation(barrelSheet, 1, 0);
     flamingBarrelAnimation = new Animation(flamingBarrelSheet, 0.2, 0, 1, 2);

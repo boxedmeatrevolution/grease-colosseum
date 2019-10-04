@@ -26,7 +26,7 @@ class FlameShooter extends PhysicsCollider {
   void create() {
     super.create();
     if (flameShooterSheet == null) {
-      flameShooterSheet = loadSpriteSheet("/assets/flame_shooter.png", 4, 1, 24, 24);
+      flameShooterSheet = loadSpriteSheet("./assets/flame_shooter.png", 4, 1, 24, 24);
     }
   }
   

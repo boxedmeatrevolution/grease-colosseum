@@ -1,4 +1,4 @@
-/* @pjs font="/assets/corbelb.ttf"; preload="/assets/large_fire.png, /assets/medium_fire.png, /assets/small_fire.png, /assets/hatguy_left.png, /assets/hatguy_right.png, /assets/gremlin_left.png, /assets/gremlin_right.png, /assets/ninja_left.png, /assets/ninja_right.png, /assets/robot_left.png, /assets/robot_right.png, /assets/skeleton_left.png, /assets/skeleton_right.png, /assets/dwarf_left.png, /assets/dwarf_right.png, /assets/barrel.png, /assets/flaming_barrel.png, /assets/bomb.png, /assets/ninja_star.png, /assets/pillar.png, /assets/flame_shooter.png, /assets/grease_particle.png, /assets/soot.png, /assets/background.png, /assets/blood_particle.png, /assets/death.png, /assets/player_dash.png, /assets/enemy_dash.png, /assets/heart.png, /assets/explosion.png, /assets/portalLoop.png, /assets/portalStart.png, /assets/outline.png, /assets/TitleScreen.png, /assets/GameOver.png"; */
+/* @pjs font="./assets/corbelb.ttf"; preload="./assets/large_fire.png, ./assets/medium_fire.png, ./assets/small_fire.png, ./assets/hatguy_left.png, ./assets/hatguy_right.png, ./assets/gremlin_left.png, ./assets/gremlin_right.png, ./assets/ninja_left.png, ./assets/ninja_right.png, ./assets/robot_left.png, ./assets/robot_right.png, ./assets/skeleton_left.png, ./assets/skeleton_right.png, ./assets/dwarf_left.png, ./assets/dwarf_right.png, ./assets/barrel.png, ./assets/flaming_barrel.png, ./assets/bomb.png, ./assets/ninja_star.png, ./assets/pillar.png, ./assets/flame_shooter.png, ./assets/grease_particle.png, ./assets/soot.png, ./assets/background.png, ./assets/blood_particle.png, ./assets/death.png, ./assets/player_dash.png, ./assets/enemy_dash.png, ./assets/heart.png, ./assets/explosion.png, ./assets/portalLoop.png, ./assets/portalStart.png, ./assets/outline.png, ./assets/TitleScreen.png, ./assets/GameOver.png"; */
 
 class Entity {
   // Called when the entity is added to the game
@@ -138,37 +138,37 @@ void setup () {
   textureMode(IMAGE);
   levels = new Level[] {
     new Level1(), new Level2(), new Level3(), new Level4(), new Level5(), new Level6(), new Level7() };
-  groundImage = loadImage("/assets/background.png");
-  loadAudio("musicFirstTime", "/assets/ld32greaseArenaFirstTime.ogg");
-  loadAudio("musicLoop", "/assets/ld32greaseArenaLoop.ogg");
-  loadAudio("collision", "/assets/sounds/collision.wav");
-  loadAudio("dwarfShoot", "/assets/sounds/dwarf_shoot.wav");
-  loadAudio("enemyHurt", "/assets/sounds/enemy_hurt.wav");
-  loadAudio("enemyDash", "/assets/sounds/enemy_dash.wav");
-  loadAudio("enemyDeath", "/assets/sounds/enemy_death.wav");
-  loadAudio("explosion", "/assets/sounds/explosion.wav");
-  loadAudio("footstep", "/assets/sounds/footstep.wav");
-  loadAudio("ninjaShoot", "/assets/sounds/ninja_shoot.wav");
-  loadAudio("playerDash", "/assets/sounds/player_dash.wav");
-  loadAudio("playerDeath", "/assets/sounds/player_death.wav");
-  loadAudio("prepareSpawn", "/assets/sounds/prepare_spawn.wav");
-  loadAudio("robotShoot", "/assets/sounds/robot_shoot.wav");
-  loadAudio("spawn", "/assets/sounds/spawn.wav");
-  loadAudio("fire", "/assets/sounds/veryLoudFireLoop.ogg");
-  loadAudio("bombTick", "/assets/sounds/bombTick.wav");
+  groundImage = loadImage("./assets/background.png");
+  loadAudio("musicFirstTime", "./assets/ld32greaseArenaFirstTime.ogg");
+  loadAudio("musicLoop", "./assets/ld32greaseArenaLoop.ogg");
+  loadAudio("collision", "./assets/sounds/collision.wav");
+  loadAudio("dwarfShoot", "./assets/sounds/dwarf_shoot.wav");
+  loadAudio("enemyHurt", "./assets/sounds/enemy_hurt.wav");
+  loadAudio("enemyDash", "./assets/sounds/enemy_dash.wav");
+  loadAudio("enemyDeath", "./assets/sounds/enemy_death.wav");
+  loadAudio("explosion", "./assets/sounds/explosion.wav");
+  loadAudio("footstep", "./assets/sounds/footstep.wav");
+  loadAudio("ninjaShoot", "./assets/sounds/ninja_shoot.wav");
+  loadAudio("playerDash", "./assets/sounds/player_dash.wav");
+  loadAudio("playerDeath", "./assets/sounds/player_death.wav");
+  loadAudio("prepareSpawn", "./assets/sounds/prepare_spawn.wav");
+  loadAudio("robotShoot", "./assets/sounds/robot_shoot.wav");
+  loadAudio("spawn", "./assets/sounds/spawn.wav");
+  loadAudio("fire", "./assets/sounds/veryLoudFireLoop.ogg");
+  loadAudio("bombTick", "./assets/sounds/bombTick.wav");
   sounds["musicFirstTime"].addEventListener("ended", startLoop, false); // It works!!
   sounds["musicLoop"].loop = true;
   sounds["musicFirstTime"].play();
-  scoreFont = createFont("/assets/corbelb.ttf", 32);
+  scoreFont = createFont("./assets/corbelb.ttf", 32);
 }
 
 function startLoop() {
   sounds["musicLoop"].play();
 }
 
-PImage outline = loadImage("/assets/outline.png");
-PImage titleScreen = loadImage("/assets/TitleScreen.png");
-PImage gameOver = loadImage("/assets/GameOver.png");
+PImage outline = loadImage("./assets/outline.png");
+PImage titleScreen = loadImage("./assets/TitleScreen.png");
+PImage gameOver = loadImage("./assets/GameOver.png");
 
 void draw () {
   background(0, 0, 0);

@@ -10,9 +10,9 @@ class BasicEnemy extends EnemyEntity{
   void create() {
     super.create();
     if (gremlinLeftSheet == null) {
-      gremlinLeftSheet = loadSpriteSheet("/assets/gremlin_left.png", 5, 1, 32, 32);
-      gremlinRightSheet = loadSpriteSheet("/assets/gremlin_right.png", 5, 1, 32, 32);
-      enemyDashImage = loadImage("/assets/enemy_dash.png");
+      gremlinLeftSheet = loadSpriteSheet("./assets/gremlin_left.png", 5, 1, 32, 32);
+      gremlinRightSheet = loadSpriteSheet("./assets/gremlin_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("./assets/enemy_dash.png");
     }
     gremlinLeftAnimation = new Animation(gremlinLeftSheet, 0.1, 1, 2, 3, 4);
     gremlinRightAnimation = new Animation(gremlinRightSheet, 0.1, 1, 2, 3, 4);

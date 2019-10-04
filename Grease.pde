@@ -7,7 +7,7 @@ class Grease extends Moving {
   void create() {
     super.create();
     if (greaseImage == null) {
-      greaseImage = loadImage("/assets/grease_particle.png");
+      greaseImage = loadImage("./assets/grease_particle.png");
     }
   }
   void destroy() {

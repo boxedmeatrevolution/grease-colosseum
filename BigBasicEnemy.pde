@@ -10,9 +10,9 @@ class BigBasicEnemy extends EnemyEntity{
   void create() {
     super.create();
     if (skeletonLeftSheet == null) {
-      skeletonLeftSheet = loadSpriteSheet("/assets/skeleton_left.png", 5, 1, 32, 32);
-      skeletonRightSheet = loadSpriteSheet("/assets/skeleton_right.png", 5, 1, 32, 32);
-      enemyDashImage = loadImage("/assets/enemy_dash.png");
+      skeletonLeftSheet = loadSpriteSheet("./assets/skeleton_left.png", 5, 1, 32, 32);
+      skeletonRightSheet = loadSpriteSheet("./assets/skeleton_right.png", 5, 1, 32, 32);
+      enemyDashImage = loadImage("./assets/enemy_dash.png");
     }
     skeletonLeftAnimation = new Animation(skeletonLeftSheet, 0.2, 1, 2, 3, 4);
     skeletonRightAnimation = new Animation(skeletonRightSheet, 0.2, 1, 2, 3, 4);

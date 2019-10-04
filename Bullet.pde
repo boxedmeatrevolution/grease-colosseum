@@ -14,7 +14,7 @@ class Bullet extends Entity {
   void create () {
     super.create();
     if (ninjaStarSheet == null) {
-      ninjaStarSheet = loadSpriteSheet("/assets/ninja_star.png", 4, 1, 24, 24);
+      ninjaStarSheet = loadSpriteSheet("./assets/ninja_star.png", 4, 1, 24, 24);
     }
     ninjaStarAnimation = new Animation(ninjaStarSheet, 0.2, 0, 1, 2, 3);
   }

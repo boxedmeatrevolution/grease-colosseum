@@ -6,7 +6,7 @@ class Bomb extends PhysicsCollider {
   void create() {
     super.create();
     if (bombSheet == null) {
-      bombSheet = loadSpriteSheet("/assets/bomb.png", 3, 1, 16, 16);
+      bombSheet = loadSpriteSheet("./assets/bomb.png", 3, 1, 16, 16);
     }
     bombAnimation = new Animation(bombSheet, 0.2, 0, 1, 2);
   }

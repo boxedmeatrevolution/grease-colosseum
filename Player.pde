@@ -14,10 +14,10 @@ class Player extends PhysicsCollider {
   void create() {
     super.create();
     if (playerLeftSheet == null) {
-      playerLeftSheet = loadSpriteSheet("/assets/hatguy_left.png", 5, 1, 32, 32);
-      playerRightSheet = loadSpriteSheet("/assets/hatguy_right.png", 5, 1, 32, 32);
-      playerDashImage = loadImage("/assets/player_dash.png");
-      heartImage = loadImage("/assets/heart.png");
+      playerLeftSheet = loadSpriteSheet("./assets/hatguy_left.png", 5, 1, 32, 32);
+      playerRightSheet = loadSpriteSheet("./assets/hatguy_right.png", 5, 1, 32, 32);
+      playerDashImage = loadImage("./assets/player_dash.png");
+      heartImage = loadImage("./assets/heart.png");
     }
     playerLeftAnimation = new Animation(playerLeftSheet, 0.1, 1, 2, 3, 4);
     playerRightAnimation = new Animation(playerRightSheet, 0.1, 1, 2, 3, 4);

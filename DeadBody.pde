@@ -10,7 +10,7 @@ class DeadBody extends Moving {
   void create() {
     super.create();
     if (deathSheet == null) {
-      deathSheet = loadSpriteSheet("/assets/death.png", 10, 1, 32, 64);
+      deathSheet = loadSpriteSheet("./assets/death.png", 10, 1, 32, 64);
     }
     deathAnimation = new Animation(deathSheet, 0.1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
   }

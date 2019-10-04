@@ -15,7 +15,7 @@ class Pillar extends PhysicsCollider {
   void create() {
     super.create();
     if (pillarSheet == null) {
-      pillarSheet = loadSpriteSheet("/assets/pillar.png", 3, 1, 128, 128);
+      pillarSheet = loadSpriteSheet("./assets/pillar.png", 3, 1, 128, 128);
     }
   }
   

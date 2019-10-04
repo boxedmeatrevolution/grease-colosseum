@@ -1,4 +1,3 @@
-
 class SpriteSheet {
   
   PImage[] sprites;

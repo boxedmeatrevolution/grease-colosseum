@@ -24,8 +24,8 @@ class ShootingEnemy extends EnemyEntity {
   void create () {
     super.create();
     if (ninjaLeftSheet == null) {
-      ninjaLeftSheet = loadSpriteSheet("/assets/ninja_left.png", 5, 1, 32, 32);
-      ninjaRightSheet = loadSpriteSheet("/assets/ninja_right.png", 5, 1, 32, 32);
+      ninjaLeftSheet = loadSpriteSheet("./assets/ninja_left.png", 5, 1, 32, 32);
+      ninjaRightSheet = loadSpriteSheet("./assets/ninja_right.png", 5, 1, 32, 32);
     }
     ninjaLeftAnimation = new Animation(ninjaLeftSheet, 0.2, 1, 2, 3, 4);
     ninjaRightAnimation = new Animation(ninjaRightSheet, 0.2, 1, 2, 3, 4);

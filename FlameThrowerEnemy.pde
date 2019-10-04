@@ -14,8 +14,8 @@ class FlameThrowerEnemy extends EnemyEntity {
   void create() {
     super.create();
     if (robotLeftSheet == null) {
-      robotLeftSheet = loadSpriteSheet("/assets/robot_left.png", 3, 1, 32, 32);
-      robotRightSheet = loadSpriteSheet("/assets/robot_right.png", 3, 1, 32, 32);
+      robotLeftSheet = loadSpriteSheet("./assets/robot_left.png", 3, 1, 32, 32);
+      robotRightSheet = loadSpriteSheet("./assets/robot_right.png", 3, 1, 32, 32);
     }
     robotLeftAnimation = new Animation(robotLeftSheet, 0.1, 1, 2);
     robotRightAnimation = new Animation(robotRightSheet, 0.1, 1, 2);

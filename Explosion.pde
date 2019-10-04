@@ -11,7 +11,7 @@ class Explosion extends ContinuousHarmful {
   void create() {
     super.create();
     if (explosionSheet == null) {
-      explosionSheet = loadSpriteSheet("/assets/explosion.png", 16, 1, 64, 64);
+      explosionSheet = loadSpriteSheet("./assets/explosion.png", 16, 1, 64, 64);
     }
     explosionAnimation = new Animation(explosionSheet, 0.04, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
     explosionAnimation.loop = false;

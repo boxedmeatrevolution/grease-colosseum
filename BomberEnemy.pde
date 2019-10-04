@@ -11,8 +11,8 @@ class BomberEnemy extends EnemyEntity {
   void create() {
     super.create();
     if (dwarfLeftSheet == null) {
-      dwarfLeftSheet = loadSpriteSheet("/assets/dwarf_left.png", 5, 1, 32, 32);
-      dwarfRightSheet = loadSpriteSheet("/assets/dwarf_right.png", 5, 1, 32, 32);
+      dwarfLeftSheet = loadSpriteSheet("./assets/dwarf_left.png", 5, 1, 32, 32);
+      dwarfRightSheet = loadSpriteSheet("./assets/dwarf_right.png", 5, 1, 32, 32);
     }
     dwarfLeftAnimation = new Animation(dwarfLeftSheet, 0.2, 1, 2, 3, 4);
     dwarfRightAnimation = new Animation(dwarfRightSheet, 0.2, 1, 2, 3, 4);
