@@ -67,10 +67,10 @@ class FireEffect extends Entity {
   }
   void create() {
     super.create();
-    sootImage = loadImage("/assets/soot.png");
-    largeFireSheet = loadSpriteSheet("/assets/large_fire.png", 4, 1, 24, 24);
-    mediumFireSheet = loadSpriteSheet("/assets/medium_fire.png", 7, 1, 16, 16);
-    smallFireSheet = loadSpriteSheet("/assets/small_fire.png", 5, 1, 8, 8);
+    sootImage = loadImage("./assets/soot.png");
+    largeFireSheet = loadSpriteSheet("./assets/large_fire.png", 4, 1, 24, 24);
+    mediumFireSheet = loadSpriteSheet("./assets/medium_fire.png", 7, 1, 16, 16);
+    smallFireSheet = loadSpriteSheet("./assets/small_fire.png", 5, 1, 8, 8);
     
     float time = 0.3;
     
